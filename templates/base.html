@@ -37,8 +37,14 @@
         <div class="navbar-nav">
             <div class="nav-item">
                 {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                        <a href="{% url 'admin:index' %}" class="nav-link">
+                            Admin
+                        </a>
+                        <span class="nav-link">/</span>
+                    {% endif %}
                     <a href="{% url 'accounts:my_profile' %}"
-                        class="nav-link{% if request.resolver_match.view_name|startswith:'accounts:my_profile' %} active{% endif %}">
+                       class="nav-link{% if request.resolver_match.view_name|startswith:'accounts:my_profile' %} active{% endif %}">
                         Min profil ({{ user.username }})
                     </a>
                     <span class="nav-link">/</span>
