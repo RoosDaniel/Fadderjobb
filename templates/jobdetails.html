@@ -39,7 +39,7 @@
         {% else %}
             <ul>
                 {% for fadder in job.fadders.all %}
-                    <li>{{ fadder }}</li>
+                    <li><a href="{% url 'accounts:profile' fadder.user.username %}">{{ fadder.user.username }}</a></li>
                 {% endfor %}
             </ul>
         {% endif %}
