@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block head %}
+    <!--suppress HtmlUnknownTarget -->
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+{% endblock head %}
+
+
+{% block content %}
+    <form class="registration-form" action="{% url 'accounts:registration' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Registrera" class="btn btn-primary">
+    </form>
+{% endblock content %}

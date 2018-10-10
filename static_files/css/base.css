@@ -1,0 +1,27 @@
+.nav-item {
+    display: flex; !important
+}
+
+div .nav-item {
+    margin: 0;
+}
+
+.nav-link {
+    margin: 0 5px;
+}
+
+.nav-link:first-child {
+    margin-left: 0;
+}
+
+form > .nav-link {
+    margin-left: 5px !important;
+}
+
+.content {
+    padding: 20px;
+}
+
+body {
+    color: #333;
+}

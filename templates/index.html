@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock head %}
+
+{% block content %}
+<h1>Välkommen!</h1>
+
+Välkommen till STABENs fadderjobbsida. Här kan du anmäla dig till fadderjobb och se vilka pass andra faddrar har tagit.
+{% endblock content %}

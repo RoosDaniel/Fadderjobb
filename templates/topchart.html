@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/topchart.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <h1>Topplistan</h1>
+
+    <table class="table">
+        <tr>
+            <th>Plats</th>
+            <th>Fadder</th>
+            <th>Poäng</th>
+        </tr>
+        {% for fadder in fadders %}
+            <tr>
+                <td>#{{ forloop.counter }}</td>
+                <td><a href="{% url 'accounts:profile' fadder.user.username %}">{{ fadder.user.username }}</a></td>
+                <td>{{ fadder.points }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock content %}

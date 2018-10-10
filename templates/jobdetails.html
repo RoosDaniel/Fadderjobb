@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block head %}
+    <!--suppress HtmlUnknownTarget -->
+    <link rel="stylesheet" href="{% static 'css/jobdetails.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <div class="jobdetail">
+        {% if user.is_staff %}
+            <a href="{% url 'admin:fadderanmalan_job_change' job.id %}" target="_blank">Redigera jobb</a>
+        {% endif %}
+        <div class="header">
+            <h1>{{ job.name }}</h1>
+            <small>{{ job.date }}</small>
+        </div>
+        <h3>Beskrivning</h3>
+        <p>
+            {% if job.description %}
+                {{ job.description }}
+            {% else %}
+                <i>Ingen beskrivning för detta jobb.</i>
+            {% endif %}
+        </p>
+        <h3>Typer</h3>
+        {% if job.types.count == 0 %}
+            <p><i>Inga typer för detta jobb.</i></p>
+        {% else %}
+            <ul>
+                {% for t in job.types.all %}
+                    <li>{{ t.name }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <h3>Registrerade faddrar</h3>
+        {% if job.fadders.count == 0 %}
+            <p><i>Inga faddrar registrerade ännu.</i></p>
+        {% else %}
+            <ul>
+                {% for fadder in job.fadders.all %}
+                    <li>{{ fadder }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <h3>Övrig information</h3>
+        <table class="table jobdetails-table">
+            <tr>
+                <td>Uppskattad tidsåtgång</td>
+                <td>{{ job.duration }} timmar</td>
+            </tr>
+            <tr>
+                <td>Platser</td>
+                <td>{{ job.slots }}</td>
+            </tr>
+            <tr>
+                <td>Poäng</td>
+                <td>{{ job.points }}</td>
+            </tr>
+        </table>
+        {% if user.is_authenticated %}
+            {% if fadder_registered %}
+                <h3>Avanmälan</h3>
+                <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Avanmäl mig" class="btn btn-primary">
+                </form>
+            {% else %}
+                <h3>Anmälan</h3>
+                {% if job.full %}
+                    <p><i>Jobbet är fullsatt.</i></p>
+                {% else %}
+                    <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Anmäl mig" class="btn btn-primary">
+                    </form>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock content %}

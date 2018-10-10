@@ -1,0 +1,73 @@
+.joblist {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.day {
+    margin-top: 30px;
+}
+
+.job {
+    display: block;
+
+    max-width: 400px;
+    min-width: 320px;
+
+    overflow-y: hidden;
+
+    background-color: #63bf69;
+    color: white;
+
+    margin: 10px;
+    padding: 10px;
+
+    border-radius: 1px;
+
+    transition: all 0.1s !important;
+}
+
+.job:hover {
+    text-decoration: none;
+
+    transform: scale(1.02);
+
+    box-shadow: 0 1px 2px 0 #222;
+}
+
+.job.full {
+    background-color: #9c9c9c;
+}
+
+.search-group {
+    max-width: 400px;
+}
+
+.search-button {
+    padding: 5px 25px;
+}
+
+.job-title {
+    position: relative;
+}
+
+.job-title > h1 {
+    max-width: 300px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.job-title > small {
+    color: white;
+    position: absolute;
+
+    right: 0;
+}
+
+.job-title > * {
+    display: inline;
+}
+
+.job-body {
+    color: white;
+}

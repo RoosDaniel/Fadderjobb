@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block head %}
+    <!--suppress HtmlUnknownTarget -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock head %}
+
+
+{% block content %}
+    <form class="login-form" action="{% url 'accounts:login' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Logga in" class="btn btn-primary">
+    </form>
+{% endblock content %}

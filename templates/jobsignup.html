@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{% block head %}
+    <!--suppress HtmlUnknownTarget -->
+    <link rel="stylesheet" href="{% static 'css/jobsignup.css' %}">
+{% endblock head %}
+
+{% block content %}
+    {% if user.is_staff %}
+        <a href="{% url 'admin:fadderanmalan_job_add' %}" target="_blank">Lägg till nytt jobb</a>
+    {% endif %}
+
+    <form action="{% url 'fadderanmalan:jobsignup' %}" method="get">
+        <div class="input-group mb-3 search-group">
+            <input type="text" class="form-control" placeholder="Jobbnamn" aria-label="Jobbnamn"
+                   aria-describedby="basic-addon2" name="search" value="{{ prev_search }}">
+            <div class="input-group-append">
+                <button class="btn btn-primary search-button" type="submit">Sök</button>
+            </div>
+        </div>
+    </form>
+
+    {% for day, jobs in day_grouped.items %}
+        <h2 class="day">{{ day }}</h2>
+        <div class="joblist">
+            {% for job in jobs %}
+                <a href="{% url 'fadderanmalan:jobsignup_detail' job.slug %}"
+                   class="job {{ job.full_status }}">
+                    <div class="job-title">
+                        <h3>{{ job.name }}</h3>
+                        <small>{{ job.fadders.count }}/{{ job.slots }}</small>
+                    </div>
+                    <div class="job-body">{{ job.short_desc }}</div>
+                </a>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,15 @@
+.nav-item {
+    display: flex; !important
+}
+
+div .nav-item {
+    margin: 0;
+}
+
+.nav-link {
+    margin: 0 5px;
+}
+
+.content {
+    padding: 20px;
+}
