@@ -55,6 +55,8 @@ def registration(request):
         form = FadderCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user.email = form.cleaned_data["email"]
+            user.save()
 
             fadder = Fadder(user=user)
             fadder.save()
