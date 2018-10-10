@@ -43,8 +43,8 @@ class Job(models.Model):
         return self.description
 
     def short_name(self):
-        if len(self.name) > 12:
-            return self.name[:10] + "..."
+        if len(self.name) > 15:
+            return self.name[:15] + "..."
         return self.name
 
     @staticmethod
