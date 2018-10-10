@@ -66,6 +66,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../fadderjobb/templates/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="19" column="35" lean-forward="false" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="profile.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../fadderjobb/static_files/css/profile.css">
           <provider selected="true" editor-type-id="text-editor">
@@ -76,7 +86,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="base.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../fadderjobb/static_files/css/base.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
@@ -186,10 +196,10 @@
         <option value="$PROJECT_DIR$/../fadderjobb/static_files/css/jobsignup.css" />
         <option value="$PROJECT_DIR$/../fadderjobb/accounts/views.py" />
         <option value="$PROJECT_DIR$/../fadderjobb/accounts/templates/accounts/my_profile.html" />
-        <option value="$PROJECT_DIR$/../fadderjobb/templates/base.html" />
         <option value="$PROJECT_DIR$/../fadderjobb/accounts/templates/accounts/profile.html" />
         <option value="$PROJECT_DIR$/../fadderjobb/static_files/css/profile.css" />
         <option value="$PROJECT_DIR$/../fadderjobb/static_files/css/base.css" />
+        <option value="$PROJECT_DIR$/../fadderjobb/templates/base.html" />
       </list>
     </option>
   </component>
@@ -1123,14 +1133,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../fadderjobb/templates/jobdetails.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="46" column="46" lean-forward="true" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../fadderjobb/static_files/css/jobdetails.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -1189,14 +1191,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../fadderjobb/accounts/templates/accounts/profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="22" lean-forward="false" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../fadderjobb/static_files/css/profile.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -1205,18 +1199,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../fadderjobb/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="35" column="14" lean-forward="true" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../fadderjobb/static_files/css/base.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="29" column="30" lean-forward="false" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../fadderjobb/templates/jobdetails.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="46" column="46" lean-forward="true" selection-start-line="46" selection-start-column="46" selection-end-line="46" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../fadderjobb/accounts/templates/accounts/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="22" lean-forward="false" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../fadderjobb/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="19" column="35" lean-forward="false" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
           <folding />
         </state>
       </provider>
