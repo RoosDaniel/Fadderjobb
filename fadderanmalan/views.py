@@ -61,7 +61,7 @@ def deregister_for_job(request, job_id):
 
 def topchart(request):
     # Doing it this way means we only have to call .points() once for each fadder
-    fadders = Fadder.objects.all()
+    fadders = Fadder.objects.filter(user__is_staff=False).all()
     points = [f.points() for f in fadders]
 
     fadders = [f[0] for f in sorted(zip(fadders, points), key=lambda f: f[1], reverse=True)]

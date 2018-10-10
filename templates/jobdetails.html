@@ -58,7 +58,7 @@
                 <td>{{ job.points }}</td>
             </tr>
         </table>
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and not user.is_staff %}
             {% if fadder_registered %}
                 <h3>Avanmälan</h3>
                 <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
