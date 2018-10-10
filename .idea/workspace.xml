@@ -59,17 +59,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../fadderjobb/fadderjobb/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="28" lean-forward="false" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
+            <state relative-caret-position="360">
+              <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../fadderjobb/fadderjobb/wsgi.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
@@ -208,12 +208,12 @@
         <option value="$PROJECT_DIR$/fadderanmalan/models.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/faddersystem/settings.py" />
-        <option value="$PROJECT_DIR$/../fadderjobb/fadderjobb/settings.py" />
         <option value="$PROJECT_DIR$/../fadderjobb/manage.py" />
         <option value="$PROJECT_DIR$/../fadderjobb/Procfile" />
         <option value="$PROJECT_DIR$/../fadderjobb/requirements.txt" />
         <option value="$PROJECT_DIR$/../fadderjobb/fadderjobb/urls.py" />
         <option value="$PROJECT_DIR$/../fadderjobb/fadderjobb/wsgi.py" />
+        <option value="$PROJECT_DIR$/../fadderjobb/fadderjobb/settings.py" />
       </list>
     </option>
   </component>
@@ -1227,14 +1227,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../fadderjobb/fadderjobb/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="28" lean-forward="false" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../fadderjobb/fadderjobb/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -1242,6 +1234,14 @@
           <folding>
             <element signature="e#228#237#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../fadderjobb/fadderjobb/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
