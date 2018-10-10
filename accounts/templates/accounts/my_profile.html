@@ -6,11 +6,5 @@
 {% endblock head %}
 
 {% block content %}
-    <h2>Mina jobb</h2>
-    {% for day, jobs in day_grouped.items %}
-        <h4>{{ day }}</h4>
-        {% for job in jobs %}
-            <a href="{% url 'fadderanmalan:jobsignup_detail' job.slug %}">{{ job.name }}</a><br>
-        {% endfor %}
-    {% endfor %}
+
 {% endblock content %}
