@@ -28,7 +28,7 @@
                 <a href="{% url 'fadderanmalan:jobsignup_detail' job.slug %}"
                    class="job {{ job.full_status }}">
                     <div class="job-title">
-                        <h3>{{ job.name }}</h3>
+                        <h3>{{ job.short_title }}</h3>
                         <small>{{ job.fadders.count }}/{{ job.slots }}</small>
                     </div>
                     <div class="job-body">{{ job.short_desc }}</div>

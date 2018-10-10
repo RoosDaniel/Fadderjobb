@@ -42,6 +42,11 @@ class Job(models.Model):
             return self.description[:40] + "..."
         return self.description
 
+    def short_title(self):
+        if len(self.title) > 12:
+            return self.title[:10] + "..."
+        return self.title
+
     @staticmethod
     def group_by_date(queryset):
         day_grouped = OrderedDict()
