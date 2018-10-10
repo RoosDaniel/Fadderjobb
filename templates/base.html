@@ -38,7 +38,7 @@
             <div class="nav-item">
                 {% if user.is_authenticated %}
                     {% if user.is_staff %}
-                        <a href="{% url 'admin:index' %}" class="nav-link">
+                        <a href="{% url 'admin:index' %}" class="nav-link" target="_blank">
                             Admin
                         </a>
                         <span class="nav-link">/</span>
