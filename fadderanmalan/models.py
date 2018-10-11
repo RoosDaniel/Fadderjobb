@@ -3,6 +3,7 @@ from collections import OrderedDict
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.utils import timezone
 
 from accounts.models import Fadder
 
@@ -15,6 +16,56 @@ class Type(models.Model):
         return self.name
 
 
+class EnterQueue(models.Model):
+    created = models.DateField(editable=False)
+
+    job = models.ForeignKey("Job", on_delete=models.CASCADE, related_name="enter_queue")
+    fadder = models.ForeignKey("accounts.Fadder", on_delete=models.CASCADE, related_name="enter_queue")
+
+    def __str__(self):
+        return " | ".join([self.job.name, self.fadder.user.username])
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created = timezone.now()
+
+        return super(self.__class__, self).save(*args, **kwargs)
+
+    @classmethod
+    def get_first(cls, job):
+        res = cls.objects.filter(job=job).order_by("created").first()
+
+        if res is None:
+            raise cls.DoesNotExist
+
+        return res
+
+
+class LeaveQueue(models.Model):
+    created = models.DateField(editable=False)
+
+    job = models.ForeignKey("Job", on_delete=models.CASCADE, related_name="leave_queue")
+    fadder = models.ForeignKey("accounts.Fadder", on_delete=models.CASCADE, related_name="leave_queue")
+
+    def __str__(self):
+        return " | ".join([self.job.name, self.fadder.user.username])
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created = timezone.now()
+
+        return super(self.__class__, self).save(*args, **kwargs)
+
+    @classmethod
+    def get_first(cls, job):
+        res = cls.objects.filter(job=job).order_by("created").first()
+
+        if res is None:
+            raise cls.DoesNotExist
+
+        return res
+
+
 class Job(models.Model):
     name = models.CharField(max_length=100)
     date = models.DateField()
@@ -22,6 +73,8 @@ class Job(models.Model):
     duration = models.IntegerField()
     points = models.IntegerField()
     slots = models.IntegerField()
+
+    locked = models.BooleanField()
 
     slug = models.SlugField(max_length=100, null=True, blank=True)
 
@@ -32,10 +85,11 @@ class Job(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        super(Job, self).save(*args, **kwargs)
+        res = super(Job, self).save(*args, **kwargs)
         if not self.slug:
             self.slug = "-".join([slugify(self.name), str(self.id)])
             self.save()
+        return res
 
     def short_desc(self):
         if len(self.description) > 40:

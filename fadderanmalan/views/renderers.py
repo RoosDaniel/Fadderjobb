@@ -1,8 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
-from django.contrib.auth.decorators import login_required
-
-from .models import Job
+from fadderanmalan.models import Job, EnterQueue, LeaveQueue
 from accounts.models import Fadder
 
 
@@ -29,34 +27,15 @@ def jobsignup(request):
 def jobdetails(request, slug):
     job = Job.objects.get(slug=slug)
 
+    eq = EnterQueue.objects.filter(fadder=request.user.fadder, job=job).first()
+    lq = LeaveQueue.objects.filter(fadder=request.user.fadder, job=job).first()
+
     return render(request, "jobdetails.html", dict(
         job=job,
-        fadder_registered=request.user.is_authenticated and request.user.fadder in job.fadders.all(),
+        registered_to_job=request.user.is_authenticated and request.user.fadder in job.fadders.all(),
+        queued_for_job=request.user.is_authenticated and eq is not None,
+        dequeued_for_job=request.user.is_authenticated and lq is not None,
     ))
-
-
-@login_required(login_url="accounts:login")
-def register_for_job(request, job_id):
-    if request.method == "POST":
-        job = Job.objects.get(id=job_id)
-
-        if job.full():
-            return redirect(request.get_full_path(True))
-
-        job.fadders.add(request.user.fadder)
-
-        return redirect("fadderanmalan:jobsignup_detail", job.slug)
-    return redirect("fadderanmalan:jobsignup")
-
-
-@login_required(login_url="/accounts/login")
-def deregister_for_job(request, job_id):
-    if request.method == "POST":
-        job = Job.objects.get(id=job_id)
-        job.fadders.remove(request.user.fadder)
-
-        return redirect("fadderanmalan:jobsignup_detail", job.slug)
-    return redirect("fadderanmalan:jobsignup")
 
 
 def topchart(request):

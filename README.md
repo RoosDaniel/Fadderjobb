@@ -7,7 +7,9 @@ https://fadderjobb.herokuapp.com/
 Historiskt sett har det alltid varit svårt att planera fadderjobb för STABEN
 eftersom det saknats ett sätt att delegera mindre jobb till faddrar. T.ex. har
 det krävts faddrar som står i märkesbacken under första dagen, eller extra 
-riggfaddrar till Hoben.
+riggfaddrar till Hoben. Tanken med den här hemsidan är att underlätta detta arbete
+genom att centralisera alla jobbpass till en hemsida som kan hantera alla pass
+automatiskt.
 
 ## Funktionalitet
 

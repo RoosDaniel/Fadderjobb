@@ -1,17 +1,18 @@
 from django.urls import path
 
-from . import views
-
+from .views import renderers, jobregistration
 
 app_name = "fadderanmalan"
 
 urlpatterns = [
-    path('', views.index, name="index"),
+    path('', renderers.index, name="index"),
 
-    path('jobsignup/', views.jobsignup, name="jobsignup"),
-    path('jobsignup/<str:slug>/', views.jobdetails, name="jobsignup_detail"),
-    path('jobsignup/register/<int:job_id>/', views.register_for_job, name="jobsignup_register"),
-    path('jobsignup/deregister/<int:job_id>/', views.deregister_for_job, name="jobsignup_deregister"),
+    path('jobsignup/', renderers.jobsignup, name="jobsignup"),
+    path('jobsignup/<str:slug>/', renderers.jobdetails, name="jobsignup_detail"),
+    path('topchart/', renderers.topchart, name="topchart"),
 
-    path('topchart/', views.topchart, name="topchart"),
+    path('jobsignup/register/<int:job_id>/', jobregistration.register_for_job,
+         name="jobsignup_register"),
+    path('jobsignup/deregister/<int:job_id>/', jobregistration.deregister_for_job,
+         name="jobsignup_deregister"),
 ]

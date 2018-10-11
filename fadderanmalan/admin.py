@@ -1,9 +1,6 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.models import User
 
-from .models import Type, Job
-from accounts.models import Fadder
+from .models import Type, EnterQueue, LeaveQueue, Job
 
 
 class JobsInline(admin.TabularInline):
@@ -11,14 +8,6 @@ class JobsInline(admin.TabularInline):
     verbose_name_plural = "Fadderjobb"
 
     model = Job.fadders.through
-
-
-class FadderAdmin(admin.ModelAdmin):
-    model = Fadder
-
-    inlines = [
-        JobsInline,
-    ]
 
 
 class JobAdmin(admin.ModelAdmin):
@@ -34,5 +23,7 @@ class JobAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Type)
+admin.site.register(EnterQueue)
+admin.site.register(LeaveQueue)
+
 admin.site.register(Job, JobAdmin)
-admin.site.register(Fadder, FadderAdmin)

@@ -1,3 +1,16 @@
 from django.contrib import admin
 
-# Register your models here.
+from fadderanmalan.admin import JobsInline
+
+from .models import Fadder
+
+
+class FadderAdmin(admin.ModelAdmin):
+    model = Fadder
+
+    inlines = [
+        JobsInline,
+    ]
+
+admin.site.register(Fadder, FadderAdmin)
+

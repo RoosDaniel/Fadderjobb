@@ -17,11 +17,13 @@ def profile(request, liu_id):
 
 
 def my_profile(request):
-    day_grouped = Job.group_by_date(request.user.fadder.jobs.all())
+    return redirect("accounts:profile", request.user.username)
 
-    return render(request, "accounts/my_profile.html", dict(
-        day_grouped=day_grouped
-    ))
+    # day_grouped = Job.group_by_date(request.user.fadder.jobs.all())
+
+    # return render(request, "accounts/my_profile.html", dict(
+    #     day_grouped=day_grouped
+    # ))
 
 
 def login(request):
