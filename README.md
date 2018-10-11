@@ -35,7 +35,6 @@ _En fadder kan:_
 
 - Registrera sig på fadderjobb.
 
-
 ## Planerat
 
 ### STABEN
@@ -43,6 +42,8 @@ _En fadder kan:_
 _STABEN ska kunna:_
 
 - Länka till drive-dokument med mer info
+- Sätta en undre/övre gräns för mängd poäng
+- Låsa registrering/avregistrering av jobb
 
 ### Fadder
 
@@ -50,3 +51,7 @@ _En fadder ska kunna:_
 
 - Vid utsatt tidpunkt innan nolle-p, få ett mail av STABEN med detaljerad
 information angående de jobb som faddern har registrerat sig på.
+- Efter att anmälan har stängt:
+    - Flagga för byte av registrerat jobb
+- Flagga för önskan om specifikt jobb
+    - Kösystem, den som är först i kön får jobbet.
