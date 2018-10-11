@@ -44,7 +44,7 @@
                         <span class="nav-link">/</span>
                     {% endif %}
                     <a href="{% url 'accounts:profile' user.username %}"
-                       class="nav-link{% if request.resolver_match.view_name|startswith:'accounts:my_profile' %} active{% endif %}">
+                       class="nav-link{% if request.resolver_match.view_name|startswith:'accounts:profile' %} active{% endif %}">
                         Min profil ({{ user.username }})
                     </a>
                     <span class="nav-link">/</span>
