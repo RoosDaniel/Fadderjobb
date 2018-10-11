@@ -33,3 +33,7 @@ form > .nav-link {
 .content {
     padding: 20px;
 }
+
+.lowercase {
+    text-transform: lowercase;
+}
