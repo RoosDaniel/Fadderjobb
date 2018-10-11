@@ -7,24 +7,6 @@ eftersom det saknats ett sätt att delegera mindre jobb till faddrar. T.ex. har
 det krävts faddrar som står i märkesbacken under första dagen, eller extra 
 riggfaddrar till Hoben.
 
-## Objekt
-
-### Fadder
-- Liu id
-- Registered jobs
-
-### Type
-- Name
-
-### Job
-- Name
-- Date
-- Description
-- Duration (hrs)
-- Points
-- Types
-- Registered fadders
-
 ## Funktionalitet
 
 ### Allmänt
@@ -43,12 +25,26 @@ _STABEN kan:_
     - Poäng
     - Antal faddrar som behövs
     - Typ av jobb
-    - Länk till drive-dokument med mer info
+    - Länka till drive-dokument med mer info
 
 ### Fadder
 
 _En fadder kan:_
 
 - Registrera sig på fadderjobb.
+
+
+## Planerat
+
+### STABEN
+
+_STABEN ska kunna:_
+
+- Länka till drive-dokument med mer info
+
+### Fadder
+
+_En fadder ska kunna:_
+
 - Vid utsatt tidpunkt innan nolle-p, få ett mail av STABEN med detaljerad
 information angående de jobb som faddern har registrerat sig på.
