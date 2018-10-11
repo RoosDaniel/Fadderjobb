@@ -27,14 +27,22 @@ def jobsignup(request):
 def jobdetails(request, slug):
     job = Job.objects.get(slug=slug)
 
-    eq = EnterQueue.objects.filter(fadder=request.user.fadder, job=job).first()
-    lq = LeaveQueue.objects.filter(fadder=request.user.fadder, job=job).first()
+    if request.user.is_authenticated:
+        registered_to_job = request.user.fadder in job.fadders.all()
+        queued_enter_job = job.enter_queue.filter(fadder=request.user.fadder).first()
+        queued_leave_job = job.leave_queue.filter(fadder=request.user.fadder).first()
+    else:
+        registered_to_job = False
+        queued_enter_job = False
+        queued_leave_job = False
 
     return render(request, "jobdetails.html", dict(
         job=job,
-        registered_to_job=request.user.is_authenticated and request.user.fadder in job.fadders.all(),
-        queued_for_job=request.user.is_authenticated and eq is not None,
-        dequeued_for_job=request.user.is_authenticated and lq is not None,
+        registered_to_job=registered_to_job,
+        queued_enter_job=queued_enter_job,
+        queued_leave_job=queued_leave_job,
+        has_enter_queue=job.enter_queue.count() > 0,
+        has_leave_queue=job.leave_queue.count() > 0,
     ))
 
 

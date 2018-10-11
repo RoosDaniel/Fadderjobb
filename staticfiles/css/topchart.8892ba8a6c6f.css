@@ -1,0 +1,11 @@
+table {
+    max-width: 500px;
+}
+
+table.table td {
+    padding: 10px 24px;
+}
+
+td a {
+    color: #333;
+}

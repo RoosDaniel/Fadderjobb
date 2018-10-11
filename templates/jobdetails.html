@@ -14,7 +14,25 @@
             <a href="{% url 'admin:fadderanmalan_job_change' job.id %}" target="_blank">Redigera jobb</a>
         {% endif %}
         <div class="header">
-            <h1>{{ job.name }}{% if job.locked %} (LÅST){% endif %}</h1>
+            <h1>
+                {% if has_enter_queue %}
+                    <span class="oi oi-account-login" data-toggle="tooltip" data-placement="bottom"
+                          title="Jobbet har ingående kö"></span>{{ " " }}
+                {% endif %}
+                {% if has_leave_queue %}
+                    <span class="oi oi-account-logout" data-toggle="tooltip" data-placement="bottom"
+                          title="Jobbet har utgående kö"></span>{{ " " }}
+                {% endif %}
+                {% if job.full %}
+                    <span class="oi oi-ban" data-toggle="tooltip" data-placement="bottom"
+                          title="Jobbet är fullt"></span>{{ " " }}
+                {% endif %}
+                {% if job.locked %}
+                    <span class="oi oi-lock-locked" data-toggle="tooltip" data-placement="bottom"
+                          title="Jobbet är låst"></span>{{ " " }}
+                {% endif %}
+                {{ job.name }}
+            </h1>
             <small>{{ job.date }}</small>
         </div>
         <h3>Beskrivning</h3>
@@ -25,16 +43,6 @@
                 <i>Ingen beskrivning för detta jobb.</i>
             {% endif %}
         </p>
-        <h3>Typer</h3>
-        {% if job.types.count == 0 %}
-            <p><i>Inga typer för detta jobb.</i></p>
-        {% else %}
-            <ul>
-                {% for t in job.types.all %}
-                    <li>{{ t.name }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
         <h3>Registrerade faddrar</h3>
         {% if job.fadders.count == 0 %}
             <p><i>Inga faddrar registrerade ännu.</i></p>
@@ -59,30 +67,43 @@
                 <td>Poäng</td>
                 <td>{{ job.points }}p</td>
             </tr>
+            <tr>
+                <td>Typer</td>
+                <td>{% if job.types.all %}{{ job.types.all|join:", " }}{% else %}<i>Inga typer</i>{% endif %}</td>
+            </tr>
         </table>
 
         {% if user.is_authenticated and not user.is_staff %}
             {% if registered_to_job %}  {# Registered #}
                 <h3>Avanmälan</h3>
                 {% if job.locked %}  {# Locked #}
-                    {% if dequeued_for_job %}  {# Has previously requested leave #}
+                    {% if queued_leave_job %}  {# Has previously requested leave #}
                         <p><i>
-                            Du har tidigare registrerat att du inte vill jobba på det här passet längre. Vill du
-                            ångra dig?
+                            Du står i kö för att avanmäla dig från det här jobbet. Vill du ta bort din köplats?
                         </i></p>
                         <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">
                             {% csrf_token %}
                             <input type="submit" value="Ta bort min köplats" class="btn btn-primary">
                         </form>
-                    {% else %}  {# Can request leave #}
-                        <p><i>
-                            Avanmälan till det här jobbet har stängt. Du kan fortfarande skicka en förfrågan om att inte
-                            jobba på detta pass, men din förfrågan kanske inte godkänns.
-                        </i></p>
-                        <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
-                            {% csrf_token %}
-                            <input type="submit" value="Ställ mig i kön" class="btn btn-primary">
-                        </form>
+                    {% else %}  {# Has not previously requested to leave #}
+                        {% if has_enter_queue %}
+                            <p><i>
+                                Avanmälan till det här jobbet har stängt, men det finns faddrar som vill ta din plats.
+                            </i></p>
+                            <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Ge bort min plats" class="btn btn-primary">
+                            </form>
+                        {% else %}
+                            <p><i>
+                                Avanmälan till det här jobbet har stängt. Du kan fortfarande skicka en förfrågan om att
+                                inte jobba på detta pass, men din förfrågan kanske inte godkänns.
+                            </i></p>
+                            <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Ställ mig i kön" class="btn btn-primary">
+                            </form>
+                        {% endif %}
                     {% endif %}
                 {% else %}  {# Not locked #}
                     <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
@@ -93,18 +114,26 @@
             {% else %}  {# Not registered #}
                 <h3>Anmälan</h3>
                 {% if job.full %}  {# Full #}
-                    {% if queued_for_job %}  {# Previously queued for job #}
+                    {% if queued_enter_job %}  {# Previously queued for job #}
                         <p><i>Du står i kö till jobbet. Vill du ta bort din köplats?</i></p>
                         <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
                             {% csrf_token %}
                             <input type="submit" value="Ta bort min köplats" class="btn btn-primary">
                         </form>
-                    {% else %}  {# Can queue for job #}
-                        <p><i>Jobbet är fullsatt. Du kan ställa dig i kö till jobbet.</i></p>
-                        <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">
-                            {% csrf_token %}
-                            <input type="submit" value="Ställ mig i kön" class="btn btn-primary">
-                        </form>
+                    {% else %}  {# Has not previously queued for job #}
+                        {% if has_leave_queue %}
+                            <p><i>Jobbet är fullsatt, men det finns faddrar som vill lämna passet.</i></p>
+                            <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Ta en plats" class="btn btn-primary">
+                            </form>
+                        {% else %}
+                            <p><i>Jobbet är fullsatt. Du kan ställa dig i kö till jobbet.</i></p>
+                            <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Ställ mig i kön" class="btn btn-primary">
+                            </form>
+                        {% endif %}
                     {% endif %}
                 {% else %}  {# Not full #}
                     <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">

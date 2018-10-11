@@ -7,9 +7,10 @@
 }
 
 .jobdetails-table {
-    max-width: 400px;
+    width: 400px;
 }
 
 .jobdetails-table td {
     padding: 10px 0;
+    width: 200px;
 }

@@ -37,7 +37,8 @@ def register_for_job(request, job_id):
                     eq.save()
 
                     messages.add_message(request, messages.INFO,
-                                         "Du står nu i kö för passet. Om en fadder lämnar passet kommer du att få det.")
+                                         "Du står nu i kö för passet. "
+                                         "Om en fadder lämnar passet kommer du att få det.")
         else:  # Not full, register as normal
             job.fadders.add(request.user.fadder)
 
@@ -74,7 +75,8 @@ def deregister_for_job(request, job_id):
                     lq.save()
 
                     messages.add_message(request, messages.INFO,
-                                         "Du är nu i kön för att avregistrera dig från passet.")
+                                         "Du står nu i kö för att avregistrera dig från passet. "
+                                         "Om en fadder ställer sig i kön för passet kommer denna att ta din plats.")
         else:
             job.fadders.remove(request.user.fadder)
 
