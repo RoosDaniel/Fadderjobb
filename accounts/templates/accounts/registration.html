@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 
+{% block title %}Registrera - {% endblock title %}
+
 {% block head %}
     <!--suppress HtmlUnknownTarget -->
     <link rel="stylesheet" href="{% static 'css/registration.css' %}">
 {% endblock head %}
-
 
 {% block content %}
     <form class="registration-form" action="{% url 'accounts:registration' %}" method="post">
