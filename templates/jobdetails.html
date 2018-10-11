@@ -14,7 +14,7 @@
             <a href="{% url 'admin:fadderanmalan_job_change' job.id %}" target="_blank">Redigera jobb</a>
         {% endif %}
         <div class="header">
-            <h1>{{ job.name }}</h1>
+            <h1>{{ job.name }}{% if job.locked %} (LÅST){% endif %}</h1>
             <small>{{ job.date }}</small>
         </div>
         <h3>Beskrivning</h3>
@@ -60,40 +60,11 @@
                 <td>{{ job.points }}p</td>
             </tr>
         </table>
-        {% if user.is_authenticated and not user.is_staff %}  {# Can see registration #}
-            {% if not job.locked %}  {# Job not locked #}
-                {% if registered_to_job %}  {# Is registered to job #}
-                    <h3>Avanmälan</h3>
-                    <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
-                        {% csrf_token %}
-                        <input type="submit" value="Avanmäl mig" class="btn btn-primary">
-                    </form>
-                {% else %}  {# Is not registered to job #}
-                    <h3>Anmälan</h3>
-                    {% if job.full %}  {# Job is full #}
-                        {% if queued_for_job %}  {# Previously queued for job #}
-                            <p><i>Du står i kö till jobbet. Vill du ta bort din köplats?</i></p>
-                            <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
-                                {% csrf_token %}
-                                <input type="submit" value="Ta bort min köplats" class="btn btn-primary">
-                            </form>
-                        {% else %}  {# Can queue for job #}
-                            <p><i>Jobbet är fullsatt. Du kan ställa dig i kö till jobbet.</i></p>
-                            <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">
-                                {% csrf_token %}
-                                <input type="submit" value="Ställ mig i kön" class="btn btn-primary">
-                            </form>
-                        {% endif %}
-                    {% else %}  {# Job is not full #}
-                        <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">
-                            {% csrf_token %}
-                            <input type="submit" value="Anmäl mig" class="btn btn-primary">
-                        </form>
-                    {% endif %}
-                {% endif %}
-            {% else %}  {# Job locked #}
-                {% if registered_to_job %}  {# Is registered to job #}
-                    <h3>Förfråga avanmälan</h3>
+
+        {% if user.is_authenticated and not user.is_staff %}
+            {% if registered_to_job %}  {# Registered #}
+                <h3>Avanmälan</h3>
+                {% if job.locked %}  {# Locked #}
                     {% if dequeued_for_job %}  {# Has previously requested leave #}
                         <p><i>
                             Du har tidigare registrerat att du inte vill jobba på det här passet längre. Vill du
@@ -113,28 +84,33 @@
                             <input type="submit" value="Ställ mig i kön" class="btn btn-primary">
                         </form>
                     {% endif %}
-                {% else %}  {# Is not registered to job #}
-                    <h3>Anmälan</h3>
-                    {% if job.full %}
-                        {% if queued_for_job %}  {# Previously queued for job #}
-                            <p><i>Du står i kö till jobbet. Vill du ta bort din köplats?</i></p>
-                            <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
-                                {% csrf_token %}
-                                <input type="submit" value="Ta bort min köplats" class="btn btn-primary">
-                            </form>
-                        {% else %}  {# Can queue for job #}
-                            <p><i>Jobbet är fullsatt. Du kan ställa dig i kö till jobbet.</i></p>
-                            <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">
-                                {% csrf_token %}
-                                <input type="submit" value="Ställ mig i kön" class="btn btn-primary">
-                            </form>
-                        {% endif %}
-                    {% else %}
+                {% else %}  {# Not locked #}
+                    <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Avanmäl mig" class="btn btn-primary">
+                    </form>
+                {% endif %}
+            {% else %}  {# Not registered #}
+                <h3>Anmälan</h3>
+                {% if job.full %}  {# Full #}
+                    {% if queued_for_job %}  {# Previously queued for job #}
+                        <p><i>Du står i kö till jobbet. Vill du ta bort din köplats?</i></p>
+                        <form action="{% url 'fadderanmalan:jobsignup_deregister' job.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="Ta bort min köplats" class="btn btn-primary">
+                        </form>
+                    {% else %}  {# Can queue for job #}
+                        <p><i>Jobbet är fullsatt. Du kan ställa dig i kö till jobbet.</i></p>
                         <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">
                             {% csrf_token %}
-                            <input type="submit" value="Anmäl mig" class="btn btn-primary">
+                            <input type="submit" value="Ställ mig i kön" class="btn btn-primary">
                         </form>
                     {% endif %}
+                {% else %}  {# Not full #}
+                    <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Anmäl mig" class="btn btn-primary">
+                    </form>
                 {% endif %}
             {% endif %}
         {% endif %}
