@@ -52,7 +52,6 @@ _STABEN ska kunna:_
 
 - Länka till drive-dokument med mer info
 - Sätta en undre/övre gräns för mängd poäng
-- Låsa registrering/avregistrering av jobb
 
 ### Fadder
 
