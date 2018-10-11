@@ -11,10 +11,9 @@ riggfaddrar till Hoben.
 
 ### Fadder
 - Liu id
-- Qualifications
 - Registered jobs
 
-### Qualification
+### Type
 - Name
 
 ### Job
@@ -23,8 +22,8 @@ riggfaddrar till Hoben.
 - Description
 - Duration (hrs)
 - Points
-- Required qualifications
-- Registered users
+- Types
+- Registered fadders
 
 ## Funktionalitet
 
@@ -43,7 +42,7 @@ _STABEN kan:_
     - Beskrivning
     - Poäng
     - Antal faddrar som behövs
-    - Förkunskap
+    - Typ av jobb
     - Länk till drive-dokument med mer info
 
 ### Fadder
@@ -53,7 +52,3 @@ _En fadder kan:_
 - Registrera sig på fadderjobb.
 - Vid utsatt tidpunkt innan nolle-p, få ett mail av STABEN med detaljerad
 information angående de jobb som faddern har registrerat sig på.
-- Beskriva sig själva.
-- Fylla i förkunskaper.
-    - Riggerfarenhet
-    - Ledarerfarenhet
