@@ -6,6 +6,11 @@ div .nav-item {
     margin: 0;
 }
 
+.navbar-brand img {
+    width: 15%;
+    height: 15%;
+}
+
 .nav-item {
     display: flex; !important
 }
