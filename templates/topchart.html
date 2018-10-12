@@ -17,9 +17,9 @@
             <th>Poäng</th>
         </tr>
         {% for fadder in fadders %}
-            <tr>
+            <tr onclick="document.location='{% url 'accounts:profile' fadder.user.username %}'">
                 <td>#{{ forloop.counter }}</td>
-                <td><a href="{% url 'accounts:profile' fadder.user.username %}">{{ fadder.user.username }}</a></td>
+                <td>{{ fadder.user.username }}</td>
                 <td>{{ fadder.points }}</td>
             </tr>
         {% endfor %}

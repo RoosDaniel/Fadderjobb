@@ -9,3 +9,8 @@ table.table td {
 td a {
     color: #333;
 }
+
+tr:hover {
+    cursor: pointer;
+    background-color: #e9e9e9;
+}
