@@ -32,12 +32,14 @@ except ImportError:
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", None) == "True"
+DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "fadderjobb.staben.info", "fadderjobb.herokuapp.com"]
 
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,8 +86,12 @@ WSGI_APPLICATION = 'fadderjobb.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get("DB_NAME", "fadderjobb"),
+        'USER': os.environ.get("DB_USER", "fadderjobb"),
+        'PASSWORD': os.environ.get("DB_PASS", "fadderjobb"),
+        'HOST': os.environ.get("DB_HOST", "localhost"),
+        'PORT': '',
     }
 }
 
@@ -116,11 +123,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static_files"),
+    os.path.join(BASE_DIR, "fadderjobb", "static"),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-
-# Configure Django App for Heroku.
-import django_heroku
-django_heroku.settings(locals())
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
