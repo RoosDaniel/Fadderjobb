@@ -1,6 +1,6 @@
 # STABENs Faddersystem
 
-https://fadderjobb.herokuapp.com/
+http://fadderjobb.staben.info/
 
 ## Bakgrund
 
