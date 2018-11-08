@@ -16,6 +16,7 @@
 .filter {
     background-color: #f7f7f9;
     padding: 0 0 0 15px;
+    height: 52px;
 }
 
 .filter-select {
