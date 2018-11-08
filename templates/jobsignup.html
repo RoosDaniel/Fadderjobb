@@ -21,71 +21,71 @@
         <input class="form-control" placeholder="Jobbnamn" type="text" aria-label="Jobbnamn"
                aria-describedby="basic-addon2" name="search" value="{{ filter_search }}" id="filter-name">
         <div class="filter filter-checkbox-container" id="filter-signedup">
-            <div>Anmäld:</div>
+            <div>Anmäld</div>
             <div class="filter-checkbox">
                 <label>
                     <input type="checkbox" name="signedup"
                            value="0" {% if filter_signedup == "0" %}checked{% endif %}>
-                    <span class="form-check-label-no">N</span>
+                    <span class="form-check-label-no"></span>
                 </label>
             </div>
             <div class="filter-checkbox">
                 <label>
                     <input type="checkbox" name="signedup"
                            value="1" {% if filter_signedup == "1" %}checked{% endif %}>
-                    <span class="form-check-label-yes">Y</span>
+                    <span class="form-check-label-yes"></span>
                 </label>
             </div>
         </div>
         <div class="filter filter-checkbox-container" id="filter-full">
-            <div>Fullt:</div>
+            <div>Fullt</div>
             <div class="filter-checkbox">
                 <label>
                     <input type="checkbox" name="full"
                            value="0" {% if filter_full == "0" %}checked{% endif %}>
-                    <span class="form-check-label-no">N</span>
+                    <span class="form-check-label-no"></span>
                 </label>
             </div>
             <div class="filter-checkbox">
                 <label>
                     <input type="checkbox" name="full"
                            value="1" {% if filter_full == "1" %}checked{% endif %}>
-                    <span class="form-check-label-yes">Y</span>
+                    <span class="form-check-label-yes"></span>
                 </label>
             </div>
         </div>
         <div class="filter filter-checkbox-container" id="filter-leavequeue">
-            <div>Faddrar vill lämna:</div>
+            <div>Faddrar vill lämna</div>
             <div class="filter-checkbox">
                 <label>
                     <input type="checkbox" name="leavequeue"
                            value="0" {% if filter_leavequeue == "0" %}checked{% endif %}>
-                    <span class="form-check-label-no">N</span>
+                    <span class="form-check-label-no"></span>
                 </label>
             </div>
             <div class="filter-checkbox">
                 <label>
                     <input type="checkbox" name="leavequeue"
                            value="1" {% if filter_leavequeue == "1" %}checked{% endif %}>
-                    <span class="form-check-label-yes">Y</span>
+                    <span class="form-check-label-yes"></span>
                 </label>
             </div>
         </div>
         <div>
             <div class="filter filter-checkbox-container" id="filter-enterqueue">
-                <div>Faddrar köar:</div>
+                <div>Faddrar köar</div>
                 <div class="filter-checkbox">
                     <label>
                         <input type="checkbox" name="enterqueue"
                                value="0" {% if filter_enterqueue == "0" %}checked{% endif %}>
-                        <span class="form-check-label-no">N</span>
+                        <span class="form-check-label-no"></span>
                     </label>
                 </div>
                 <div class="filter-checkbox">
                     <label>
                         <input type="checkbox" name="enterqueue"
                                value="1" {% if filter_enterqueue == "1" %}checked{% endif %}>
-                        <span class="form-check-label-yes">Y</span>
+                        <span class="form-check-label-yes"></span>
                     </label>
                 </div>
             </div>
