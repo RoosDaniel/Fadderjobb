@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Count, F
 
 from fadderanmalan.models import Job, EnterQueue, LeaveQueue
 from accounts.models import Fadder
@@ -11,16 +12,48 @@ def index(request):
 def jobsignup(request):
     jobs = Job.objects.order_by("date").all()
 
-    search = request.GET.get("search", "")
+    search = request.GET.get("search", None)
 
-    if search != "":
-        jobs = jobs.filter(name__contains=search)
+    if search is not None:
+        jobs = jobs.filter(name__icontains=search.lower())
+
+    full = request.GET.get("full", None)
+
+    if full == "1":
+        jobs = jobs.annotate(fadders_count=Count("fadders")).filter(slots=F("fadders_count"))
+    elif full == "0":
+        jobs = jobs.annotate(fadders_count=Count("fadders")).exclude(slots=F("fadders_count"))
+
+    signedup = request.GET.get("signedup", None)
+
+    if signedup == "1":
+        jobs = jobs.filter(fadders__user__username__contains=request.user.username)
+    elif signedup == "0":
+        jobs = jobs.exclude(fadders__user__username__contains=request.user.username)
+
+    leavequeue = request.GET.get("leavequeue", None)
+
+    if leavequeue == "1":
+        jobs = jobs.exclude(leave_queue=None)
+    elif leavequeue == "0":
+        jobs = jobs.filter(leave_queue=None)
+
+    enterqueue = request.GET.get("enterqueue", None)
+
+    if enterqueue == "1":
+        jobs = jobs.exclude(enter_queue=None)
+    elif enterqueue == "0":
+        jobs = jobs.filter(enter_queue=None)
 
     day_grouped = Job.group_by_date(jobs)
 
     return render(request, "jobsignup.html", dict(
-        prev_search=search,
         day_grouped=day_grouped,
+        filter_search=search,
+        filter_signedup=signedup,
+        filter_full=full,
+        filter_leavequeue=leavequeue,
+        filter_enterqueue=enterqueue,
     ))
 
 
@@ -41,8 +74,6 @@ def jobdetails(request, slug):
         registered_to_job=registered_to_job,
         queued_enter_job=queued_enter_job,
         queued_leave_job=queued_leave_job,
-        has_enter_queue=job.enter_queue.count() > 0,
-        has_leave_queue=job.leave_queue.count() > 0,
     ))
 
 

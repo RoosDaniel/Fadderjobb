@@ -1,5 +1,33 @@
-.search-group {
-    max-width: 400px;
+#filter-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#filter-container > * {
+    margin: 10px;
+}
+
+#filter-name {
+    max-width: 250px;
+    padding: 26px 32px;
+}
+
+.filter-checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    background-color: #f7f7f9;
+    padding: 5px 10px;
+}
+
+.filter-checkbox > div:first-of-type {
+    margin-right: 10px;
+}
+
+.form-check *:hover {
+    cursor: pointer;
 }
 
 .search-button {
@@ -42,7 +70,11 @@
     position: relative;
 }
 
-.job-title > small {
+.job-title i {
+    color: white;
+}
+
+.job-status {
     color: white;
     position: absolute;
 

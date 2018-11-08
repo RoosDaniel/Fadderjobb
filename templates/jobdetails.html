@@ -15,21 +15,25 @@
         {% endif %}
         <div class="header">
             <h1>
-                {% if has_enter_queue %}
-                    <i class="fas fa-caret-square-right" data-toggle="tooltip" data-placement="bottom"
-                          title="Jobbet har ingående kö"></i>{{ " " }}
+                {% if job.has_enter_queue %}
+                    <i class="fas fa-caret-square-right"
+                       data-toggle="tooltip" data-placement="bottom" title="Faddrar köar för jobbet">
+                    </i>{{ " " }}
                 {% endif %}
-                {% if has_leave_queue %}
-                    <i class="fas fa-caret-square-left" data-toggle="tooltip" data-placement="bottom"
-                          title="Jobbet har utgående kö"></i>{{ " " }}
+                {% if job.has_leave_queue %}
+                    <i class="fas fa-caret-square-left"
+                       data-toggle="tooltip" data-placement="bottom" title="Faddrar vill lämna jobbet">
+                    </i>{{ " " }}
                 {% endif %}
                 {% if job.full %}
-                    <i class="fas fa-ban" data-toggle="tooltip" data-placement="bottom"
-                          title="Jobbet är fullt"></i>{{ " " }}
+                    <i class="fas fa-ban"
+                       data-toggle="tooltip" data-placement="bottom" title="Jobbet är fullt">
+                    </i>{{ " " }}
                 {% endif %}
                 {% if job.locked %}
-                    <i class="fas fa-lock" data-toggle="tooltip" data-placement="bottom"
-                          title="Jobbet är låst"></i>{{ " " }}
+                    <i class="fas fa-lock"
+                       data-toggle="tooltip" data-placement="bottom" title="Jobbet är låst">
+                    </i>{{ " " }}
                 {% endif %}
                 {{ job.name }}
             </h1>
@@ -49,7 +53,7 @@
         {% else %}
             <ul>
                 {% for fadder in job.fadders.all %}
-                    <li><a href="{% url 'accounts:profile' fadder.user.username %}">{{ fadder.user.username }}</a></li>
+                    <li><a href="{% url 'accounts:profile' fadder.user.username %}">{{ fadder.user.username.upper }}</a></li>
                 {% endfor %}
             </ul>
         {% endif %}
@@ -86,7 +90,7 @@
                             <input type="submit" value="Ta bort min köplats" class="btn btn-primary">
                         </form>
                     {% else %}  {# Has not previously requested to leave #}
-                        {% if has_enter_queue %}
+                        {% if job.has_enter_queue %}
                             <p><i>
                                 Avanmälan till det här jobbet har stängt, men det finns faddrar som vill ta din plats.
                             </i></p>
@@ -121,7 +125,7 @@
                             <input type="submit" value="Ta bort min köplats" class="btn btn-primary">
                         </form>
                     {% else %}  {# Has not previously queued for job #}
-                        {% if has_leave_queue %}
+                        {% if job.has_leave_queue %}
                             <p><i>Jobbet är fullsatt, men det finns faddrar som vill lämna passet.</i></p>
                             <form action="{% url 'fadderanmalan:jobsignup_register' job.id %}" method="post">
                                 {% csrf_token %}

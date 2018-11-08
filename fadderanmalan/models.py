@@ -129,3 +129,9 @@ class Job(models.Model):
 
     def locked_status(self):
         return "locked" if self.locked else "unlocked"
+
+    def has_enter_queue(self):
+        return self.enter_queue.count() > 0
+
+    def has_leave_queue(self):
+        return self.leave_queue.count() > 0
