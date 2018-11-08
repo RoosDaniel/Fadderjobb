@@ -3,7 +3,7 @@ $(function() {
        const $this = $(this);
        if (!$this.prop("checked")) return;
 
-       $this.parent().parent().find("input[type=checkbox]").prop("checked", false);
+       $this.parent().parent().parent().find("input[type=checkbox]").prop("checked", false);
        $this.prop("checked", true);
    });
 });

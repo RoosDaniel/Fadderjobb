@@ -15,16 +15,20 @@
 
 .filter {
     background-color: #f7f7f9;
-    padding: 5px 15px;
+    padding: 0 0 0 15px;
 }
 
-.filter-checkbox, .filter-select {
+.filter-select {
+    padding: 0 15px;
+}
+
+.filter-checkbox-container, .filter-select {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.filter-checkbox > div:first-of-type {
+.filter-checkbox-container > div:first-of-type {
     margin-right: 10px;
 }
 
@@ -32,12 +36,57 @@
     margin: 0 10px 0 0;
 }
 
-.form-check *:hover {
+.filter-button {
+    padding: 10px 25px;
+}
+
+.filter-checkbox {
+    position: relative;
+}
+
+.filter-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.filter-checkbox label {
+    margin: 0;
+}
+
+.filter-checkbox span {
+    display: inline-block;
+    padding: 10px 15px;
+    font-weight: bold;
+    font-size: 150%;
+
+    transition: all .1s linear;
+}
+
+.filter-checkbox span:hover {
     cursor: pointer;
 }
 
-.filter-button {
-    padding: 10px 25px;
+.filter-checkbox .form-check-label-no:hover {
+    background-color: #ff8377;
+    color: white;
+}
+
+.filter-checkbox .form-check-label-yes:hover {
+    background-color: #85bf92;
+    color: white;
+}
+
+.filter-checkbox input:checked + .form-check-label-no {
+    background-color: #ff4c2f;
+    color: white;
+}
+
+.filter-checkbox input:checked + .form-check-label-yes {
+    background-color: #63bf69;
+    color: white;
 }
 
 .day {

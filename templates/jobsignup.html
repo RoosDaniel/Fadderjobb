@@ -20,63 +20,73 @@
     <form action="{% url 'fadderanmalan:jobsignup' %}" method="get" id="filter-container">
         <input class="form-control" placeholder="Jobbnamn" type="text" aria-label="Jobbnamn"
                aria-describedby="basic-addon2" name="search" value="{{ filter_search }}" id="filter-name">
-        <div class="filter filter-checkbox" id="filter-signedup">
+        <div class="filter filter-checkbox-container" id="filter-signedup">
             <div>Anmäld:</div>
-            <div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-signedup-no" name="signedup" value="0"
-                           {% if filter_signedup == "0" %}checked{% endif %}>
-                    <label class="form-check-label" for="filter-signedup-no">Nej</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-signedup-yes" name="signedup" value="1"
-                           {% if filter_signedup == "1" %}checked{% endif %}>
-                    <label class="form-check-label" for="filter-signedup-yes">Ja</label>
-                </div>
+            <div class="filter-checkbox">
+                <label>
+                    <input type="checkbox" name="signedup"
+                           value="0" {% if filter_signedup == "0" %}checked{% endif %}>
+                    <span class="form-check-label-no">N</span>
+                </label>
+            </div>
+            <div class="filter-checkbox">
+                <label>
+                    <input type="checkbox" name="signedup"
+                           value="1" {% if filter_signedup == "1" %}checked{% endif %}>
+                    <span class="form-check-label-yes">Y</span>
+                </label>
             </div>
         </div>
-        <div class="filter filter-checkbox" id="filter-full">
+        <div class="filter filter-checkbox-container" id="filter-full">
             <div>Fullt:</div>
-            <div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-full-no" name="full" value="0"
-                           {% if filter_full == "0" %}checked{% endif %}>
-                    <label class="form-check-label" for="filter-full-no">Nej</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-full-yes" name="full" value="1"
-                           {% if filter_full == "1" %}checked{% endif %}>
-                    <label class="form-check-label" for="filter-full-yes">Ja</label>
-                </div>
+            <div class="filter-checkbox">
+                <label>
+                    <input type="checkbox" name="full"
+                           value="0" {% if filter_full == "0" %}checked{% endif %}>
+                    <span class="form-check-label-no">N</span>
+                </label>
+            </div>
+            <div class="filter-checkbox">
+                <label>
+                    <input type="checkbox" name="full"
+                           value="1" {% if filter_full == "1" %}checked{% endif %}>
+                    <span class="form-check-label-yes">Y</span>
+                </label>
             </div>
         </div>
-        <div class="filter filter-checkbox" id="filter-leavequeue">
+        <div class="filter filter-checkbox-container" id="filter-leavequeue">
             <div>Faddrar vill lämna:</div>
-            <div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-leavequeue-no" name="leavequeue"
+            <div class="filter-checkbox">
+                <label>
+                    <input type="checkbox" name="leavequeue"
                            value="0" {% if filter_leavequeue == "0" %}checked{% endif %}>
-                    <label class="form-check-label" for="filter-leavequeue-no">Nej</label>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-leavequeue-yes" name="leavequeue"
+                    <span class="form-check-label-no">N</span>
+                </label>
+            </div>
+            <div class="filter-checkbox">
+                <label>
+                    <input type="checkbox" name="leavequeue"
                            value="1" {% if filter_leavequeue == "1" %}checked{% endif %}>
-                    <label class="form-check-label" for="filter-leavequeue-yes">Ja</label>
-                </div>
+                    <span class="form-check-label-yes">Y</span>
+                </label>
             </div>
         </div>
-        <div class="filter filter-checkbox" id="filter-enterqueue">
-            <div>Faddrar köar:</div>
-            <div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-enterqueue-no" name="enterqueue"
-                           value="0" {% if filter_enterqueue == "0" %}checked{% endif %}>
-                    <label class="form-check-label" for="filter-enterqueue-no">Nej</label>
+        <div>
+            <div class="filter filter-checkbox-container" id="filter-enterqueue">
+                <div>Faddrar köar:</div>
+                <div class="filter-checkbox">
+                    <label>
+                        <input type="checkbox" name="enterqueue"
+                               value="0" {% if filter_enterqueue == "0" %}checked{% endif %}>
+                        <span class="form-check-label-no">N</span>
+                    </label>
                 </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-enterqueue-yes" name="enterqueue"
-                           value="1" {% if filter_enterqueue == "1" %}checked{% endif %}>
-                    <label class="form-check-label" for="filter-enterqueue-yes">Ja</label>
+                <div class="filter-checkbox">
+                    <label>
+                        <input type="checkbox" name="enterqueue"
+                               value="1" {% if filter_enterqueue == "1" %}checked{% endif %}>
+                        <span class="form-check-label-yes">Y</span>
+                    </label>
                 </div>
             </div>
         </div>
