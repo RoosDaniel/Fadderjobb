@@ -36,8 +36,8 @@
     cursor: pointer;
 }
 
-.search-button {
-    padding: 5px 25px;
+.filter-button {
+    padding: 10px 25px;
 }
 
 .day {
