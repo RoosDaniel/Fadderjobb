@@ -13,17 +13,23 @@
     padding: 26px 32px;
 }
 
-.filter-checkbox {
+.filter {
+    background-color: #f7f7f9;
+    padding: 5px 15px;
+}
+
+.filter-checkbox, .filter-select {
     display: flex;
     flex-direction: row;
     align-items: center;
-
-    background-color: #f7f7f9;
-    padding: 5px 10px;
 }
 
 .filter-checkbox > div:first-of-type {
     margin-right: 10px;
+}
+
+.filter-select > label {
+    margin: 0 10px 0 0;
 }
 
 .form-check *:hover {

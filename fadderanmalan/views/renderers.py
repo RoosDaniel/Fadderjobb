@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Count, F
 
-from fadderanmalan.models import Job, EnterQueue, LeaveQueue
+from fadderanmalan.models import Job, EnterQueue, LeaveQueue, Type
 from accounts.models import Fadder
 
 
@@ -12,9 +12,9 @@ def index(request):
 def jobsignup(request):
     jobs = Job.objects.order_by("date").all()
 
-    search = request.GET.get("search", None)
+    search = request.GET.get("search", "")
 
-    if search is not None:
+    if search != "":
         jobs = jobs.filter(name__icontains=search.lower())
 
     full = request.GET.get("full", None)
@@ -45,15 +45,22 @@ def jobsignup(request):
     elif enterqueue == "0":
         jobs = jobs.filter(enter_queue=None)
 
+    jobtype = request.GET.get("jobtype", "")
+
+    if jobtype != "":
+        jobs = jobs.filter(types__name__iexact=jobtype)
+
     day_grouped = Job.group_by_date(jobs)
 
     return render(request, "jobsignup.html", dict(
         day_grouped=day_grouped,
+        jobtypes=(t.name for t in Type.objects.all()),
         filter_search=search,
         filter_signedup=signedup,
         filter_full=full,
         filter_leavequeue=leavequeue,
         filter_enterqueue=enterqueue,
+        filter_jobtype=jobtype
     ))
 
 

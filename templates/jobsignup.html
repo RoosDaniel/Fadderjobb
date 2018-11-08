@@ -18,67 +18,76 @@
     {% endif %}
 
     <form action="{% url 'fadderanmalan:jobsignup' %}" method="get" id="filter-container">
-        <input type="text" class="form-control" placeholder="Jobbnamn" aria-label="Jobbnamn"
+        <input class="form-control" placeholder="Jobbnamn" type="text" aria-label="Jobbnamn"
                aria-describedby="basic-addon2" name="search" value="{{ filter_search }}" id="filter-name">
-        <div class="filter-checkbox" id="filter-signedup">
+        <div class="filter filter-checkbox" id="filter-signedup">
             <div>Anmäld:</div>
             <div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="filter-signedup-no" name="signedup" value="0"
-                    {% if filter_signedup == "0" %}checked{% endif %}>
+                           {% if filter_signedup == "0" %}checked{% endif %}>
                     <label class="form-check-label" for="filter-signedup-no">Nej</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="filter-signedup-yes" name="signedup" value="1"
-                    {% if filter_signedup == "1" %}checked{% endif %}>
+                           {% if filter_signedup == "1" %}checked{% endif %}>
                     <label class="form-check-label" for="filter-signedup-yes">Ja</label>
                 </div>
             </div>
         </div>
-        <div class="filter-checkbox" id="filter-full">
+        <div class="filter filter-checkbox" id="filter-full">
             <div>Fullt:</div>
             <div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="filter-full-no" name="full" value="0"
-                    {% if filter_full == "0" %}checked{% endif %}>
+                           {% if filter_full == "0" %}checked{% endif %}>
                     <label class="form-check-label" for="filter-full-no">Nej</label>
                 </div>
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="filter-full-yes" name="full" value="1"
-                    {% if filter_full == "1" %}checked{% endif %}>
+                           {% if filter_full == "1" %}checked{% endif %}>
                     <label class="form-check-label" for="filter-full-yes">Ja</label>
                 </div>
             </div>
         </div>
-        <div class="filter-checkbox" id="filter-leavequeue">
+        <div class="filter filter-checkbox" id="filter-leavequeue">
             <div>Faddrar vill lämna:</div>
             <div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-leavequeue-no" name="leavequeue" value="0"
-                    {% if filter_leavequeue == "0" %}checked{% endif %}>
+                    <input type="checkbox" class="form-check-input" id="filter-leavequeue-no" name="leavequeue"
+                           value="0" {% if filter_leavequeue == "0" %}checked{% endif %}>
                     <label class="form-check-label" for="filter-leavequeue-no">Nej</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-leavequeue-yes" name="leavequeue" value="1"
-                    {% if filter_leavequeue == "1" %}checked{% endif %}>
+                    <input type="checkbox" class="form-check-input" id="filter-leavequeue-yes" name="leavequeue"
+                           value="1" {% if filter_leavequeue == "1" %}checked{% endif %}>
                     <label class="form-check-label" for="filter-leavequeue-yes">Ja</label>
                 </div>
             </div>
         </div>
-        <div class="filter-checkbox" id="filter-enterqueue">
+        <div class="filter filter-checkbox" id="filter-enterqueue">
             <div>Faddrar köar:</div>
             <div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-enterqueue-no" name="enterqueue" value="0"
-                    {% if filter_enterqueue == "0" %}checked{% endif %}>
+                    <input type="checkbox" class="form-check-input" id="filter-enterqueue-no" name="enterqueue"
+                           value="0" {% if filter_enterqueue == "0" %}checked{% endif %}>
                     <label class="form-check-label" for="filter-enterqueue-no">Nej</label>
                 </div>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="filter-enterqueue-yes" name="enterqueue" value="1"
-                    {% if filter_enterqueue == "1" %}checked{% endif %}>
+                    <input type="checkbox" class="form-check-input" id="filter-enterqueue-yes" name="enterqueue"
+                           value="1" {% if filter_enterqueue == "1" %}checked{% endif %}>
                     <label class="form-check-label" for="filter-enterqueue-yes">Ja</label>
                 </div>
             </div>
+        </div>
+        <div class="filter filter-select">
+            <label for="filter-jobtype">Typ:</label>
+            <select id="filter-jobtype" name="jobtype">
+                <option></option>
+                {% for type in jobtypes %}
+                    <option value="{{ type }}" {% if filter_jobtype == type %}selected{% endif %}>{{ type }}</option>
+                {% endfor %}
+            </select>
         </div>
         <button class="btn btn-primary search-button" type="submit">Sök</button>
     </form>
