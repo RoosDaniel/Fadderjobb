@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'fadderjobb.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': os.environ.get("DB_ENGINE", "django.db.backends.postgresql_psycopg2"),
         'NAME': os.environ.get("DB_NAME", "fadderjobb"),
         'USER': os.environ.get("DB_USER", "fadderjobb"),
         'PASSWORD': os.environ.get("DB_PASS", "fadderjobb"),
@@ -103,6 +103,19 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     }
 ]
+
+# Email
+# https://docs.djangoproject.com/en/2.1/topics/email/
+
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
+
+EMAIL_PORT = os.environ.get("EMAIL_PORT", 587)
+
+EMAIL_HOST_USER = os.environ.get("EMAIL_USER", None)
+
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS", None)
+
+EMAIL_USE_TLS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

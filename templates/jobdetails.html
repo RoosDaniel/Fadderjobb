@@ -16,20 +16,20 @@
         <div class="header">
             <h1>
                 {% if has_enter_queue %}
-                    <span class="oi oi-account-login" data-toggle="tooltip" data-placement="bottom"
-                          title="Jobbet har ingående kö"></span>{{ " " }}
+                    <i class="fas fa-caret-square-right" data-toggle="tooltip" data-placement="bottom"
+                          title="Jobbet har ingående kö"></i>{{ " " }}
                 {% endif %}
                 {% if has_leave_queue %}
-                    <span class="oi oi-account-logout" data-toggle="tooltip" data-placement="bottom"
-                          title="Jobbet har utgående kö"></span>{{ " " }}
+                    <i class="fas fa-caret-square-left" data-toggle="tooltip" data-placement="bottom"
+                          title="Jobbet har utgående kö"></i>{{ " " }}
                 {% endif %}
                 {% if job.full %}
-                    <span class="oi oi-ban" data-toggle="tooltip" data-placement="bottom"
-                          title="Jobbet är fullt"></span>{{ " " }}
+                    <i class="fas fa-ban" data-toggle="tooltip" data-placement="bottom"
+                          title="Jobbet är fullt"></i>{{ " " }}
                 {% endif %}
                 {% if job.locked %}
-                    <span class="oi oi-lock-locked" data-toggle="tooltip" data-placement="bottom"
-                          title="Jobbet är låst"></span>{{ " " }}
+                    <i class="fas fa-lock" data-toggle="tooltip" data-placement="bottom"
+                          title="Jobbet är låst"></i>{{ " " }}
                 {% endif %}
                 {{ job.name }}
             </h1>

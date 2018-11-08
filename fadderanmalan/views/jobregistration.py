@@ -78,18 +78,24 @@ def deregister_for_job(request, job_id):
                                          "Du står nu i kö för att avregistrera dig från passet. "
                                          "Om en fadder ställer sig i kön för passet kommer denna att ta din plats.")
         else:
-            job.fadders.remove(request.user.fadder)
-
-            message = "Du är nu avregistrerad från passet."
-
-            try:  # If there is someone queued, give the slot to them
-                eq = EnterQueue.get_first(job=job)
-                job.fadders.add(eq.fadder)
+            try:  # If the fadder was queued
+                eq = EnterQueue.objects.get(job=job, fadder=request.user.fadder)
                 eq.delete()
 
-                message += " %s tog din plats." % eq.fadder.user.username
-            except EnterQueue.DoesNotExist:
-                pass
+                message = "Din köplats till passet togs bort."
+            except EnterQueue.DoesNotExist:  # Else, remove them and pop the job's enter queue.
+                job.fadders.remove(request.user.fadder)
+
+                message = "Du är nu avregistrerad från passet."
+
+                try:  # If there is someone queued, give the slot to them
+                    eq = EnterQueue.get_first(job=job)
+                    job.fadders.add(eq.fadder)
+                    eq.delete()
+
+                    message += " %s tog din plats." % eq.fadder.user.username
+                except EnterQueue.DoesNotExist:
+                    pass
 
             messages.add_message(request, messages.INFO, message)
 

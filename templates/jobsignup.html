@@ -28,7 +28,7 @@
         <div class="joblist">
             {% for job in jobs %}
                 <a href="{% url 'fadderanmalan:jobsignup_detail' job.slug %}"
-                   class="job {{ job.full_status }}">
+                   class="job {{ job.full_status }} {{ job.locked_status }}">
                     <div class="job-title">
                         <h3>{{ job.short_name }}</h3>
                         <small>{{ job.fadders.count }}/{{ job.slots }}</small>

@@ -97,8 +97,8 @@ class Job(models.Model):
         return self.description
 
     def short_name(self):
-        if len(self.name) > 15:
-            return self.name[:15] + "..."
+        if len(self.name) > 20:
+            return self.name[:20] + "..."
         return self.name
 
     @staticmethod
@@ -126,3 +126,6 @@ class Job(models.Model):
         if count == self.slots:
             return "full"
         return "partial"
+
+    def locked_status(self):
+        return "locked" if self.locked else "unlocked"
