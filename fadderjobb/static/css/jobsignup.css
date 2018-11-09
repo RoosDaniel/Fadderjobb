@@ -37,7 +37,7 @@
 .filter-checkbox-caret {
     position: absolute;
     height: 100%;
-    transition: left .1s ease-in, width .05s linear, color .3s linear, opacity .1s linear;
+    transition: left .1s ease-in, width .05s linear, background-color .1s linear, opacity .1s linear;
     width: 52px;
     left: 0;
     opacity: 0;

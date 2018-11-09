@@ -34,7 +34,7 @@ function initialMoveCaret() {
         const $label = $this.siblings(".form-check-label");
         const $caret = $container.find(".filter-checkbox-caret");
 
-        $caret.toggleClass("noanimate");
+        $caret.toggleClass("noanimate", true);
 
         $caret.offset($label.offset());
         $caret.css({width: $label.outerWidth(), opacity: 1});
@@ -45,6 +45,6 @@ function initialMoveCaret() {
             $caret.css({backgroundColor: "#ff4c2f"});
         }
 
-        $caret.toggleClass("noanimate");
+        $caret.toggleClass("noanimate", false);
     });
 }
