@@ -1983,11 +1983,11 @@ textarea.form-control {
   margin-left: -1.25rem;
 }
 
-.form-check-input:disabled ~ .form-check-label {
+.form-check-input:disabled ~ .filter-checkbox-label {
   color: #6c757d;
 }
 
-.form-check-label {
+.filter-checkbox-label {
   margin-bottom: 0;
 }
 
@@ -2060,7 +2060,7 @@ textarea.form-control {
   display: block;
 }
 
-.was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
+.was-validated .form-check-input:valid ~ .filter-checkbox-label, .form-check-input.is-valid ~ .filter-checkbox-label {
   color: #28a745;
 }
 
@@ -2163,7 +2163,7 @@ textarea.form-control {
   display: block;
 }
 
-.was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label {
+.was-validated .form-check-input:invalid ~ .filter-checkbox-label, .form-check-input.is-invalid ~ .filter-checkbox-label {
   color: #dc3545;
 }
 

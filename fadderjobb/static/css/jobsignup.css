@@ -73,7 +73,7 @@
     height: 100%;
 }
 
-.form-check-label {
+.filter-checkbox-label {
     position: relative;
     display: inline-block;
     padding: 15px;
@@ -86,23 +86,23 @@
     transition: all .1s linear;
 }
 
-.form-check-label:hover {
+.filter-checkbox-label:hover {
     cursor: pointer;
 }
 
-.filter-checkbox input:checked + .form-check-label-no {
+.filter-checkbox input:checked + .filter-checkbox-label-no {
     color: white;
 }
 
-.filter-checkbox input:checked + .form-check-label-yes {
+.filter-checkbox input:checked + .filter-checkbox-label-yes {
     color: white;
 }
 
-.form-check-label-yes::before {
+.filter-checkbox-label-yes::before {
     content: "JA";
 }
 
-.form-check-label-no::before {
+.filter-checkbox-label-no::before {
     content: "NEJ";
 }
 
