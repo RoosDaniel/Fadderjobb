@@ -5,11 +5,10 @@ http://fadderjobb.staben.info/
 ## Bakgrund
 
 Historiskt sett har det alltid varit svårt att planera fadderjobb för STABEN
-eftersom det saknats ett sätt att delegera mindre jobb till faddrar. T.ex. har
-det krävts faddrar som står i märkesbacken under första dagen, eller extra 
-riggfaddrar till Hoben. Tanken med den här hemsidan är att underlätta detta arbete
-genom att centralisera alla jobbpass till en hemsida som kan hantera alla pass
-automatiskt.
+eftersom det saknats ett sätt att delegera småjobb. T.ex. har det krävts faddrar
+som står i märkesbacken under första dagen, eller extra riggfaddrar till Hoben.
+Den här hemsidan försöker underlätta dessa problem genom att hantera anmälan,
+byten, informationsutskick, m.m. automatiskt.
 
 ## Funktionalitet
 
@@ -29,7 +28,6 @@ _STABEN kan:_
     - Poäng
     - Antal faddrar som behövs
     - Typ av jobb
-    - Länka till drive-dokument med mer info
 - Stänga ett fadderjobb
     - Avanmälan kan endast ske om en annan fadder köar för platsen.
     - Finns lediga platser kan faddrar anmäla sig till dessa, trots att jobbet har stängt.
@@ -50,8 +48,8 @@ _En fadder kan:_
 
 _STABEN ska kunna:_
 
-- Länka till drive-dokument med mer info
-- Sätta en undre/övre gräns för mängd poäng
+- Lägga till detaljerad information som går ut i ett massutskick till faddrar efter deadline.
+- Sätta en undre/övre gräns för krävda poäng.
 
 ### Fadder
 
@@ -59,8 +57,9 @@ _En fadder ska kunna:_
 
 - Vid utsatt tidpunkt innan nolle-p, få ett mail av STABEN med detaljerad
 information angående de jobb som faddern har registrerat sig på.
-
-- Få ett mail när de har fått/tappat ett jobb.
+- Få mail när:
+    - De har fått ett jobb som de köat för.
+    - De har tappat ett jobb som de köat för att avanmäla sig till.
 
 ## Deployment
 
