@@ -8,15 +8,17 @@
     margin: 10px;
 }
 
-#filter-name {
-    max-width: 250px;
-    padding: 26px 32px;
-}
-
 .filter {
     background-color: #f7f7f9;
     padding: 0 0 0 15px;
     height: 52px;
+}
+
+.filter-search {
+    max-width: 250px;
+    padding: 26px 15px;
+
+    letter-spacing: 1px;
 }
 
 .filter-dropdown-container {
@@ -40,6 +42,9 @@
 
 .dropdown-item {
     padding: .5rem 1.5rem;
+    font-size: 100%;
+    font-weight: 200;
+    letter-spacing: 1px;
 }
 
 .dropdown-menu {
@@ -49,10 +54,11 @@
 .dropdown-toggle {
     text-transform: none;
     font-size: 100%;
-    font-weight: 100;
+    font-weight: 200;
+    letter-spacing: 1px;
 }
 
-.filter-checkbox-container, .filter-select {
+.filter-checkbox-container {
     position: relative;
     display: flex;
     flex-direction: row;

@@ -18,7 +18,7 @@
     {% endif %}
 
     <form action="{% url 'fadderanmalan:jobsignup' %}" method="get" id="filter-container">
-        <input class="form-control" placeholder="Jobbnamn" type="text" aria-label="Jobbnamn"
+        <input class="form-control filter-search" placeholder="Jobbnamn" type="text" aria-label="Jobbnamn"
                aria-describedby="basic-addon2" name="search" value="{{ filter_search }}" id="filter-name">
         <div class="filter filter-checkbox-container" id="filter-signedup">
             <div>Anmäld</div>
