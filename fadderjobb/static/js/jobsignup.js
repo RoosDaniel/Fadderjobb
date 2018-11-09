@@ -14,13 +14,26 @@ $(function () {
             $caret.css({width: $label.outerWidth(), opacity: 1});
 
             if ($label.hasClass("filter-checkbox-label-yes")) {
-                $caret.css({backgroundColor: "#63bf69"});
+                $caret.css({backgroundColor: "#000"});
             } else {
-                $caret.css({backgroundColor: "#ff4c2f"});
+                $caret.css({backgroundColor: "#000"});
             }
         } else {  // Deselect
             $caret.offset($container.offset());
             $caret.css({opacity: 0});
+        }
+    });
+
+    $(".filter-dropdown-container").find("a").on("click", function () {
+        const $this = $(this);
+        const $container = $this.parents(".filter-dropdown-container");
+
+        if ($this.hasClass("filter-dropdown-reset")) {
+            $container.find("button").text("Välj jobbtyp ");
+            $container.find("input").val("");
+        } else {
+            $container.find("button").text($this.text());
+            $container.find("input").val($this.text());
         }
     });
 
@@ -40,9 +53,9 @@ function initialMoveCaret() {
         $caret.css({width: $label.outerWidth(), opacity: 1});
 
         if ($label.hasClass("filter-checkbox-label-yes")) {
-            $caret.css({backgroundColor: "#63bf69"});
+            $caret.css({backgroundColor: "#000"});
         } else {
-            $caret.css({backgroundColor: "#ff4c2f"});
+            $caret.css({backgroundColor: "#000"});
         }
 
         $caret.toggleClass("noanimate", false);

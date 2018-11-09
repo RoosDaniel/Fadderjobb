@@ -92,14 +92,18 @@
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
-        <div class="filter filter-select">
-            <label for="filter-jobtype">Typ</label>
-            <select id="filter-jobtype" name="jobtype">
-                <option></option>
+        <div class="filter-dropdown-container dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% if filter_jobtype %}{{ filter_jobtype }}{% else %}Välj jobbtyp{% endif %}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item filter-dropdown-reset" href="#">&ltta bort val&gt</a>
                 {% for type in jobtypes %}
-                    <option value="{{ type }}" {% if filter_jobtype == type %}selected{% endif %}>{{ type }}</option>
+                    <a class="dropdown-item" href="#">{{ type }}</a>
                 {% endfor %}
-            </select>
+            </div>
+            <input type="hidden" name="jobtype" value="{{ filter_jobtype }}" title="jobtype">
         </div>
         <button class="btn btn-primary filter-button" type="submit">Filtrera</button>
     </form>
