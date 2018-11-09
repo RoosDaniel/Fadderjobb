@@ -1,9 +1,26 @@
-$(function() {
-   $(".filter-checkbox").find("input[type=checkbox]").on("change", function() {
-       const $this = $(this);
-       if (!$this.prop("checked")) return;
+$(function () {
+    $(".filter-checkbox").find("input[type=checkbox]").on("change", function () {
+        const $this = $(this);
+        const $container = $this.parents(".filter-checkbox-container");
 
-       $this.parent().parent().parent().find("input[type=checkbox]").prop("checked", false);
-       $this.prop("checked", true);
-   });
+        // Deselect all other
+        $container.find("input[type=checkbox]").not($this).prop("checked", false);
+
+        const $label = $this.siblings(".form-check-label");
+        const $caret = $container.find(".filter-checkbox-caret");
+
+        if ($this.prop("checked")) {  // Move to selected
+            $caret.offset($label.offset());
+            $caret.css({width: $label.outerWidth(), opacity: 1});
+
+            if ($label.hasClass("form-check-label-yes")) {
+                $caret.css({backgroundColor: "#63bf69"});
+            } else {
+                $caret.css({backgroundColor: "#ff4c2f"});
+            }
+        } else {  // Deselect
+            $caret.offset($container.offset());
+            $caret.css({opacity: 0});
+        }
+    });
 });

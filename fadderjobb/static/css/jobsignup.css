@@ -24,6 +24,7 @@
 }
 
 .filter-checkbox-container, .filter-select {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -31,6 +32,15 @@
 
 .filter-checkbox-container > div:first-of-type {
     margin-right: 10px;
+}
+
+.filter-checkbox-caret {
+    position: absolute;
+    height: 100%;
+    transition: left .1s ease-in, width .05s linear, color .3s linear, opacity .1s linear;
+    width: 52px;
+    left: 0;
+    opacity: 0;
 }
 
 .filter-select > label {
@@ -59,42 +69,32 @@
     height: 100%;
 }
 
-.filter-checkbox span {
+.form-check-label {
+    position: relative;
     display: inline-block;
-    padding: 13px 15px 7px;
+    padding: 15px;
     font-weight: bold;
     font-size: 120%;
     height: 100%;
 
+    z-index: 2;
+
     transition: all .1s linear;
 }
 
-.filter-checkbox span:hover {
+.form-check-label:hover {
     cursor: pointer;
 }
 
-.filter-checkbox .form-check-label-no:hover {
-    background-color: #ff8377;
-    color: white;
-}
-
-.filter-checkbox .form-check-label-yes:hover {
-    background-color: #85bf92;
-    color: white;
-}
-
 .filter-checkbox input:checked + .form-check-label-no {
-    background-color: #ff4c2f;
     color: white;
 }
 
 .filter-checkbox input:checked + .form-check-label-yes {
-    background-color: #63bf69;
     color: white;
 }
 
 .form-check-label-yes::before {
-    height: 100%;
     content: "JA";
 }
 
