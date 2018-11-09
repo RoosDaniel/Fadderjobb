@@ -21,10 +21,10 @@ $(function () {
         const $container = $this.parents(".filter-dropdown-container");
 
         if ($this.hasClass("filter-dropdown-reset")) {
-            $container.find("button").text("Välj jobbtyp ");
+            $container.find("button").text(" Välj jobbtyp");
             $container.find("input").val("");
         } else {
-            $container.find("button").text($this.text());
+            $container.find("button").text(` ${$this.text()}`);
             $container.find("input").val($this.text());
         }
     });
