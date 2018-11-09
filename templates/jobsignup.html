@@ -26,9 +26,9 @@
                 {% if filter_jobtype %}{{ filter_jobtype }}{% else %}Välj jobbtyp{% endif %}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item filter-dropdown-reset" href="#">&ltta bort val&gt</a>
+                <div class="dropdown-item filter-dropdown-reset">&ltta bort val&gt</div>
                 {% for type in jobtypes %}
-                    <a class="dropdown-item" href="#">{{ type }}</a>
+                    <div class="dropdown-item">{{ type }}</div>
                 {% endfor %}
             </div>
             <input type="hidden" name="jobtype" value="{{ filter_jobtype }}" title="jobtype">

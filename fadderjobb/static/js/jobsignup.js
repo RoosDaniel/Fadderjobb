@@ -16,7 +16,7 @@ $(function () {
         }
     });
 
-    $(".filter-dropdown-container").find("a").on("click", function () {
+    $(".filter-dropdown-container").find(".dropdown-item").on("click", function () {
         const $this = $(this);
         const $container = $this.parents(".filter-dropdown-container");
 
