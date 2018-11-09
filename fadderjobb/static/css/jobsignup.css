@@ -36,7 +36,7 @@
 }
 
 .dropdown-item:hover {
-    background-color: black;
+    background-color: #222;
     color: white;
 }
 
@@ -76,7 +76,6 @@
     width: 52px;
     left: 0;
     opacity: 0;
-    box-shadow: 0 1px 1px 0 #646464;
 }
 
 .filter-checkbox-caret.noanimate {
@@ -89,6 +88,7 @@
 
 .filter-button {
     padding: 10px 25px;
+    background-color: #222;
 }
 
 .filter-checkbox {

@@ -12,12 +12,7 @@ $(function () {
         if ($this.prop("checked")) {  // Move to selected
             $caret.offset($label.offset());
             $caret.css({width: $label.outerWidth(), opacity: 1});
-
-            if ($label.hasClass("filter-checkbox-label-yes")) {
-                $caret.css({backgroundColor: "#000"});
-            } else {
-                $caret.css({backgroundColor: "#000"});
-            }
+            $caret.css({backgroundColor: "#222"});
         } else {  // Deselect
             $caret.offset($container.offset());
             $caret.css({opacity: 0});
@@ -51,12 +46,7 @@ function initialMoveCaret() {
 
         $caret.offset($label.offset());
         $caret.css({width: $label.outerWidth(), opacity: 1});
-
-        if ($label.hasClass("filter-checkbox-label-yes")) {
-            $caret.css({backgroundColor: "#000"});
-        } else {
-            $caret.css({backgroundColor: "#000"});
-        }
+        $caret.css({backgroundColor: "#222"});
 
         $caret.toggleClass("noanimate", false);
     });
