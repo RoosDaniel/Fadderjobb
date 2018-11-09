@@ -60,6 +60,8 @@ _En fadder ska kunna:_
 - Vid utsatt tidpunkt innan nolle-p, få ett mail av STABEN med detaljerad
 information angående de jobb som faddern har registrerat sig på.
 
+- Få ett mail när de har fått/tappat ett jobb.
+
 ## Deployment
 
 Hemsidan är skriven i Django och konfigureras via följande environment-variabler:

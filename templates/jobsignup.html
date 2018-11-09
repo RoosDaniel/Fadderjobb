@@ -20,6 +20,19 @@
     <form action="{% url 'fadderanmalan:jobsignup' %}" method="get" id="filter-container">
         <input class="form-control filter-search" placeholder="Jobbnamn" type="text" aria-label="Jobbnamn"
                aria-describedby="basic-addon2" name="search" value="{{ filter_search }}" id="filter-name">
+        <div class="filter-dropdown-container dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {% if filter_jobtype %}{{ filter_jobtype }}{% else %}Välj jobbtyp{% endif %}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item filter-dropdown-reset" href="#">&ltta bort val&gt</a>
+                {% for type in jobtypes %}
+                    <a class="dropdown-item" href="#">{{ type }}</a>
+                {% endfor %}
+            </div>
+            <input type="hidden" name="jobtype" value="{{ filter_jobtype }}" title="jobtype">
+        </div>
         <div class="filter filter-checkbox-container" id="filter-signedup">
             <div>Anmäld</div>
             <div class="filter-checkbox">
@@ -91,19 +104,6 @@
                 </label>
             </div>
             <div class="filter-checkbox-caret"></div>
-        </div>
-        <div class="filter-dropdown-container dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {% if filter_jobtype %}{{ filter_jobtype }}{% else %}Välj jobbtyp{% endif %}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item filter-dropdown-reset" href="#">&ltta bort val&gt</a>
-                {% for type in jobtypes %}
-                    <a class="dropdown-item" href="#">{{ type }}</a>
-                {% endfor %}
-            </div>
-            <input type="hidden" name="jobtype" value="{{ filter_jobtype }}" title="jobtype">
         </div>
         <button class="btn btn-primary filter-button" type="submit">Filtrera</button>
     </form>

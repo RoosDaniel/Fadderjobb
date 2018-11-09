@@ -2,17 +2,14 @@ $(function () {
     $(".filter-checkbox").find("input[type=checkbox]").on("change", function () {
         const $this = $(this);
         const $container = $this.parents(".filter-checkbox-container");
+        const $label = $this.siblings(".filter-checkbox-label");
+        const $caret = $container.find(".filter-checkbox-caret");
 
         // Deselect all other
         $container.find("input[type=checkbox]").not($this).prop("checked", false);
 
-        const $label = $this.siblings(".filter-checkbox-label");
-        const $caret = $container.find(".filter-checkbox-caret");
-
         if ($this.prop("checked")) {  // Move to selected
-            $caret.offset($label.offset());
-            $caret.css({width: $label.outerWidth(), opacity: 1});
-            $caret.css({backgroundColor: "#222"});
+            moveCaret($caret, $label);
         } else {  // Deselect
             $caret.offset($container.offset());
             $caret.css({opacity: 0});
@@ -43,11 +40,12 @@ function initialMoveCaret() {
         const $caret = $container.find(".filter-checkbox-caret");
 
         $caret.toggleClass("noanimate", true);
-
-        $caret.offset($label.offset());
-        $caret.css({width: $label.outerWidth(), opacity: 1});
-        $caret.css({backgroundColor: "#222"});
-
+        moveCaret($caret, $label);
         $caret.toggleClass("noanimate", false);
     });
+}
+
+function moveCaret($caret, $label) {
+    $caret.offset($label.offset());
+    $caret.css({width: $label.outerWidth(), opacity: 1, backgroundColor: "#222"});
 }
