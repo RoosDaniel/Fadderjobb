@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from fadderanmalan.admin import JobsInline
+from fadderanmalan.admin.admin import JobsInline
 
 from .models import Fadder
 
