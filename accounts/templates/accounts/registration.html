@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
+{% load sass_tags %}
 
 {% block title %}Registrera - {% endblock title %}
 
 {% block head %}
     <!--suppress HtmlUnknownTarget -->
-    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/registration.sass' %}">
 {% endblock head %}
 
 {% block content %}

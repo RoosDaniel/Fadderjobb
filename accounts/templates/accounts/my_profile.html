@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
+{% load sass_tags %}
 
 {% block title %}Min profil - {% endblock title %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'css/my_profile.css' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/my_profile.sass' %}">
 {% endblock head %}
 
 {% block content %}

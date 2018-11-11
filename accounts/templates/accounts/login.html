@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
+{% load sass_tags %}
 
 {% block title %}Logga in - {% endblock title %}
 
 {% block head %}
     <!--suppress HtmlUnknownTarget -->
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/login.sass' %}">
 {% endblock head %}
 
 
