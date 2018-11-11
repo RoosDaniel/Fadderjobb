@@ -7,6 +7,7 @@
 {% block head %}
     <!--suppress HtmlUnknownTarget -->
     <link rel="stylesheet" href="{% sass_src 'sass/jobsignup.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/mobile/m_jobsignup.sass' %}">
 {% endblock head %}
 
 {% block scripts %}
@@ -19,9 +20,9 @@
     {% endif %}
 
     <form action="{% url 'fadderanmalan:jobsignup' %}" method="get" id="filter-container">
-        <input class="form-control filter-search" placeholder="Jobbnamn" type="text" aria-label="Jobbnamn"
+        <input class="filter filter-search form-control" placeholder="Jobbnamn" type="text" aria-label="Jobbnamn"
                aria-describedby="basic-addon2" name="search" value="{{ filter_search }}" id="filter-name">
-        <div class="filter-dropdown-container dropdown">
+        <div class="filter filter-dropdown-container dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {% if filter_jobtype %}{{ filter_jobtype }}{% else %}Välj jobbtyp{% endif %}
@@ -36,73 +37,81 @@
         </div>
         <div class="filter filter-checkbox-container" id="filter-signedup">
             <div>Anmäld</div>
-            <div class="filter-checkbox">
-                <label>
-                    <input type="checkbox" name="signedup"
-                           value="0" {% if filter_signedup == "0" %}checked{% endif %}>
-                    <span class="filter-checkbox-label filter-checkbox-label-no"></span>
-                </label>
-            </div>
-            <div class="filter-checkbox">
-                <label>
-                    <input type="checkbox" name="signedup"
-                           value="1" {% if filter_signedup == "1" %}checked{% endif %}>
-                    <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
-                </label>
+            <div>
+                <div class="filter-checkbox">
+                    <label>
+                        <input type="checkbox" name="signedup"
+                               value="0" {% if filter_signedup == "0" %}checked{% endif %}>
+                        <span class="filter-checkbox-label filter-checkbox-label-no"></span>
+                    </label>
+                </div>
+                <div class="filter-checkbox">
+                    <label>
+                        <input type="checkbox" name="signedup"
+                               value="1" {% if filter_signedup == "1" %}checked{% endif %}>
+                        <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
+                    </label>
+                </div>
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
         <div class="filter filter-checkbox-container" id="filter-full">
             <div>Fullt</div>
-            <div class="filter-checkbox">
-                <label>
-                    <input type="checkbox" name="full"
-                           value="0" {% if filter_full == "0" %}checked{% endif %}>
-                    <span class="filter-checkbox-label filter-checkbox-label-no"></span>
-                </label>
-            </div>
-            <div class="filter-checkbox">
-                <label>
-                    <input type="checkbox" name="full"
-                           value="1" {% if filter_full == "1" %}checked{% endif %}>
-                    <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
-                </label>
+            <div>
+                <div class="filter-checkbox">
+                    <label>
+                        <input type="checkbox" name="full"
+                               value="0" {% if filter_full == "0" %}checked{% endif %}>
+                        <span class="filter-checkbox-label filter-checkbox-label-no"></span>
+                    </label>
+                </div>
+                <div class="filter-checkbox">
+                    <label>
+                        <input type="checkbox" name="full"
+                               value="1" {% if filter_full == "1" %}checked{% endif %}>
+                        <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
+                    </label>
+                </div>
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
         <div class="filter filter-checkbox-container" id="filter-leavequeue">
             <div>Faddrar vill lämna</div>
-            <div class="filter-checkbox">
-                <label>
-                    <input type="checkbox" name="leavequeue"
-                           value="0" {% if filter_leavequeue == "0" %}checked{% endif %}>
-                    <span class="filter-checkbox-label filter-checkbox-label-no"></span>
-                </label>
-            </div>
-            <div class="filter-checkbox">
-                <label>
-                    <input type="checkbox" name="leavequeue"
-                           value="1" {% if filter_leavequeue == "1" %}checked{% endif %}>
-                    <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
-                </label>
+            <div>
+                <div class="filter-checkbox">
+                    <label>
+                        <input type="checkbox" name="leavequeue"
+                               value="0" {% if filter_leavequeue == "0" %}checked{% endif %}>
+                        <span class="filter-checkbox-label filter-checkbox-label-no"></span>
+                    </label>
+                </div>
+                <div class="filter-checkbox">
+                    <label>
+                        <input type="checkbox" name="leavequeue"
+                               value="1" {% if filter_leavequeue == "1" %}checked{% endif %}>
+                        <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
+                    </label>
+                </div>
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
         <div class="filter filter-checkbox-container" id="filter-enterqueue">
             <div>Faddrar köar</div>
-            <div class="filter-checkbox">
-                <label>
-                    <input type="checkbox" name="enterqueue"
-                           value="0" {% if filter_enterqueue == "0" %}checked{% endif %}>
-                    <span class="filter-checkbox-label filter-checkbox-label-no"></span>
-                </label>
-            </div>
-            <div class="filter-checkbox">
-                <label>
-                    <input type="checkbox" name="enterqueue"
-                           value="1" {% if filter_enterqueue == "1" %}checked{% endif %}>
-                    <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
-                </label>
+            <div>
+                <div class="filter-checkbox">
+                    <label>
+                        <input type="checkbox" name="enterqueue"
+                               value="0" {% if filter_enterqueue == "0" %}checked{% endif %}>
+                        <span class="filter-checkbox-label filter-checkbox-label-no"></span>
+                    </label>
+                </div>
+                <div class="filter-checkbox">
+                    <label>
+                        <input type="checkbox" name="enterqueue"
+                               value="1" {% if filter_enterqueue == "1" %}checked{% endif %}>
+                        <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
+                    </label>
+                </div>
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
