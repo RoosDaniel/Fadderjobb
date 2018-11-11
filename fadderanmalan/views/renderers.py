@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db.models import Count, F
+from django.db.models import Count, F, Q
 
 from fadderanmalan.models import Job, EnterQueue, LeaveQueue, Type
 from accounts.models import Fadder
@@ -15,7 +15,7 @@ def jobsignup(request):
     search = request.GET.get("search", "")
 
     if search != "":
-        jobs = jobs.filter(name__icontains=search.lower())
+        jobs = jobs.filter(Q(name__icontains=search.lower()) | Q(description__icontains=search.lower()))
 
     full = request.GET.get("full", None)
 
