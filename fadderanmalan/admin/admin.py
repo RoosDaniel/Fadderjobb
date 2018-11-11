@@ -18,6 +18,8 @@ class JobAdmin(admin.ModelAdmin):
         JobsInline,
     ]
 
+    list_display = ["name", "date", "locked", "signed_up"]
+
     exclude = [
         "fadders",
     ]
@@ -28,15 +30,22 @@ class JobAdmin(admin.ModelAdmin):
 
     search_fields = ["name"]
 
+    def signed_up(self, obj):
+        return ", ".join([f.user.username for f in obj.fadders.all()])
+
 
 class EnterQueueAdmin(admin.ModelAdmin):
     model = EnterQueue
+
+    list_display = ["job", "fadder"]
 
     search_fields = ["job__name", "fadder__user__username"]
 
 
 class LeaveQueueAdmin(admin.ModelAdmin):
     model = LeaveQueue
+
+    list_display = ["job", "fadder"]
 
     search_fields = ["job__name", "fadder__user__username"]
 
