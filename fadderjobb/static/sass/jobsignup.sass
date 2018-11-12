@@ -74,12 +74,17 @@
     display: flex
     flex-direction: row
     align-items: center
+    transition: all .3s linear
     > div:first-of-type
         margin-right: 10px
         &:hover
             cursor: default
     &.hidden
-        display: none !important
+        width: 0 !important
+        height: 0 !important
+        padding: 0 !important
+        margin: 0 !important
+        opacity: 0 !important
 
 .filter-remove
     font-size: 150%
@@ -105,6 +110,7 @@
 
 .filter-button
     padding: 10px 25px
+    height: 52px
     background-color: #222
 
 .filter-checkbox
