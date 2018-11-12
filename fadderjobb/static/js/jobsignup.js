@@ -48,7 +48,7 @@ $(function () {
         }).css({display: "block"});
     });
 
-    initialMoveCaret();
+    setTimeout(initialMoveCaret, 1);
 });
 
 function initialMoveCaret() {
