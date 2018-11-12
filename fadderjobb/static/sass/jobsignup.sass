@@ -7,6 +7,7 @@
 
 .filter
     background-color: #f7f7f9
+    padding: 0 0 0 15px
     height: 52px
 
 .filter-search
@@ -75,12 +76,14 @@
     align-items: center
     > div:first-of-type
         margin-right: 10px
+        &:hover
+            cursor: default
     &.hidden
         display: none !important
 
 .filter-remove
     font-size: 150%
-    padding: 15px 10px
+    padding: 15px
     &:hover
         cursor: pointer
 
@@ -152,7 +155,6 @@
     color: white
     margin: 10px
     padding: 10px
-    border-radius: 1px
     transition: all .2s !important
     &:hover
         text-decoration: none
