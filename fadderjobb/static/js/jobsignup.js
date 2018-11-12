@@ -47,5 +47,5 @@ function initialMoveCaret() {
 
 function moveCaret($caret, $label) {
     $caret.offset($label.offset());
-    $caret.css({width: $label.outerWidth(), opacity: 1, backgroundColor: "#222"});
+    $caret.css({width: $label.outerWidth(), opacity: 1, backgroundColor: "#222", top: 0});
 }
