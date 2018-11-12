@@ -16,7 +16,7 @@ $(function () {
         }
     });
 
-    $(".filter-dropdown-container").find(".dropdown-item").on("click", function () {
+    $("#filter-jobtype").find(".dropdown-item").on("click", function () {
         const $this = $(this);
         const $container = $this.parents(".filter-dropdown-container");
 
@@ -27,6 +27,25 @@ $(function () {
             $container.find("button").text(` ${$this.text()}`);
             $container.find("input").val($this.text());
         }
+    });
+
+    $("#add-filter").find(".dropdown-item").on("click", function() {
+        const $this = $(this);
+
+        $this.css({display: "none"});
+        $(`#${$this.data("filter-id")}`).toggleClass("hidden");
+    });
+
+    $(".filter-remove").on("click", function() {
+        const $this = $(this);
+        const $container = $this.parents(".filter-checkbox-wrapper");
+
+        $container.find("input[type=checkbox]").not($this).prop("checked", false);
+
+        $container.addClass("hidden");
+        $("#add-filter").find(".filter-add").filter(function() {
+            return $(this).data("filter-id") == $container.prop("id");
+        }).css({display: "block"});
     });
 
     initialMoveCaret();

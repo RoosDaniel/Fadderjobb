@@ -7,7 +7,7 @@
 
 .filter
     background-color: #f7f7f9
-    padding: 0 0 0 15px
+    padding: 0 10px 0 15px
     height: 52px
 
 .filter-search
@@ -76,6 +76,14 @@
     align-items: center
     > div:first-of-type
         margin-right: 10px
+    &.hidden
+        display: none !important
+
+.filter-remove
+    font-size: 150%
+    padding: 15px 10px
+    &:hover
+        cursor: pointer
 
 .filter-checkbox-container
     display: flex

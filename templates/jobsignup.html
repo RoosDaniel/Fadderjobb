@@ -22,8 +22,8 @@
     <form action="{% url 'fadderanmalan:jobsignup' %}" method="get" id="filter-container">
         <input class="filter filter-search form-control" placeholder="Jobbnamn" type="text" aria-label="Jobbnamn"
                aria-describedby="basic-addon2" name="search" value="{{ filter_search }}" id="filter-name">
-        <div class="filter filter-dropdown-container dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+        <div class="filter filter-dropdown-container dropdown" id="filter-jobtype">
+            <button class="btn btn-secondary dropdown-toggle" type="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {% if filter_jobtype %}{{ filter_jobtype }}{% else %}Välj jobbtyp{% endif %}
             </button>
@@ -35,7 +35,23 @@
             </div>
             <input type="hidden" name="jobtype" value="{{ filter_jobtype }}" title="jobtype">
         </div>
-        <div class="filter filter-checkbox-wrapper" id="filter-signedup">
+        <div class="filter filter-dropdown-container dropdown" id="add-filter">
+            <button class="btn btn-secondary dropdown-toggle" type="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Lägg till ett filter
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <div class="dropdown-item filter-add" data-filter-id="filter-signedup"
+                    {% if filter_signedup %} style="display: none;" {% endif %}>Anmäld</div>
+                <div class="dropdown-item filter-add" data-filter-id="filter-full"
+                    {% if filter_full %} style="display: none;" {% endif %}>Fullt</div>
+                <div class="dropdown-item filter-add" data-filter-id="filter-leavequeue"
+                    {% if filter_leavequeue %} style="display: none;" {% endif %}>Faddrar vill lämna</div>
+                <div class="dropdown-item filter-add" data-filter-id="filter-enterqueue"
+                    {% if filter_enterqueue %} style="display: none;" {% endif %}>Faddrar köar</div>
+            </div>
+        </div>
+        <div class="filter filter-checkbox-wrapper {% if not filter_signedup %}hidden{% endif %}" id="filter-signedup">
             <div>Anmäld</div>
             <div class="filter-checkbox-container">
                 <div class="filter-checkbox">
@@ -52,10 +68,11 @@
                         <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
                     </label>
                 </div>
+                <i class="far fa-times-circle filter-remove"></i>
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
-        <div class="filter filter-checkbox-wrapper" id="filter-full">
+        <div class="filter filter-checkbox-wrapper {% if not filter_full %}hidden{% endif %}" id="filter-full">
             <div>Fullt</div>
             <div class="filter-checkbox-container">
                 <div class="filter-checkbox">
@@ -72,10 +89,11 @@
                         <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
                     </label>
                 </div>
+                <i class="far fa-times-circle filter-remove"></i>
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
-        <div class="filter filter-checkbox-wrapper" id="filter-leavequeue">
+        <div class="filter filter-checkbox-wrapper {% if not filter_leavequeue %}hidden{% endif %}" id="filter-leavequeue">
             <div>Faddrar vill lämna</div>
             <div class="filter-checkbox-container">
                 <div class="filter-checkbox">
@@ -92,10 +110,11 @@
                         <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
                     </label>
                 </div>
+                <i class="far fa-times-circle filter-remove"></i>
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
-        <div class="filter filter-checkbox-wrapper" id="filter-enterqueue">
+        <div class="filter filter-checkbox-wrapper {% if not filter_enterqueue %}hidden{% endif %}" id="filter-enterqueue">
             <div>Faddrar köar</div>
             <div class="filter-checkbox-container">
                 <div class="filter-checkbox">
@@ -112,6 +131,7 @@
                         <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
                     </label>
                 </div>
+                <i class="far fa-times-circle filter-remove"></i>
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
