@@ -1,7 +1,7 @@
 $(function () {
     $(".filter-checkbox").find("input[type=checkbox]").on("change", function () {
         const $this = $(this);
-        const $container = $this.parents(".filter-checkbox-container");
+        const $container = $this.parents(".filter-checkbox-wrapper");
         const $label = $this.siblings(".filter-checkbox-label");
         const $caret = $container.find(".filter-checkbox-caret");
 
@@ -35,7 +35,7 @@ $(function () {
 function initialMoveCaret() {
     $(".filter-checkbox").find("input[type=checkbox]:checked").each(function () {
         const $this = $(this);
-        const $container = $this.parents(".filter-checkbox-container");
+        const $container = $this.parents(".filter-checkbox-wrapper");
         const $label = $this.siblings(".filter-checkbox-label");
         const $caret = $container.find(".filter-checkbox-caret");
 

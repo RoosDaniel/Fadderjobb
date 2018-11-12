@@ -35,9 +35,9 @@
             </div>
             <input type="hidden" name="jobtype" value="{{ filter_jobtype }}" title="jobtype">
         </div>
-        <div class="filter filter-checkbox-container" id="filter-signedup">
+        <div class="filter filter-checkbox-wrapper" id="filter-signedup">
             <div>Anmäld</div>
-            <div>
+            <div class="filter-checkbox-container">
                 <div class="filter-checkbox">
                     <label>
                         <input type="checkbox" name="signedup"
@@ -55,9 +55,9 @@
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
-        <div class="filter filter-checkbox-container" id="filter-full">
+        <div class="filter filter-checkbox-wrapper" id="filter-full">
             <div>Fullt</div>
-            <div>
+            <div class="filter-checkbox-container">
                 <div class="filter-checkbox">
                     <label>
                         <input type="checkbox" name="full"
@@ -75,9 +75,9 @@
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
-        <div class="filter filter-checkbox-container" id="filter-leavequeue">
+        <div class="filter filter-checkbox-wrapper" id="filter-leavequeue">
             <div>Faddrar vill lämna</div>
-            <div>
+            <div class="filter-checkbox-container">
                 <div class="filter-checkbox">
                     <label>
                         <input type="checkbox" name="leavequeue"
@@ -95,9 +95,9 @@
             </div>
             <div class="filter-checkbox-caret"></div>
         </div>
-        <div class="filter filter-checkbox-container" id="filter-enterqueue">
+        <div class="filter filter-checkbox-wrapper" id="filter-enterqueue">
             <div>Faddrar köar</div>
-            <div>
+            <div class="filter-checkbox-container">
                 <div class="filter-checkbox">
                     <label>
                         <input type="checkbox" name="enterqueue"
@@ -117,6 +117,8 @@
         </div>
         <button class="btn btn-primary filter-button" type="submit">Filtrera</button>
     </form>
+
+    <hr class="divider">
 
     {% for day, jobs in day_grouped.items %}
         <h2 class="day">{{ day }}</h2>

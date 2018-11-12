@@ -67,13 +67,16 @@
         background-color: #222 !important
         color: white !important
 
-.filter-checkbox-container
+.filter-checkbox-wrapper
     position: relative
     display: flex
     flex-direction: row
     align-items: center
     > div:first-of-type
         margin-right: 10px
+
+.filter-checkbox-container
+    display: flex
 
 .filter-checkbox-caret
     position: absolute
@@ -125,6 +128,10 @@
 
 .filter-checkbox-label-no::before
     content: "NEJ"
+
+.divider
+    width: 94vw
+    border: 2px solid rgba(0, 0, 0, .1)
 
 .day
     margin-top: 30px
