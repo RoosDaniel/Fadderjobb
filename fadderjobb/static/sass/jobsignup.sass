@@ -86,16 +86,17 @@
     display: flex
     flex-direction: row
     align-items: center
-    transition: all .2s linear
+    transition: all .2s linear, font-size 0s linear
     > div:first-of-type
         margin-right: 10px
         &:hover
             cursor: default
-    &.hidden
-        width: 0 !important
+    &.hidden, &.hidden *
         height: 0 !important
-        padding: 0 !important
-        margin: 0 !important
+        padding-top: 0 !important
+        padding-bottom: 0 !important
+        margin-top: 0 !important
+        margin-bottom: 0 !important
         opacity: 0 !important
 
 .filter-remove
