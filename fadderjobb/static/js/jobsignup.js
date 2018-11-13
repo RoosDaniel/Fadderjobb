@@ -45,7 +45,7 @@ $(function () {
         $container.addClass("hidden");
         $("#add-filter").find(".filter-add").filter(function() {
             return $(this).data("filter-id") == $container.prop("id");
-        }).css({display: "block"});
+        }).css({display: ""});
     });
 
     setTimeout(initialMoveCaret, 100);
