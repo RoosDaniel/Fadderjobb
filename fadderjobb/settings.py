@@ -36,6 +36,8 @@ DEBUG_PROPAGATE_EXCEPTIONS = True
 
 ALLOWED_HOSTS = ["localhost", "fadderjobb.staben.info", "fadderjobb.herokuapp.com"]
 
+AUTH_USER_MODEL = 'accounts.User'
+
 # Application definition
 
 INSTALLED_APPS = [
