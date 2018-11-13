@@ -2,7 +2,7 @@
 {% load static from staticfiles %}
 {% load sass_tags %}
 
-{% block title %}{{ fadder.user.username }}'s profile - {% endblock title %}
+{% block title %}{{ user.username }}'s profile - {% endblock title %}
 
 {% block head %}
     <link rel="stylesheet" href="{% sass_src 'sass/profile.sass' %}">
@@ -10,8 +10,8 @@
 
 {% block content %}
     <div class="header">
-        <h1>{{ fadder.user.username }} - {{ fadder.points }}<span class="lowercase">p</span></h1>
-        <small>{{ fadder.user.email }}</small>
+        <h1>{{ user.username }} - {{ user.points }}<span class="lowercase">p</span></h1>
+        <small>{{ user.email }}</small>
     </div>
     <h2>Registrerade jobb</h2>
     {% for day, jobs in day_grouped.items %}

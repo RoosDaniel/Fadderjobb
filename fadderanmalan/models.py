@@ -4,8 +4,6 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 
-from accounts.models import Fadder
-
 
 class Type(models.Model):
     name = models.CharField(max_length=100)
@@ -19,10 +17,10 @@ class EnterQueue(models.Model):
     created = models.DateField(editable=False)
 
     job = models.ForeignKey("Job", on_delete=models.CASCADE, related_name="enter_queue")
-    fadder = models.ForeignKey("accounts.Fadder", on_delete=models.CASCADE, related_name="enter_queue")
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="enter_queue")
 
     def __str__(self):
-        return " | ".join([self.job.name, self.fadder.user.username])
+        return " | ".join([self.job.name, self.user.username])
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -44,10 +42,10 @@ class LeaveQueue(models.Model):
     created = models.DateField(editable=False)
 
     job = models.ForeignKey("Job", on_delete=models.CASCADE, related_name="leave_queue")
-    fadder = models.ForeignKey("accounts.Fadder", on_delete=models.CASCADE, related_name="leave_queue")
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="leave_queue")
 
     def __str__(self):
-        return " | ".join([self.job.name, self.fadder.user.username])
+        return " | ".join([self.job.name, self.user.username])
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -78,7 +76,7 @@ class Job(models.Model):
     slug = models.SlugField(max_length=100, null=True, blank=True)
 
     types = models.ManyToManyField("Type", blank=True)
-    fadders = models.ManyToManyField("accounts.Fadder", blank=True, related_name="jobs")
+    users = models.ManyToManyField("accounts.User", blank=True, related_name="jobs")
 
     def __str__(self):
         return self.name
@@ -115,10 +113,10 @@ class Job(models.Model):
         return day_grouped
 
     def full(self):
-        return self.fadders.count() == self.slots
+        return self.users.count() == self.slots
 
     def full_status(self):
-        count = self.fadders.count()
+        count = self.users.count()
 
         if count == 0:
             return "empty"

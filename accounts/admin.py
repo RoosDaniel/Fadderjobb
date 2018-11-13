@@ -1,16 +1,17 @@
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 
 from fadderanmalan.admin.admin import JobsInline
 
-from .models import Fadder
+
+User = get_user_model()
 
 
-class FadderAdmin(admin.ModelAdmin):
-    model = Fadder
+class UserAdmin(admin.ModelAdmin):
+    model = User
 
     inlines = [
         JobsInline,
     ]
 
-admin.site.register(Fadder, FadderAdmin)
-
+admin.site.register(User, UserAdmin)

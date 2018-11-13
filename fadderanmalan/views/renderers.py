@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from django.db.models import Count, F, Q
+from django.contrib.auth import get_user_model
 
 from fadderanmalan.models import Job, EnterQueue, LeaveQueue, Type
-from accounts.models import Fadder
+
+
+User = get_user_model()
 
 
 def index(request):
@@ -20,16 +23,16 @@ def jobsignup(request):
     full = request.GET.get("full", None)
 
     if full == "1":
-        jobs = jobs.annotate(fadders_count=Count("fadders")).filter(slots=F("fadders_count"))
+        jobs = jobs.annotate(users_count=Count("users")).filter(slots=F("users_count"))
     elif full == "0":
-        jobs = jobs.annotate(fadders_count=Count("fadders")).exclude(slots=F("fadders_count"))
+        jobs = jobs.annotate(users_count=Count("users")).exclude(slots=F("users_count"))
 
     signedup = request.GET.get("signedup", None)
 
     if signedup == "1":
-        jobs = jobs.filter(fadders__user__username__contains=request.user.username)
+        jobs = jobs.filter(users__user__username__contains=request.user.username)
     elif signedup == "0":
-        jobs = jobs.exclude(fadders__user__username__contains=request.user.username)
+        jobs = jobs.exclude(users__user__username__contains=request.user.username)
 
     leavequeue = request.GET.get("leavequeue", None)
 
@@ -68,9 +71,9 @@ def jobdetails(request, slug):
     job = Job.objects.get(slug=slug)
 
     if request.user.is_authenticated:
-        registered_to_job = request.user.fadder in job.fadders.all()
-        queued_enter_job = job.enter_queue.filter(fadder=request.user.fadder).first()
-        queued_leave_job = job.leave_queue.filter(fadder=request.user.fadder).first()
+        registered_to_job = request.user in job.users.all()
+        queued_enter_job = job.enter_queue.filter(user=request.user).first()
+        queued_leave_job = job.leave_queue.filter(user=request.user).first()
     else:
         registered_to_job = False
         queued_enter_job = False
@@ -85,12 +88,12 @@ def jobdetails(request, slug):
 
 
 def topchart(request):
-    # Doing it this way means we only have to call .points() once for each fadder
-    fadders = Fadder.objects.filter(user__is_staff=False).all()
-    points = [f.points() for f in fadders]
+    # Doing it this way means we only have to call .points() once for each user
+    users = User.objects.filter(is_staff=False).all()
+    points = [f.points() for f in users]
 
-    fadders = [f[0] for f in sorted(zip(fadders, points), key=lambda f: f[1], reverse=True)]
+    users = [f[0] for f in sorted(zip(users, points), key=lambda f: f[1], reverse=True)]
 
     return render(request, "topchart.html", dict(
-        fadders=fadders
+        users=users
     ))

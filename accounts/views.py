@@ -1,17 +1,19 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login as django_login, logout as django_logout
+from django.contrib.auth import login as django_login, logout as django_logout, get_user_model
 
 from .forms import FadderCreationForm, FadderLoginForm
-from .models import Fadder
 from fadderanmalan.models import Job
 
 
+User = get_user_model()
+
+
 def profile(request, liu_id):
-    fadder = Fadder.objects.get(user__username=liu_id)
-    day_grouped = Job.group_by_date(fadder.jobs.all())
+    user = User.objects.get(username=liu_id)
+    day_grouped = Job.group_by_date(user.jobs.all())
 
     return render(request, "accounts/profile.html", dict(
-        fadder=fadder,
+        user=user,
         day_grouped=day_grouped
     ))
 
@@ -19,7 +21,7 @@ def profile(request, liu_id):
 def my_profile(request):
     return redirect("accounts:profile", request.user.username)
 
-    # day_grouped = Job.group_by_date(request.user.fadder.jobs.all())
+    # day_grouped = Job.group_by_date(request.user.jobs.all())
 
     # return render(request, "accounts/my_profile.html", dict(
     #     day_grouped=day_grouped
@@ -59,9 +61,6 @@ def registration(request):
             user = form.save()
             user.email = form.cleaned_data["email"]
             user.save()
-
-            fadder = Fadder(user=user)
-            fadder.save()
 
             django_login(request, user)
 

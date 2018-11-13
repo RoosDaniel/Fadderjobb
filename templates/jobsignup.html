@@ -148,7 +148,7 @@
                    class="job {{ job.full_status }} {{ job.locked_status }}">
                     <div class="job-title">
                         <h3>
-                            {% if request.user.is_authenticated and request.user.fadder in job.fadders.all %}
+                            {% if request.user.is_authenticated and request.user in job.users.all %}
                                 <i class="far fa-check-circle"
                                    data-toggle="tooltip" data-placement="left" title="Du är registrerad på jobbet">
                                 </i>
@@ -176,7 +176,7 @@
                                    data-toggle="tooltip" data-placement="left" title="Jobbet är låst">
                                 </i>{{ " " }}
                             {% endif %}
-                            {{ job.fadders.count }}/{{ job.slots }}
+                            {{ job.users.count }}/{{ job.slots }}
                         </div>
                     </div>
                     <div class="job-body">{{ job.short_desc }}</div>

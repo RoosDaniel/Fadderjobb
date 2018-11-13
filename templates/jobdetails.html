@@ -50,12 +50,12 @@
             {% endif %}
         </p>
         <h3>Registrerade faddrar</h3>
-        {% if job.fadders.count == 0 %}
+        {% if job.users.count == 0 %}
             <p><i>Inga faddrar registrerade ännu.</i></p>
         {% else %}
             <ul>
-                {% for fadder in job.fadders.all %}
-                    <li><a href="{% url 'accounts:profile' fadder.user.username %}">{{ fadder.user.username.upper }}</a></li>
+                {% for user in job.users.all %}
+                    <li><a href="{% url 'accounts:profile' user.username %}">{{ user.username.upper }}</a></li>
                 {% endfor %}
             </ul>
         {% endif %}

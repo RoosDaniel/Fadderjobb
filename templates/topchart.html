@@ -18,11 +18,11 @@
             <th>Fadder</th>
             <th>Poäng</th>
         </tr>
-        {% for fadder in fadders %}
-            <tr onclick="document.location='{% url 'accounts:profile' fadder.user.username %}'">
+        {% for user in users %}
+            <tr onclick="document.location='{% url 'accounts:profile' user.username %}'">
                 <td>#{{ forloop.counter }}</td>
-                <td>{{ fadder.user.username }}</td>
-                <td>{{ fadder.points }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.points }}</td>
             </tr>
         {% endfor %}
     </table>

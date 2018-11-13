@@ -1,7 +1,11 @@
 import re
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import get_user_model
 from django import forms
+
+
+User = get_user_model()
 
 
 class FadderCreationForm(UserCreationForm):
@@ -22,6 +26,10 @@ class FadderCreationForm(UserCreationForm):
         "email"
     ]
 
+    class Meta:
+        model = User
+        fields = ["username", "email", "password1", "password2"]
+
     def clean_username(self):
         username = self.cleaned_data["username"]
 
@@ -37,6 +45,10 @@ class FadderLoginForm(AuthenticationForm):
 
     password = forms.CharField(label="Lösenord",
                                widget=forms.PasswordInput(attrs={"class": "form-control"}))
+
+    class Meta:
+        model = User
+        fields = ["username", "password"]
 
     def clean_username(self):
         username = self.cleaned_data["username"]
