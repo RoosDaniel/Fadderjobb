@@ -1,0 +1,21 @@
+<div class="filter filter-checkbox-wrapper {% if not prev %}hidden{% endif %}" id="{{ id }}">
+    <div>{{ label }}</div>
+    <div class="filter-checkbox-container">
+        <div class="filter-checkbox">
+            <label>
+                <input type="checkbox" name="full"
+                       value="0" {% if prev == "0" %}checked{% endif %}>
+                <span class="filter-checkbox-label filter-checkbox-label-no"></span>
+            </label>
+        </div>
+        <div class="filter-checkbox">
+            <label>
+                <input type="checkbox" name="full"
+                       value="1" {% if prev == "1" %}checked{% endif %}>
+                <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
+            </label>
+        </div>
+        <i class="far fa-times-circle filter-remove"></i>
+    </div>
+    <div class="filter-checkbox-caret"></div>
+</div>

@@ -1,0 +1,69 @@
+@import m_filter_checkbox
+
+.filter-checkbox-wrapper
+    position: relative
+    display: flex
+    flex-direction: row
+    align-items: center
+    transition: all .2s linear, font-size 0s linear
+    > div:first-of-type
+        margin-right: 10px
+        &:hover
+            cursor: default
+    &.hidden, &.hidden *
+        height: 0 !important
+        opacity: 0 !important
+
+body:not(.mobile)
+    .filter-checkbox-wrapper.hidden
+        &.hidden, &.hidden *
+            padding: 0 !important
+            margin: 0 !important
+            width: 0 !important
+
+.filter-checkbox-container
+    display: flex
+
+.filter-checkbox-caret
+    position: absolute
+    height: 100%
+    transition: left .1s ease-in, width .05s linear, background-color .1s linear, opacity .1s linear
+    width: 52px
+    left: 0
+    opacity: 0
+    &.noanimate
+        transition: none
+
+.filter-checkbox
+    position: relative
+    height: 100%
+    input
+        position: absolute
+        opacity: 0
+        cursor: pointer
+        height: 0
+        width: 0
+    label
+        margin: 0
+        height: 100%
+
+.filter-checkbox-label
+    position: relative
+    display: inline-block
+    padding: 15px
+    font-weight: bold
+    height: 100%
+    z-index: 2
+    transition: all .1s linear
+    &:hover
+        cursor: pointer
+
+.filter-checkbox input:checked
+    + .filter-checkbox-label-no, + .filter-checkbox-label-yes
+        color: white
+
+.filter-checkbox-label-yes::before
+    content: "JA"
+
+.filter-checkbox-label-no::before
+    content: "NEJ"

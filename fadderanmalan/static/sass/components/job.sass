@@ -1,0 +1,39 @@
+@import m_job
+
+.job-day
+    margin-top: 30px
+
+.job
+    display: block
+    max-width: 500px
+    overflow-y: hidden
+    background-color: #63bf69
+    color: white
+    margin: 10px
+    padding: 10px
+    transition: all .2s !important
+    &:hover
+        text-decoration: none
+        box-shadow: 0 1px 2px 0 #222
+    &.full, &.locked
+        background-color: #9c9c9c
+
+.job-title
+    position: relative
+    i
+        color: white
+
+.job-status
+    color: white
+    position: absolute
+    right: 0
+    top: 0
+
+.job-title
+    > h3
+        font-size: 140%
+    > *
+        display: inline
+
+.job-body
+    color: white

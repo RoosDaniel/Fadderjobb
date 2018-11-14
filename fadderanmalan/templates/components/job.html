@@ -1,0 +1,37 @@
+<a href="{% url 'fadderanmalan:jobsignup_detail' job.slug %}"
+   class="job {{ job.full_status }} {{ job.locked_status }}">
+    <div class="job-title">
+        <h3>
+            {% if request.user.is_authenticated and request.user in job.users.all %}
+                <i class="far fa-check-circle"
+                   data-toggle="tooltip" data-placement="left" title="Du är registrerad på jobbet">
+                </i>
+            {% endif %}
+            {{ job.short_name }}
+        </h3>
+        <div class="job-status">
+            {% if job.has_enter_queue %}
+                <i class="fas fa-caret-square-right"
+                   data-toggle="tooltip" data-placement="left" title="Faddrar köar för jobbet">
+                </i>{{ " " }}
+            {% endif %}
+            {% if job.has_leave_queue %}
+                <i class="fas fa-caret-square-left"
+                   data-toggle="tooltip" data-placement="left" title="Faddrar vill lämna jobbet">
+                </i>{{ " " }}
+            {% endif %}
+            {% if job.full %}
+                <i class="fas fa-ban"
+                   data-toggle="tooltip" data-placement="left" title="Jobbet är fullt">
+                </i>{{ " " }}
+            {% endif %}
+            {% if job.locked %}
+                <i class="fas fa-lock"
+                   data-toggle="tooltip" data-placement="left" title="Jobbet är låst">
+                </i>{{ " " }}
+            {% endif %}
+            {{ job.users.count }}/{{ job.slots }}
+        </div>
+    </div>
+    <div class="job-body">{{ job.short_desc }}</div>
+</a>
