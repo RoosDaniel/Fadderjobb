@@ -15,28 +15,56 @@ body
     transition: all .1s linear
 
     &:hover
-        background-color: #333
-        color: white !important
+        box-shadow: 0 1px 3px 0 #222
 
 .nav-link
     margin: 0 5px
     &:first-child
         margin-left: 0
+//&.active, &:hover
+//    text-decoration: underline
 
 span.nav-link:hover
     text-decoration: none
     color: rgba(0, 0, 0, .3) !important
     cursor: default
 
-form > .nav-link
-    margin-left: 5px !important
-
-.nav-link
-    &.active, &:hover
-        text-decoration: underline
+form
+    > .nav-link
+        margin-left: 5px !important
 
 .content
     padding: 20px
 
 .lowercase
     text-transform: lowercase
+
+a
+    position: relative
+    text-decoration: none
+    &:hover
+        text-decoration: none
+    &:hover:before, &.active:before
+        visibility: visible
+        transform: scaleX(1)
+    &:before
+        content: ""
+        position: absolute
+        width: 100%
+        height: 2px
+        bottom: 1px
+        left: 0
+        background-color: #000
+        visibility: hidden
+        transform: scaleX(0)
+        transition: all 0.1s ease-in-out
+    &.noanimation
+        &:hover
+            text-decoration: underline
+        &:before
+            display: none
+    &.nounderline
+        &:hover
+            text-decoration: none
+        &:before
+            display: none

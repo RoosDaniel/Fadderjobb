@@ -6,7 +6,6 @@ from fadderanmalan.models import Job, EnterQueue, LeaveQueue
 
 
 # TODO Email notifications for dequeueing.
-# TODO View queues in frontend
 # TODO Support for admin-interaction in queue system.
 # If an admin wishes to move a user they have to manage the queues manually.
 

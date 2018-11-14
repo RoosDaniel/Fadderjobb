@@ -29,7 +29,7 @@
 {% block scripts %}{% endblock scripts %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Fadderjobb</a>
+    <a class="navbar-brand nounderline" href="/">Fadderjobb</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -47,16 +47,16 @@
         </div>
         <div class="navbar-nav">
             <div class="nav-item">
-                {% if user.is_authenticated %}
-                    {% if user.is_staff %}
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff %}
                         <a href="{% url 'admin:index' %}" class="nav-link" target="_blank">
                             Admin
                         </a>
                         <span class="nav-link">/</span>
                     {% endif %}
-                    <a href="{% url 'accounts:profile' user.username %}"
-                       class="nav-link{% if request.resolver_match.view_name|startswith:'accounts:profile' %} active{% endif %}">
-                        Min profil ({{ user.username }})
+                    <a href="{% url 'accounts:profile' request.user.username %}"
+                       class="nav-link{% if request.resolver_match.view_name|startswith:'accounts:profile' and request.resolver_match.kwargs.liu_id == request.user.username %} active{% endif %}">
+                        Min profil ({{ request.user.username }})
                     </a>
                     <span class="nav-link">/</span>
                     <form id="logout-form" action="{% url 'accounts:logout' %}" method="post">

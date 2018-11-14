@@ -1,5 +1,5 @@
 <a href="{% url 'fadderanmalan:jobsignup_detail' job.slug %}"
-   class="job {{ job.full_status }} {{ job.locked_status }}">
+   class="job {{ job.full_status }} {{ job.locked_status }} nounderline">
     <div class="job-title">
         <h3>
             {% if request.user.is_authenticated and request.user in job.users.all %}

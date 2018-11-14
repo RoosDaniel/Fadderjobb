@@ -64,11 +64,11 @@
         <table class="table jobdetails-table">
             <tr>
                 <td>Uppskattad tidsåtgång</td>
-                <td>{{ job.duration }} timmar</td>
+                <td>{{ job.duration }} timm{{ job.duration|pluralize:"e,ar" }}</td>
             </tr>
             <tr>
                 <td>Platser</td>
-                <td>{{ job.slots }} personer</td>
+                <td>{{ job.slots }} person{{ job.slots|pluralize:",er" }}</td>
             </tr>
             <tr>
                 <td>Poäng</td>
