@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="{% sass_src 'sass/base.sass' %}">
     <link rel="stylesheet" href="{% sass_src 'sass/mobile/m_base.sass' %}">
     <link rel="icon" type="image/x-icon" href="{% static '/favicon.ico' %}"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     {% block head %}{% endblock head %}
 </head>
 <body>
@@ -77,12 +78,16 @@
 
 {% if messages %}
     <div class="messages">
-        {% for message in messages %}
-            <div class="alert alert-info" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
+    {% for message in messages %}
+        {% if message.tags == "error" %}
+            <div class="alert alert-danger" role="alert">
+        {% else %}
+            <div class="alert alert-{{ message.tags }}">
+        {% endif %}
+    {{ message|safe }}
     </div>
+    {% endfor %}
+</div>
 {% endif %}
 
 <div class="content">

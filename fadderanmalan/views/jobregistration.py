@@ -6,9 +6,9 @@ from fadderanmalan.models import Job, EnterQueue, LeaveQueue
 
 
 # TODO Email notifications for dequeueing.
-# TODO Support for admin-interaction in queue system.
 # TODO View queues in frontend
-# If an admin wishes to move a fadder they have to manage the queues manually.
+# TODO Support for admin-interaction in queue system.
+# If an admin wishes to move a user they have to manage the queues manually.
 
 
 @login_required(login_url="accounts:login")

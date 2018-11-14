@@ -7,6 +7,7 @@
 {% block head %}
     <!--suppress HtmlUnknownTarget -->
     <link rel="stylesheet" href="{% sass_src 'sass/login.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/form.sass' %}">
     <link rel="stylesheet" href="{% sass_src 'sass/mobile/m_form.sass' %}">
 {% endblock head %}
 
@@ -15,6 +16,9 @@
     <form class="login-form" action="{% url 'accounts:login' %}" method="post">
         {% csrf_token %}
         {{ form }}
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {% endif %}
         <input type="submit" value="Logga in" class="btn btn-primary">
     </form>
 {% endblock content %}

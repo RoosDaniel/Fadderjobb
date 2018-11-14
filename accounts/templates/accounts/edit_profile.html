@@ -2,19 +2,19 @@
 {% load static from staticfiles %}
 {% load sass_tags %}
 
-{% block title %}Registrera - {% endblock title %}
+{% block title %}Redigera profil - {% endblock title %}
 
 {% block head %}
-    <!--suppress HtmlUnknownTarget -->
-    <link rel="stylesheet" href="{% sass_src 'sass/registration.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/edit_profile.sass' %}">
     <link rel="stylesheet" href="{% sass_src 'sass/form.sass' %}">
     <link rel="stylesheet" href="{% sass_src 'sass/mobile/m_form.sass' %}">
 {% endblock head %}
 
 {% block content %}
-    <form class="registration-form" action="{% url 'accounts:registration' %}" method="post">
+    <h1>Redigera min profil</h1>
+    <form class="login-form" action="{% url 'accounts:edit_profile' %}" method="post">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" value="Registrera" class="btn btn-primary">
+        <input type="submit" value="Uppdatera profil" class="btn btn-primary">
     </form>
 {% endblock content %}

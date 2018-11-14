@@ -38,6 +38,8 @@ ALLOWED_HOSTS = ["localhost", "fadderjobb.staben.info", "fadderjobb.herokuapp.co
 
 AUTH_USER_MODEL = 'accounts.User'
 
+LOGIN_URL = 'accounts:login'
+
 # Application definition
 
 INSTALLED_APPS = [
