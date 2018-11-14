@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
+{% load sass_tags %}
 {% load components %}
 
 {% block title %}Redigera min profil - {% endblock title %}
 
 {% block head %}
-    {% load_sass 'edit_profile' %}
-    {% load_sass 'form' %}
+    <link rel="stylesheet" href="{% sass_src 'sass/edit_profile.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/form.sass' %}">
 {% endblock head %}
 
 {% block content %}

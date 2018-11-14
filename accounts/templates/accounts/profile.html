@@ -6,8 +6,8 @@
 {% block title %}{{ user.username }}:s profil - {% endblock title %}
 
 {% block head %}
-    {% load_sass 'profile' %}
-    {% load_sass 'components/job' %}
+    <link rel="stylesheet" href="{% sass_src 'sass/profile.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/components/job.sass' %}">
 {% endblock head %}
 
 {% block content %}

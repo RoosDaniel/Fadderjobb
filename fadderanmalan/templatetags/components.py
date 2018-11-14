@@ -11,11 +11,3 @@ def job_component(job):
 @register.inclusion_tag("components/filter_checkbox.html")
 def filter_checkbox_component(label, id, prev):
     return {"label": label, "id": id, "prev": prev}
-
-
-@register.inclusion_tag("components/load_sass.html")
-def load_sass(path):
-    if not path.endswith(".sass"):
-        path += ".sass"
-
-    return {"path": "sass/%s" % path}

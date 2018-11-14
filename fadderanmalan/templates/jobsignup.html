@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
+{% load sass_tags %}
 {% load components %}
 
 {% block title %}Jobbanmälan - {% endblock title %}
 
 {% block head %}
     <!--suppress HtmlUnknownTarget -->
-    {% load_sass 'jobsignup' %}
-    {% load_sass 'components/job' %}
-    {% load_sass 'components/filter_checkbox' %}
+    <link rel="stylesheet" href="{% sass_src 'sass/jobsignup.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/components/job.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/components/filter_checkbox.sass' %}">
 {% endblock head %}
 
 {% block scripts %}

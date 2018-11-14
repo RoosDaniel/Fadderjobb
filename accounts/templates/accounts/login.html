@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
+{% load sass_tags %}
 {% load components %}
 
 {% block title %}Logga in - {% endblock title %}
 
 {% block head %}
     <!--suppress HtmlUnknownTarget -->
-    {% load_sass 'login' %}
-    {% load_sass 'form' %}
+    <link rel="stylesheet" href="{% sass_src 'sass/login.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/form.sass' %}">
 {% endblock head %}
 
 

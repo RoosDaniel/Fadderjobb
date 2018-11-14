@@ -1,5 +1,6 @@
 {% load static from staticfiles %}
 {% load startswith from filters %}
+{% load sass_tags %}
 {% load components %}
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/lux.bootstrap.css' %}">
 
-    {% load_sass 'base' %}
+    <link rel="stylesheet" href="{% sass_src 'sass/base.sass' %}">
 
     <link rel="icon" type="image/x-icon" href="{% static '/favicon.ico' %}"/>
 
