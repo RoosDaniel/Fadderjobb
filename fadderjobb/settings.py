@@ -18,17 +18,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
-try:
-    from .secret_key import SECRET_KEY
-except ImportError:
+SECRET_KEY_PATH = os.path.join(BASE_DIR, "fadderjobb", "secret_key.txt")
+
+if os.path.isfile(SECRET_KEY_PATH):
+    with open(SECRET_KEY_PATH) as file:
+        SECRET_KEY = file.read()
+else:
     from django.utils.crypto import get_random_string
 
-    SETTINGS_DIR = os.path.abspath(os.path.dirname(__file__))
     chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
     SECRET_KEY = get_random_string(50, chars)
 
-    with open(os.path.join(SETTINGS_DIR, 'secret_key.py'), "w") as file:
-        file.write("SECRET_KEY = '%s'\n" % SECRET_KEY)
+    with open(SECRET_KEY_PATH, "w") as file:
+        file.write(SECRET_KEY)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", None) == "True"
