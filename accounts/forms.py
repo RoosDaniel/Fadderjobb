@@ -1,7 +1,9 @@
 import re
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import get_user_model
+
 from django.contrib import messages
 from django import forms
 
@@ -38,9 +40,15 @@ class FadderEditForm(forms.Form):
             raise forms.ValidationError("Lösenorden stämmer inte överens.")
 
     def clean_current_password(self):
-        password = self.cleaned_data.get("current_password", None)
+        password = self.cleaned_data.get("current_password")
         if not self.user.check_password(password):
             raise forms.ValidationError("Fel lösenord.")
+
+    def clean_password1(self):
+        new_password = self.cleaned_data.get("password1")
+
+        if new_password:
+            validate_password(new_password, user=self.user)
 
 
 class FadderCreationForm(UserCreationForm):

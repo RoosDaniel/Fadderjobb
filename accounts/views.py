@@ -40,7 +40,6 @@ def edit_profile(request):
                                      "Du har bytt ditt lösenord, logga in igen.")
 
                 # TODO Logout all sessions
-                # TODO Password strength validation
 
                 django_logout(request)
 
