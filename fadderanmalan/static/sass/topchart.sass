@@ -1,13 +1,39 @@
 @import mobile/m_topchart
 
-table
+.table
     max-width: 500px
-    &.table td
+    border-collapse: separate
+    border-spacing: 0 10px
+
+    th
+        border: none
+        font-weight: bold
+        font-size: 140%
+        padding: 1em
+        text-align: center
+
+    .table-row
+        transition: all .05s linear
+        border-radius: 5px
+
+        &:hover
+            cursor: pointer
+            color: white
+            background-color: #333
+
+    td
         padding: 10px 24px
+        border: none
+        font-weight: bold
+        text-align: center
 
-td a
-    color: #333
+        &:first-of-type
+            border-top-left-radius: 5px
+            border-bottom-left-radius: 5px
 
-tr:hover
-    cursor: pointer
-    background-color: #e9e9e9
+        &:last-of-type
+            border-top-right-radius: 5px
+            border-bottom-right-radius: 5px
+
+    a
+        color: #333

@@ -31,7 +31,7 @@ class JobAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
     def signed_up(self, obj):
-        return ", ".join([f.user.username for f in obj.users.all()])
+        return ", ".join([user.username for user in obj.users.all()])
 
 
 class EnterQueueAdmin(admin.ModelAdmin):

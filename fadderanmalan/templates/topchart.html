@@ -13,15 +13,15 @@
     <h1>Topplistan</h1>
 
     <table class="table">
-        <tr>
+        <tr class="table-header">
             <th>Plats</th>
             <th>Fadder</th>
             <th>Poäng</th>
         </tr>
         {% for user in users %}
-            <tr onclick="document.location='{% url 'accounts:profile' user.username %}'">
+            <tr onclick="document.location='{% url 'accounts:profile' user.username %}'" class="table-row">
                 <td>#{{ forloop.counter }}</td>
-                <td>{{ user.username }}</td>
+                <td>{{ user.username|upper }}</td>
                 <td>{{ user.points }}</td>
             </tr>
         {% endfor %}
