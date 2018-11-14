@@ -41,14 +41,19 @@ class FadderEditForm(forms.Form):
 
     def clean_current_password(self):
         password = self.cleaned_data.get("current_password")
+
         if not self.user.check_password(password):
             raise forms.ValidationError("Fel lösenord.")
+
+        return password
 
     def clean_password1(self):
         new_password = self.cleaned_data.get("password1")
 
         if new_password:
             validate_password(new_password, user=self.user)
+
+        return new_password
 
 
 class FadderCreationForm(UserCreationForm):

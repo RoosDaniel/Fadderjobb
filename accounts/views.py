@@ -35,6 +35,7 @@ def edit_profile(request):
 
             if form.cleaned_data.get("password1"):
                 request.user.set_password(form.cleaned_data.get("password1"))
+                request.user.save()
 
                 messages.add_message(request, messages.INFO,
                                      "Du har bytt ditt lösenord, logga in igen.")
