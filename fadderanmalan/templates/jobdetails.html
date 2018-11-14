@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
-{% load sass_tags %}
+{% load components %}
 
 {% block title %}{{ job.name }} - {% endblock title %}
 
 {% block head %}
     <!--suppress HtmlUnknownTarget -->
-    <link rel="stylesheet" href="{% sass_src 'sass/jobdetails.sass' %}">
+    {% load_sass 'jobdetails' %}
 {% endblock head %}
 
 {% block content %}

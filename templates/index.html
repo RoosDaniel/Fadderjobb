@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load sass_tags %}
+{% load components %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% sass_src 'sass/index.sass' %}">
+    {% load_sass 'index' %}
 {% endblock head %}
 
 {% block content %}

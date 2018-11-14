@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
-{% load sass_tags %}
+{% load components %}
 
 {% block title %}Topplistan - {% endblock title %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% sass_src 'sass/topchart.sass' %}">
+    {% load_sass 'topchart' %}
 {% endblock head %}
 
 {% block content %}

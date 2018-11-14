@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
-{% load sass_tags %}
+{% load components %}
 
 {% block title %}Registrera - {% endblock title %}
 
 {% block head %}
     <!--suppress HtmlUnknownTarget -->
-    <link rel="stylesheet" href="{% sass_src 'sass/registration.sass' %}">
-    <link rel="stylesheet" href="{% sass_src 'sass/form.sass' %}">
-    <link rel="stylesheet" href="{% sass_src 'sass/mobile/m_form.sass' %}">
+    {% load_sass 'registration' %}
+    {% load_sass 'form' %}
 {% endblock head %}
 
 {% block content %}

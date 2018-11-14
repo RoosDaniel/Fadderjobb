@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load sass_tags %}
+{% load components %}
 
 {% block title %}{{ user.username }}:s profil - {% endblock title %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% sass_src 'sass/profile.sass' %}">
+    {% load_sass 'profile' %}
+    {% load_sass 'components/job' %}
 {% endblock head %}
 
 {% block content %}
@@ -30,12 +32,11 @@
     {% endif %}
     <h2>Registrerade jobb</h2>
     {% for day, jobs in day_grouped.items %}
-        <h4>{{ day }}</h4>
-        {% for job in jobs %}  {# TODO Match design of jobsignup #}
-            <a class="job" href="{% url 'fadderanmalan:jobsignup_detail' job.slug %}">
-                {{ job.name }}
-            </a>
-            <br>
-        {% endfor %}
+        <h3 class="job-day">{{ day }}</h3>
+        <div class="joblist">
+            {% for job in jobs %}
+                {% job_component job %}
+            {% endfor %}
+        </div>
     {% endfor %}
 {% endblock content %}
