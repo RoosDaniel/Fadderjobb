@@ -1,3 +1,5 @@
+@import "constants.sass"
+
 input, textarea
     display: block
     margin: 0 0 20px
@@ -12,3 +14,16 @@ textarea
 
 .form-control
     max-width: 400px
+
+.errorlist
+    list-style-type: none
+
+    padding: 0
+
+    li
+        color: $error-text
+        background-color: $error-background
+
+        display: inline-block
+
+        padding: 2px 10px

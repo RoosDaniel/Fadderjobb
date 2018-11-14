@@ -52,7 +52,7 @@ def edit_profile(request):
                                  "Din profil har uppdaterats. <a href='/accounts/my_profile'>Se dina ändringar.</a>")
         else:
             messages.add_message(request, messages.ERROR,
-                                 "Ett problem uppstod.")
+                                 "Ett eller flera problem uppstod.")
     else:
         form = FadderEditForm(request.user, initial={
             "email": request.user.email,

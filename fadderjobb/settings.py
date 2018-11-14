@@ -71,7 +71,7 @@ ROOT_URLCONF = 'fadderjobb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates", "accounts.templates"],
+        'DIRS': ["templates", "accounts.templates", "fadderanmalan.templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,6 +142,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "fadderjobb", "static"),
+    os.path.join(BASE_DIR, "fadderanmalan", "static"),
+    os.path.join(BASE_DIR, "accounts", "static")
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
