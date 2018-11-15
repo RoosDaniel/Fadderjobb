@@ -22,7 +22,7 @@
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     {% block head %}{% endblock head %}
 </head>
-<body>
+<body class="darkmode">  {# Skips white flashing when darkmode is enabled #} {# TODO Set darkmode without js #}
 <script src="{% static 'jquery/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js-cookie/js-cookie-2.2.0.js' %}"></script>
