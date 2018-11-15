@@ -11,9 +11,7 @@ $(function () {
     });
 
     $('.darkmode-toggler').on("click", function () {
-        console.log(Cookies.get("darkmode") === "true");
         Cookies.set("darkmode", Cookies.get("darkmode") !== "true");
-
         updateDarkMode();
     });
 });
@@ -23,10 +21,10 @@ function updateDarkMode() {
     const $toggler = $(".darkmode-toggler");
 
     if (Cookies.get("darkmode") === "true") {
-        $body.removeClass("darkmode");
-        $toggler.text("Natt");
-    } else {
         $body.addClass("darkmode");
         $toggler.text("Dag");
+    } else {
+        $body.removeClass("darkmode");
+        $toggler.text("Natt");
     }
 }
