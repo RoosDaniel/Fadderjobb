@@ -25,6 +25,7 @@
 <body>
 <script src="{% static 'jquery/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js-cookie/js-cookie-2.2.0.js' %}"></script>
 <script src="{% static 'js/index.js' %}"></script>
 {% block scripts %}{% endblock scripts %}
 
@@ -32,7 +33,7 @@
     <a class="navbar-brand nounderline" href="/">Fadderjobb</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <i class="fas fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
         <div class="navbar-nav">
@@ -46,6 +47,10 @@
             </a>
         </div>
         <div class="navbar-nav">
+            <div class="nav-item">
+                <a class="nav-link darkmode-toggler">Natt</a>
+                <span class="nav-link darkmode-separator">/</span>
+            </div>
             <div class="nav-item">
                 {% if request.user.is_authenticated %}
                     {% if request.user.is_staff %}

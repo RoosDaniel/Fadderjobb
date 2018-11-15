@@ -1,16 +1,24 @@
 body.mobile
     font-size: 200%
 
+    .nav-item
+        text-align: center
+        justify-content: center
+
     .nav-link
         font-size: 250%
         padding: 1.3rem .75rem
+        display: inline-block !important
+        margin: 0
 
     .navbar-toggler
         width: 120px
         height: 90px
         font-size: 300%
 
-        background-color: lightgray
+
+        border-radius: 10px
+        border: 2px solid black
 
         transition: background-color .1s linear
 
@@ -19,6 +27,9 @@ body.mobile
 
         &[aria-expanded=false]
             background-color: transparent
+
+        .fas, .far
+            color: black
 
     .navbar-brand
         font-size: 300%
@@ -43,3 +54,13 @@ body.mobile
 
     small, .small
         font-size: 100%
+
+    .darkmode-separator
+        display: none !important
+
+    .darkmode-toggler
+        width: 100%
+
+    a
+        &:before
+            height: 5px

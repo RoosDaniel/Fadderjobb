@@ -1,7 +1,11 @@
 @import mobile/m_base
+@import darkmode/d_base
 
 body
     color: #333
+
+nav.navbar
+    border: none
 
 .nav-item
     display: flex !important
@@ -21,8 +25,6 @@ body
     margin: 0 5px
     &:first-child
         margin-left: 0
-//&.active, &:hover
-//    text-decoration: underline
 
 span.nav-link:hover
     text-decoration: none
@@ -68,3 +70,11 @@ a
             text-decoration: none
         &:before
             display: none
+
+.darkmode-toggler
+    &:hover
+        cursor: pointer
+
+.divider
+    border: 2px solid black
+    width: 94vw
