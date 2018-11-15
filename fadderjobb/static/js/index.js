@@ -4,8 +4,6 @@ $(function () {
 
     $body.toggleClass("mobile", $body.width() < 992);
 
-    updateDarkMode();
-
     $(window).on("resize", function () {
         $body.toggleClass("mobile", $body.width() < 992);
     });

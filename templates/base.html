@@ -22,7 +22,7 @@
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     {% block head %}{% endblock head %}
 </head>
-<body class="darkmode">  {# Skips white flashing when darkmode is enabled #} {# TODO Set darkmode without js #}
+<body class="{% if request.COOKIES.darkmode == "true" %}darkmode{% endif %}">
 <script src="{% static 'jquery/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js-cookie/js-cookie-2.2.0.js' %}"></script>
@@ -48,7 +48,7 @@
         </div>
         <div class="navbar-nav">
             <div class="nav-item">
-                <a class="nav-link darkmode-toggler">Natt</a>
+                <a class="nav-link darkmode-toggler">{% if request.COOKIES.darkmode and request.COOKIES.darkmode == "true" %}Dag{% else %}Natt{% endif %}</a>
                 <span class="nav-link darkmode-separator">/</span>
             </div>
             <div class="nav-item">
