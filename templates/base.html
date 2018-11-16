@@ -8,6 +8,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="theme-color" content="{% if request.COOKIES.darkmode %}#000000{% else %}#ffffff{% endif %}">
 
     <title>{% block title %}{% endblock title %}Fadderjobb</title>
 
