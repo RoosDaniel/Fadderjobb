@@ -1,15 +1,14 @@
 body.mobile
     form
-        *
+        input
             display: block
             text-align: center
             margin: 0 auto 40px
-
-        input
-            font-size: 130%
-            height: 90px
-            width: 80vw
-            max-width: 100vw
+            &:not([type=checkbox])
+                font-size: 130%
+                height: 90px
+                width: 80vw
+                max-width: 100vw
 
         label
             margin: 0 auto
