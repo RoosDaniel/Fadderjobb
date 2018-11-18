@@ -8,12 +8,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="theme-color" content="{% if request.COOKIES.darkmode %}#000000{% else %}#ffffff{% endif %}">
+    <meta name="theme-color" content="{% if request.COOKIES.darkmode == "true" %}#000000{% else %}#ffffff{% endif %}">
 
     <title>{% block title %}{% endblock title %}Fadderjobb</title>
 
     <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'bootstrap/lux.bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'hamburgers/hamburgers.css' %}">
+
 
     <link rel="stylesheet" href="{% sass_src 'sass/base.sass' %}">
 
@@ -32,9 +34,21 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand nounderline" href="/">Fadderjobb</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars"></i>
+    <button class="navbar-toggler hamburger hamburger--collapse" type="button" data-toggle="collapse"
+            data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+            aria-label="Toggle navigation">
+        {#         <i class="fas fa-bars"></i>#}
+        <svg class="ham hamRotate ham8" viewBox="0 0 100 100" width="80" onclick="this.classList.toggle('active')">
+            <path
+                    class="line top"
+                    d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20"></path>
+            <path
+                    class="line middle"
+                    d="m 30,50 h 40"></path>
+            <path
+                    class="line bottom"
+                    d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20"></path>
+        </svg>
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
         <div class="navbar-nav">
@@ -49,7 +63,9 @@
         </div>
         <div class="navbar-nav">
             <div class="nav-item">
-                <a class="nav-link darkmode-toggler">{% if request.COOKIES.darkmode and request.COOKIES.darkmode == "true" %}Dag{% else %}Natt{% endif %}</a>
+                <a class="nav-link darkmode-toggler">
+                    {% if request.COOKIES.darkmode == "true" %}Dag{% else %}
+                        Natt{% endif %}</a>
                 <span class="nav-link darkmode-separator">/</span>
             </div>
             <div class="nav-item">
