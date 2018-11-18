@@ -12,7 +12,7 @@ User = get_user_model()
 
 
 class FadderEditForm(forms.Form):
-    current_password = forms.CharField(label="Nuvarande lösenord", required=False,
+    current_password = forms.CharField(label="Nuvarande lösenord", required=True,
                                        widget=forms.PasswordInput(attrs={
                                            "class": "form-control", "placeholder": "Måste anges vid ändringar"
                                        }))
