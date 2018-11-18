@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static from staticfiles %}
 {% load sass_tags %}
-{% load components %}
+{% load fadderanmalan_components %}
+{% load account_components %}
 
 {% block title %}{{ job.name }} - {% endblock title %}
 
@@ -9,6 +10,7 @@
     <!--suppress HtmlUnknownTarget -->
     <link rel="stylesheet" href="{% sass_src 'sass/jobdetails.sass' %}">
     <link rel="stylesheet" href="{% sass_src 'sass/form.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/components/userlink.sass' %}">
 {% endblock head %}
 
 {% block content %}
@@ -54,11 +56,9 @@
         {% if job.users.count == 0 %}
             <p><i>Inga faddrar registrerade ännu.</i></p>
         {% else %}
-            <ul>
-                {% for user in job.users.all %}
-                    <li><a href="{% url 'accounts:profile' user.username %}">{{ user.username.upper }}</a></li>
-                {% endfor %}
-            </ul>
+            {% for user in job.users.all %}
+                {% userlink user %}
+            {% endfor %}
         {% endif %}
         <h3>Övrig information</h3>
         <table class="table jobdetails-table">
