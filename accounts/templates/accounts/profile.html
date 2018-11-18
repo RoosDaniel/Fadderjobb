@@ -11,11 +11,14 @@
 {% endblock head %}
 
 {% block content %}
+    {% if request.user.is_staff %}
+        <a href="{% url 'admin:accounts_user_change' user.id %}" target="_blank">Redigera användare</a>
+    {% endif %}
     {% if user.is_staff %}
         <div class="header">
             <h1>
                 {% if request.user == user %}
-                    <a href="{% url 'accounts:edit_profile' %}" class="nounderline"><i class="far fa-edit"></i></a>
+                    <a href="{% url 'accounts:edit_profile' %}" class="nounderline"><i class="fas fa-user-edit"></i></a>
                 {% endif %}
                 {{ user.username }}
             </h1>
@@ -25,7 +28,7 @@
         <div class="header">
             <h1>
                 {% if request.user == user %}
-                    <a href="{% url 'accounts:edit_profile' %}" class="nounderline"><i class="far fa-edit"></i></a>
+                    <a href="{% url 'accounts:edit_profile' %}" class="nounderline"><i class="fas fa-user-edit"></i></a>
                 {% endif %}
                 {{ user.username }} - {{ user.points }}<span class="lowercase">p</span>
             </h1>

@@ -1,39 +1,25 @@
 @import mobile/m_topchart
 
-.table
-    max-width: 500px
-    border-collapse: separate
-    border-spacing: 0 10px
+.topchart
+    display: flex
+    flex-direction: row
 
-    th
-        border: none
-        font-weight: bold
-        font-size: 140%
-        padding: 1em
-        text-align: center
+    align-items: flex-start
 
-    .table-row
-        transition: all .05s linear
-        border-radius: 5px
+    .userlink
+        margin: 0
+        border-bottom-left-radius: 0
+        border-top-left-radius: 0
 
-        &:hover
-            cursor: pointer
-            color: white
-            background-color: #333
+.topchart-counter
+    padding: 10px
 
-    td
-        padding: 10px 24px
-        border: none
-        font-weight: bold
-        text-align: center
+    margin-left: 15px
+    font-weight: bold
 
-        &:first-of-type
-            border-top-left-radius: 5px
-            border-bottom-left-radius: 5px
+    display: inline-block
 
-        &:last-of-type
-            border-top-right-radius: 5px
-            border-bottom-right-radius: 5px
-
-    a
-        color: #333
+    border: 2px solid black
+    border-right: none
+    border-top-left-radius: 5px
+    border-bottom-left-radius: 5px

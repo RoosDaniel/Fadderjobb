@@ -2,28 +2,22 @@
 {% load static from staticfiles %}
 {% load sass_tags %}
 {% load fadderanmalan_components %}
+{% load account_components %}
 
 {% block title %}Topplistan - {% endblock title %}
 
 {% block head %}
     <link rel="stylesheet" href="{% sass_src 'sass/topchart.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/components/userlink.sass' %}">
 {% endblock head %}
 
 {% block content %}
     <h1>Topplistan</h1>
-
-    <table class="table">
-        <tr class="table-header">
-            <th>Plats</th>
-            <th>Fadder</th>
-            <th>Poäng</th>
-        </tr>
+    <div class="topchart">
         {% for user in users %}
-            <tr onclick="document.location='{% url 'accounts:profile' user.username %}'" class="table-row">
-                <td>#{{ forloop.counter }}</td>
-                <td>{{ user.username|upper }}</td>
-                <td>{{ user.points }}</td>
-            </tr>
+            <div>
+                <div class="topchart-counter">#{{ forloop.counter }}</div>{% userlink user %}
+            </div>
         {% endfor %}
-    </table>
+    </div>
 {% endblock content %}
