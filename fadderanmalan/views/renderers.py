@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db.models import Count, F, Q
+from django.db.models import Count, F, Q, Sum
 from django.contrib.auth import get_user_model
 
 from fadderanmalan.models import Job, EnterQueue, LeaveQueue, Type
@@ -88,11 +88,7 @@ def jobdetails(request, slug):
 
 
 def topchart(request):
-    # Doing it this way means we only have to call .points() once for each user
-    users = User.objects.filter(is_staff=False).all()
-    points = [f.points() for f in users]
-
-    users = [f[0] for f in sorted(zip(users, points), key=lambda f: f[1], reverse=True)]
+    users = User.objects.annotate(points=Sum("jobs__points")).filter(is_staff=False).order_by("-points").all()
 
     return render(request, "topchart.html", dict(
         users=users
