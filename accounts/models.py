@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from django.db.models import Sum
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.sessions.models import Session
@@ -18,4 +19,4 @@ class User(AbstractUser):
     motto = models.TextField(max_length=100)
 
     def points(self):
-        return sum(job.points for job in self.jobs.all())
+        return self.jobs.all().aggregate(Sum("points"))["points__sum"]
