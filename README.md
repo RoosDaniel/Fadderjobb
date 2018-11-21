@@ -1,6 +1,6 @@
 # STABENs Faddersystem
 
-http://fadderjobb.staben.info/
+https://fadderjobb.staben.info/
 
 ## Bakgrund
 
