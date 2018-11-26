@@ -1,3 +1,5 @@
 <a href="{% url 'accounts:profile' user.username %}" class="userlink nounderline">
-    <i class="fas fa-user userlink-profile-icon"></i>{{ user.username.upper }} - {{ user.points }}p
+    <span class="userlink-name"><i class="fas fa-user userlink-profile-icon"></i>{{ user.username.upper }}</span>
+    <span class="userlink-separator">·</span>
+    <span class="userlink-points">{{ user.points }}p</span>
 </a>
