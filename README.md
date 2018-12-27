@@ -50,6 +50,7 @@ _STABEN ska kunna:_
 
 - Lägga till detaljerad information som går ut i ett massutskick till faddrar efter deadline.
 - Sätta en undre/övre gräns för krävda poäng.
+- Dequeue:a ett jobb genom admin-interface.
 
 ### Fadder
 
