@@ -64,6 +64,7 @@ def edit_profile(request):
     ))
 
 
+# Unused
 def login(request):
     if request.user.is_authenticated:
         return redirect("/")
@@ -81,6 +82,7 @@ def login(request):
     ))
 
 
+# Unused
 def logout(request):
     if request.method == "POST":
         django_logout(request)

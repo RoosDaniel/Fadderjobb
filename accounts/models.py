@@ -16,7 +16,7 @@ class _UserManager(UserManager):
 class User(AbstractUser):
     objects = _UserManager()
 
-    motto = models.TextField(max_length=100)
+    motto = models.TextField(max_length=100, blank=True)
 
     def points(self):
         return self.jobs.all().aggregate(Sum("points"))["points__sum"]

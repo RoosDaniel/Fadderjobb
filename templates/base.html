@@ -91,11 +91,6 @@
                        class="nav-link{% if request.resolver_match.view_name|startswith:'accounts:login' %} active{% endif %}">
                         Logga in
                     </a>
-                    <span class="nav-link">/</span>
-                    <a href="{% url 'accounts:registration' %}"
-                       class="nav-link{% if request.resolver_match.view_name|startswith:'accounts:registration' %} active{% endif %}">
-                        Registrera
-                    </a>
                 {% endif %}
             </div>
         </div>

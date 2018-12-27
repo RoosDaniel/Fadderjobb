@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sass_processor',
+    'cas',
     'fadderanmalan',
     'accounts',
 ]
@@ -66,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'cas.middleware.CASMiddleware'
 ]
 
 ROOT_URLCONF = 'fadderjobb.urls'
@@ -87,6 +89,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'fadderjobb.wsgi.application'
+
+# CAS
+CAS_SERVER_URL = "https://login.liu.se/cas/"
+CAS_LOGOUT_COMPLETELY = True
+CAS_PROVIDE_URL_TO_LOGOUT = True
+CAS_RESPONSE_CALLBACKS = ()  # TODO Callback for email
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'cas.backends.CASBackend',
+)
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases

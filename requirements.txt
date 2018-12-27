@@ -3,3 +3,4 @@ whitenoise
 libsass
 django-compressor
 django-sass-processor
+django-cas-client
