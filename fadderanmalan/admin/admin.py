@@ -1,4 +1,5 @@
-from django.contrib import admin
+from django.contrib import admin, messages
+from django.http import HttpResponseRedirect
 
 from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job
 from .actions import set_locked
@@ -21,7 +22,7 @@ class JobAdmin(admin.ModelAdmin):
     list_display = ["name", "date", "locked", "signed_up"]
 
     exclude = [
-        "fadders",
+        "users",
     ]
 
     actions = [set_locked]
@@ -30,8 +31,35 @@ class JobAdmin(admin.ModelAdmin):
 
     search_fields = ["name"]
 
+    change_form_template = "admin/fadderanmalan/change_job.html"
+
     def signed_up(self, obj):
         return ", ".join([user.username for user in obj.users.all()])
+
+    def response_change(self, request, obj):
+        if "_dequeue" in request.POST:
+            if obj.full():
+                messages.add_message(request, messages.ERROR, "Job is full.")
+            else:
+                added = []
+
+                while not obj.full():
+                    try:
+                        eq = EnterQueue.get_first(job=obj)
+                        obj.users.add(eq.user)
+                        eq.delete()
+                        obj.save()
+                        added.append(eq.user.username)
+                    except EnterQueue.DoesNotExist:
+                        break
+
+                if len(added) > 0:
+                    messages.add_message(request, messages.INFO, "Users '%s' dequeued." % "', '".join(added))
+                else:
+                    messages.add_message(request, messages.ERROR, "No users to dequeue.")
+
+            return HttpResponseRedirect(".")
+        return super().response_change(request, obj)
 
 
 class EnterQueueAdmin(admin.ModelAdmin):
