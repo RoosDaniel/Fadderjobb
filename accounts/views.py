@@ -89,6 +89,7 @@ def logout(request):
     return redirect("/")
 
 
+# Unused
 def registration(request):
     if request.user.is_authenticated:
         return redirect("accounts:my_profile")

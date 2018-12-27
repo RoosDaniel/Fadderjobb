@@ -13,5 +13,5 @@ urlpatterns = [
     path('my_profile/', views.my_profile, name="my_profile"),
     path('edit_profile/', views.edit_profile, name="edit_profile"),
     path('profile/<str:liu_id>', views.profile, name="profile"),
-    path('registration/', views.registration, name="registration"),
+    # path('registration/', views.registration, name="registration"),
 ]
