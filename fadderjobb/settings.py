@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import json
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,6 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 SECRET_KEY_PATH = os.path.join(BASE_DIR, "fadderjobb", "secret_key.txt")
+
+CREDENTIALS_PATH = os.path.join(BASE_DIR, "credentials.json")
 
 if os.path.isfile(SECRET_KEY_PATH):
     with open(SECRET_KEY_PATH) as file:
@@ -31,6 +34,13 @@ else:
 
     with open(SECRET_KEY_PATH, "w") as file:
         file.write(SECRET_KEY)
+
+if os.path.isfile(CREDENTIALS_PATH):
+    with open(CREDENTIALS_PATH) as file:
+        credentials = json.load(file)
+else:
+    raise FileNotFoundError("No 'credentials.json' found")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", None) == "True"
@@ -134,9 +144,9 @@ EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
 
 EMAIL_PORT = os.environ.get("EMAIL_PORT", 587)
 
-EMAIL_HOST_USER = os.environ.get("EMAIL_USER", None)
+EMAIL_HOST_USER = credentials["email"]["user"]
 
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS", None)
+EMAIL_HOST_PASSWORD = credentials["email"]["password"]
 
 EMAIL_USE_TLS = True
 

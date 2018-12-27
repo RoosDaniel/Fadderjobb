@@ -102,10 +102,14 @@ Hemsidan är skriven i Django och konfigureras via följande environment-variabl
 
     Default: `587`
 
-* `EMAIL_USER`
+Utöver detta behövs filen `credentials.json` i root-mappen 
+som ska ha följande struktur:
 
-    Default: `None`
-
-* `EMAIL_PASS`
-    
-    Default: `None`
+```json
+{
+  "email": {
+    "username": "",
+    "password": ""
+  }
+}
+```

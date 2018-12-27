@@ -3,6 +3,9 @@ from collections import OrderedDict
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
+from django.urls import reverse
+
+from fadderjobb.staben_mail import send_mail
 
 
 class Type(models.Model):
@@ -42,6 +45,12 @@ class EnterQueue(models.Model):
         self.delete()
         self.job.save()
 
+        job_url = "https://fadderjobb.staben.info" + \
+                  reverse("fadderanmalan:jobsignup_detail", args=[self.job.slug])
+
+        send_mail(self.user.email, "Du har fått en plats på ett jobb du har köat för",
+                  "Du har fått en plats på jobbet '%s'. Se jobbet här: %s" % (self.job.name, job_url))
+
 
 class LeaveQueue(models.Model):
     created = models.DateField(editable=False)
@@ -71,6 +80,12 @@ class LeaveQueue(models.Model):
         self.job.users.remove(self.user)
         self.delete()
         self.job.save()
+
+        job_url = "https://fadderjobb.staben.info" + \
+                  reverse("fadderanmalan:jobsignup_detail", args=[self.job.slug])
+
+        send_mail(self.user.email, "Någon har tagit en plats på ett jobb du vill lämna",
+                  "Någon har tagit din plats på jobbet '%s'. Se jobbet här: %s" % (self.job.name, job_url))
 
 
 class Job(models.Model):
