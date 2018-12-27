@@ -38,7 +38,7 @@ class EnterQueue(models.Model):
         return res
 
     def apply(self):
-        self.job.user.add(self.user)
+        self.job.users.add(self.user)
         self.delete()
         self.job.save()
 
@@ -68,7 +68,7 @@ class LeaveQueue(models.Model):
         return res
 
     def apply(self):
-        self.job.user.remove(self.user)
+        self.job.users.remove(self.user)
         self.delete()
         self.job.save()
 

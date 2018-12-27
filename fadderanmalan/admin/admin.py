@@ -6,10 +6,24 @@ from .actions import set_locked
 
 
 class JobsInline(admin.TabularInline):
-    verbose_name = "Fadderjobb"
-    verbose_name_plural = "Fadderjobb"
+    verbose_name = "User"
+    verbose_name_plural = "Users"
 
     model = Job.users.through
+
+
+class LQInline(admin.TabularInline):
+    verbose_name = "Leavequeue"
+    verbose_name_plural = "Leavequeue"
+
+    model = LeaveQueue
+
+
+class EQInline(admin.TabularInline):
+    verbose_name = "Enterqueue"
+    verbose_name_plural = "EnterQueue"
+
+    model = EnterQueue
 
 
 class JobAdmin(admin.ModelAdmin):
@@ -17,6 +31,8 @@ class JobAdmin(admin.ModelAdmin):
 
     inlines = [
         JobsInline,
+        LQInline,
+        EQInline
     ]
 
     list_display = ["name", "date", "locked", "signed_up"]
