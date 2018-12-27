@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from django.db.models import Count, F, Q, Sum
 from django.contrib.auth import get_user_model
@@ -68,7 +69,10 @@ def jobsignup(request):
 
 
 def jobdetails(request, slug):
-    job = Job.objects.get(slug=slug)
+    try:
+        job = Job.objects.get(slug=slug)
+    except Job.DoesNotExist:
+        raise Http404("Kunde inte hitta jobbet '%s'" % slug)
 
     if request.user.is_authenticated:
         registered_to_job = request.user in job.users.all()
