@@ -19,4 +19,4 @@ class User(AbstractUser):
     motto = models.TextField(max_length=100, blank=True)
 
     def points(self):
-        return self.jobs.all().aggregate(Sum("points"))["points__sum"]
+        return self.jobs.all().aggregate(Sum("points"))["points__sum"] or 0
