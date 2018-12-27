@@ -37,6 +37,11 @@ class EnterQueue(models.Model):
 
         return res
 
+    def apply(self):
+        self.job.user.add(self.user)
+        self.delete()
+        self.job.save()
+
 
 class LeaveQueue(models.Model):
     created = models.DateField(editable=False)
@@ -61,6 +66,11 @@ class LeaveQueue(models.Model):
             raise cls.DoesNotExist
 
         return res
+
+    def apply(self):
+        self.job.user.remove(self.user)
+        self.delete()
+        self.job.save()
 
 
 class Job(models.Model):
@@ -132,3 +142,14 @@ class Job(models.Model):
 
     def has_leave_queue(self):
         return self.leave_queue.count() > 0
+
+    def dequeue(self):
+        dequeued = []
+        while not self.full():
+            try:
+                eq = EnterQueue.get_first(self)
+                eq.apply()
+                dequeued.append(eq.user)
+            except EnterQueue.DoesNotExist:
+                break
+        return dequeued

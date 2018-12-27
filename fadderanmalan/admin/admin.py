@@ -41,17 +41,8 @@ class JobAdmin(admin.ModelAdmin):
             if obj.full():
                 messages.add_message(request, messages.ERROR, "Job is full.")
             else:
-                added = []
-
-                while not obj.full():
-                    try:
-                        eq = EnterQueue.get_first(job=obj)
-                        obj.users.add(eq.user)
-                        eq.delete()
-                        obj.save()
-                        added.append(eq.user.username)
-                    except EnterQueue.DoesNotExist:
-                        break
+                added = obj.dequeue()
+                added = [user.username for user in added]
 
                 if len(added) > 0:
                     messages.add_message(request, messages.INFO, "Users '%s' dequeued." % "', '".join(added))
