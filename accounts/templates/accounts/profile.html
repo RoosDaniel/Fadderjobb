@@ -22,7 +22,6 @@
                 {% endif %}
                 {{ user.username }}
             </h1>
-            <small>{{ user.email }}</small>
         </div>
     {% else %}
         <div class="header">
@@ -32,7 +31,6 @@
                 {% endif %}
                 {{ user.username }} - {{ user.points }}<span class="lowercase">p</span>
             </h1>
-            <small>{{ user.email }}</small>
         </div>
         <h2>Motto</h2>
         {% if user.motto %}
