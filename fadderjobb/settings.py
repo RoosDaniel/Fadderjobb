@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sass_processor',
     'cas',
+    'post_office',
     'fadderanmalan',
     'accounts',
 ]
@@ -139,6 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Email
 # https://docs.djangoproject.com/en/2.1/topics/email/
+EMAIL_BACKEND = 'post_office.EmailBackend'
 
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
 
@@ -149,6 +151,15 @@ EMAIL_HOST_USER = credentials["email"]["user"]
 EMAIL_HOST_PASSWORD = credentials["email"]["password"]
 
 EMAIL_USE_TLS = True
+
+POST_OFFICE = {
+    "LOG_LEVEL": 1  # Log only failed deliveries
+}
+
+try:
+    import uwsgidecorators
+except ImportError:
+    POST_OFFICE["DEFAULT_PRIORITY"] = "now"
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/

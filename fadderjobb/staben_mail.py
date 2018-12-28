@@ -1,6 +1,10 @@
-from django.core.mail import send_mail as django_send_mail
+from post_office import mail
 
 
 def send_mail(recipient, subject, message):
-    django_send_mail("Fadderjobb - " + subject, message,
-                     "STABEN Noreply <noreply@staben.info>", [recipient], fail_silently=True)
+    mail.send(
+        recipient,
+        "STABEN NOREPLY <noreply@staben.info>",
+        subject="Fadderjobb - " + subject,
+        message=message
+    )
