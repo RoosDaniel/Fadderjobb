@@ -63,7 +63,23 @@ information angående de jobb som faddern har registrerat sig på.
 
 ## Deployment
 
-Hemsidan är skriven i Django och konfigureras via följande environment-variabler:
+För att köra projektet krävs filen `credentials.json` i root-mappen 
+med följande struktur:
+
+```json
+{
+  "email": {
+    "user": "",
+    "password": ""
+  },
+  "database": {
+    "user": "",
+    "password": ""
+  }
+}
+```
+
+Ytterligare konfiguration görs via följande environment-variabler:
 
 * `DEBUG (False)`
 
@@ -97,19 +113,3 @@ Hemsidan är skriven i Django och konfigureras via följande environment-variabl
 * `EMAIL_PORT`
 
     Default: `587`
-
-Utöver detta behövs filen `credentials.json` i root-mappen 
-som ska ha följande struktur:
-
-```json
-{
-  "email": {
-    "user": "",
-    "password": ""
-  },
-  "database": {
-    "user": "",
-    "password": ""
-  }
-}
-```
