@@ -82,17 +82,13 @@ Hemsidan är skriven i Django och konfigureras via följande environment-variabl
 
     Default: `fadderjobb`
 
-* `DB_USER`
-
-    Default: `fadderjobb`
-
-* `DB_PASS`
-
-    Default: `fadderjobb`
-
 * `DB_HOST`
 
     Default: `localhost`
+
+* `DB_PORT`
+
+    Default: tom
 
 * `EMAIL_HOST`
 
@@ -108,7 +104,11 @@ som ska ha följande struktur:
 ```json
 {
   "email": {
-    "username": "",
+    "user": "",
+    "password": ""
+  },
+  "database": {
+    "user": "",
     "password": ""
   }
 }
