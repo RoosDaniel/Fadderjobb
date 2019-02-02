@@ -175,7 +175,8 @@ USE_L10N = True
 USE_TZ = True
 
 SYSTEM_ADMINS = [
-    "danro880"
+    "danro880",
+    "felfl076"
 ]
 
 # Static files (CSS, JavaScript, Images)
