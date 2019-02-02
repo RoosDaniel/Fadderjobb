@@ -21,46 +21,46 @@ _En användare kan:_
 
 ### STABEN
 
-_STABEN kan:_
+_STABEN:_
 
-- Skapa nya fadderjobb.
+- Kan skapa nya fadderjobb.
     - Beskrivning
     - Poäng
     - Antal faddrar som behövs
     - Typ av jobb
-- Stänga ett fadderjobb
+- Kan stänga ett fadderjobb.
     - Avanmälan kan endast ske om en annan fadder köar för platsen.
     - Finns lediga platser kan faddrar anmäla sig till dessa, trots att jobbet har stängt.
 
 ### Fadder
 
-_En fadder kan:_
+_En fadder:_
 
-- Registrera sig på fadderjobb.
-- Efter att anmälan har stängt:
+- Kan egistrera sig på fadderjobb.
+- Kan efter att anmälan har stängt:
     - Flagga för byte av registrerat jobb
-- Flagga för önskan om specifikt jobb
+- Kan flagga för önskan om specifikt jobb
     - Kösystem, den som är först i kön får jobbet.
+- Får mail när:
+    - De har fått ett jobb som de köat för.
+    - De har tappat ett jobb som de köat för att avanmäla sig till.
 
 ## Planerat
 
 ### STABEN
 
-_STABEN ska kunna:_
+_STABEN ska:_
 
-- Sätta en deadline för sista anmälan till ett jobb. Efter deadline låses jobbet.
-- Lägga till detaljerad information som går ut i ett massutskick till faddrar efter deadline.
-- Sätta en undre/övre gräns för krävda poäng.
+- Kunna sätta en deadline för sista anmälan till ett jobb. Efter deadline låses jobbet.
+- Kunna lägga till detaljerad information som går ut i ett massutskick till faddrar efter deadline.
+- Kunna sätta en undre/övre gräns för krävda poäng för alla faddrar.
 
 ### Fadder
 
-_En fadder ska kunna:_
+_En fadder ska:_
 
 - Vid utsatt tidpunkt innan nolle-p, få ett mail av STABEN med detaljerad
 information angående de jobb som faddern har registrerat sig på.
-- Få mail när:
-    - De har fått ett jobb som de köat för.
-    - De har tappat ett jobb som de köat för att avanmäla sig till.
 
 ## Deployment
 
