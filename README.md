@@ -82,7 +82,7 @@ med följande struktur:
 
 Ytterligare konfiguration görs via följande environment-variabler:
 
-* `DEBUG (False)`
+* `DEBUG`
 
     Default: `False`
     
