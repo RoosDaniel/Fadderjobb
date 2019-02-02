@@ -36,11 +36,11 @@ _STABEN:_
 
 _En fadder:_
 
-- Kan egistrera sig på fadderjobb.
+- Kan registrera sig på fadderjobb.
+- Kan om jobbet är fullt:
+    - Ställa sig i kö till jobbet. Den som är först i kön när någon registrerad avregistrerar sig får jobbet.
 - Kan efter att anmälan har stängt:
-    - Flagga för byte av registrerat jobb
-- Kan flagga för önskan om specifikt jobb
-    - Kösystem, den som är först i kön får jobbet.
+    - Flagga för önskan om avregistrering. Nästa person på tur kommer då få jobbet istället.
 - Får mail när:
     - De har fått ett jobb som de köat för.
     - De har tappat ett jobb som de köat för att avanmäla sig till.
