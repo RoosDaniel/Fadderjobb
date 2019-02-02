@@ -48,6 +48,7 @@ _En fadder kan:_
 
 _STABEN ska kunna:_
 
+- Sätta en deadline för sista anmälan till ett jobb. Efter deadline låses jobbet.
 - Lägga till detaljerad information som går ut i ett massutskick till faddrar efter deadline.
 - Sätta en undre/övre gräns för krävda poäng.
 
