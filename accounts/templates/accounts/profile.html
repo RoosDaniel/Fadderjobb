@@ -14,42 +14,31 @@
     {% if request.user.is_staff %}
         <a href="{% url 'admin:accounts_user_change' user.id %}" target="_blank">Redigera användare</a>
     {% endif %}
-    {% if user.is_staff %}
-        <div class="header">
-            <h1>
-                {% if request.user == user %}
-                    <a href="{% url 'accounts:edit_profile' %}" class="nounderline"><i class="fas fa-user-edit"></i></a>
-                {% endif %}
-                {{ user.username }}
-            </h1>
-        </div>
-    {% else %}
-        <div class="header">
-            <h1>
-                {% if request.user == user %}
-                    <a href="{% url 'accounts:edit_profile' %}" class="nounderline"><i class="fas fa-user-edit"></i></a>
-                {% endif %}
-                {{ user.username }} - {{ user.points }}<span class="lowercase">p</span>
-            </h1>
-        </div>
-        <h2>Motto</h2>
-        {% if user.motto %}
-            <i>"{{ user.motto }}"</i>
-        {% else %}
+    <div class="header">
+        <h1>
             {% if request.user == user %}
-                <i>Du har inte satt något motto än. <a href="{% url 'accounts:edit_profile' %}">Sätt ditt motto här.</a></i>
-            {% else %}
-                <i>Användaren har inte satt något motto.</i>
+                <a href="{% url 'accounts:edit_profile' %}" class="nounderline"><i class="fas fa-user-edit"></i></a>
             {% endif %}
+            {{ user.username }} - {{ user.points }}<span class="lowercase">p</span>
+        </h1>
+    </div>
+    <h2>Motto</h2>
+    {% if user.motto %}
+        <i>"{{ user.motto }}"</i>
+    {% else %}
+        {% if request.user == user %}
+            <i>Du har inte satt något motto än. <a href="{% url 'accounts:edit_profile' %}">Sätt ditt motto här.</a></i>
+        {% else %}
+            <i>Användaren har inte satt något motto.</i>
         {% endif %}
-        <h2>Registrerade jobb</h2>
-        {% for day, jobs in day_grouped.items %}
-            <h3 class="job-day">{{ day }}</h3>
-            <div class="joblist">
-                {% for job in jobs %}
-                    {% job_component job %}
-                {% endfor %}
-            </div>
-        {% endfor %}
     {% endif %}
+    <h2>Registrerade jobb</h2>
+    {% for day, jobs in day_grouped.items %}
+        <h3 class="job-day">{{ day }}</h3>
+        <div class="joblist">
+            {% for job in jobs %}
+                {% job_component job %}
+            {% endfor %}
+        </div>
+    {% endfor %}
 {% endblock content %}
