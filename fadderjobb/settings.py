@@ -176,7 +176,8 @@ USE_TZ = True
 
 SYSTEM_ADMINS = [
     "danro880",
-    "felfl076"
+    "felfl076",
+    "alban042"
 ]
 
 # Static files (CSS, JavaScript, Images)
