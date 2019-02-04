@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import json
+from datetime import date
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -65,6 +66,8 @@ INSTALLED_APPS = [
     'sass_processor',
     'cas',
     'post_office',
+    'constance',
+    'constance.backends.database',
     'fadderanmalan',
     'accounts',
 ]
@@ -127,6 +130,17 @@ DATABASES = {
         'USER': credentials["database"]["user"],
         'PASSWORD': credentials["database"]["user"],
     }
+}
+
+# Live settings
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+CONSTANCE_CONFIG = {
+    'DEFAULT_JOB_RELEASE': (date(2018, 1, 1), 'När jobben kommer öppnas för anmälan '
+                                              'Kan ändras per jobb.'),
+    'DEFAULT_JOB_CLOSE': (date(2019, 1, 1), 'När jobben kommer stängas för anmälan. '
+                                            'Kan ändras per jobb.'),
+    'MIN_POINTS': (0, 'Minsta antalet poäng som krävs av en fadder.'),
 }
 
 # Password validation

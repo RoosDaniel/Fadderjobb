@@ -5,10 +5,6 @@ from django.contrib.auth.decorators import login_required
 from fadderanmalan.models import Job, EnterQueue, LeaveQueue
 
 
-# TODO Email notifications for dequeueing.
-# If an admin wishes to move a user they have to manage the queues manually.
-
-
 @login_required(login_url="accounts:login")
 def register_for_job(request, job_id):
     job = Job.objects.get(id=job_id)

@@ -1,1 +1,14 @@
 {% extends "admin/index.html" %}
+{% load sass_tags %}
+{% load static from staticfiles %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% sass_src 'sass/admin-extra.sass' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/forms.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="content-extra"></div>
+    {{ block.super }}
+{% endblock content %}

@@ -5,3 +5,5 @@ django-compressor
 django-sass-processor
 django-cas-client
 django-post_office
+"django-constance[database]"
+django-constance
