@@ -92,7 +92,7 @@ def jobdetails(request, slug):
 
 
 def topchart(request):
-    users = User.objects.annotate(points=Sum("jobs__points"))
+    users = User.objects.annotate(points=Sum("jobs__points"))\
         .filter(points__gte=1).filter(is_staff=False).order_by("points").all()
 
     return render(request, "topchart.html", dict(
