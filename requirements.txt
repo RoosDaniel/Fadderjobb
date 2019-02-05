@@ -8,3 +8,4 @@ django-post_office
 "django-constance[database]"
 django-constance
 django-ical
+django-extensions

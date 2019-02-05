@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'sass_processor',
     'cas',
     'post_office',
@@ -146,10 +147,10 @@ CONSTANCE_CONFIG = {
                                                                       'Kan ändras per jobb.'),
     'DEFAULT_JOB_LOCKED_UNTIL': (date(timezone.now().year, 1, 1), 'Jobben kommer att låsas upp PÅ detta datum. '
                                                                   'Kan ändras per jobb.'),
-    'DEFAULT_JOB_TIME_START': (time(0, 0, 0), 'När jobben ska börja. '
-                                              'Kan ändras per jobb.'),
-    'DEFAULT_JOB_TIME_END': (time(23, 59, 59), 'När jobben ska sluta. '
+    'DEFAULT_JOB_TIME_END': (time(23, 59, 59), 'När på dagen jobben ska sluta. '
                                                'Kan ändras per jobb.'),
+    'DEFAULT_JOB_TIME_START': (time(0, 0, 0), 'När på dagen jobben ska börja. '
+                                              'Kan ändras per jobb.'),
     'MIN_POINTS': (0, 'Minsta antalet poäng som krävs av en fadder.'),
 }
 

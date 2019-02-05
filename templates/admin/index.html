@@ -9,6 +9,32 @@
 {% endblock %}
 
 {% block content %}
-    <div class="content-extra"></div>
+    <div class="content-extra">
+        <div class="module module-core">
+            <table>
+                <caption>
+                    Core
+                </caption>
+                <tbody>
+                <tr>
+                    <th scope="row"><a href="{% url 'admin:constance_config_changelist' %}">Project configuration</a></th>
+                    <td></td>
+                    <td><a href="{% url 'admin:constance_config_changelist' %}" class="changelink">Change</a></td>
+                </tr>
+                <tr>
+                    <th scope="row"><a href="{% url 'admin:fadderanmalan_job_changelist' %}">Jobs</a></th>
+                    <td><a href="{% url 'admin:fadderanmalan_job_add' %}" class="addlink">Add</a></td>
+                    <td><a href="{% url 'admin:fadderanmalan_job_changelist' %}" class="changelink">Change</a></td>
+                </tr>
+                <tr>
+                    <th scope="row"><a href="{% url 'admin:fadderanmalan_type_changelist' %}">Types</a></th>
+                    <td><a href="{% url 'admin:fadderanmalan_type_add' %}" class="addlink">Add</a></td>
+                    <td><a href="{% url 'admin:fadderanmalan_type_changelist' %}" class="changelink">Change</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="content-extra bottom"></div>
+    </div>
     {{ block.super }}
 {% endblock content %}
