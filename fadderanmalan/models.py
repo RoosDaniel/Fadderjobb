@@ -1,5 +1,7 @@
 from collections import OrderedDict
 
+import datetime
+
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
@@ -10,22 +12,6 @@ from django.core.exceptions import ValidationError
 from constance import config
 
 from fadderjobb.staben_mail import send_mail
-
-
-def default_locked_after():
-    return config.DEFAULT_JOB_LOCKED_AFTER
-
-
-def default_locked_until():
-    return config.DEFAULT_JOB_LOCKED_UNTIL
-
-
-def default_hidden_after():
-    return config.DEFAULT_JOB_HIDDEN_AFTER
-
-
-def default_hidden_until():
-    return config.DEFAULT_JOB_HIDDEN_UNTIL
 
 
 class Type(models.Model):
@@ -108,12 +94,38 @@ class LeaveQueue(models.Model):
                   "Någon har tagit din plats på jobbet '%s'. Se jobbet här: %s" % (self.job.name, job_url))
 
 
+def default_locked_after():
+    return config.DEFAULT_JOB_LOCKED_AFTER
+
+
+def default_locked_until():
+    return config.DEFAULT_JOB_LOCKED_UNTIL
+
+
+def default_hidden_after():
+    return config.DEFAULT_JOB_HIDDEN_AFTER
+
+
+def default_hidden_until():
+    return config.DEFAULT_JOB_HIDDEN_UNTIL
+
+
+def default_start():
+    return config.DEFAULT_JOB_START_TIME
+
+
+def default_end():
+    return config.DEFAULT_JOB_END_TIME
+
+
 class Job(models.Model):
     name = models.CharField(max_length=100)
-    date = models.DateField()
+    date = models.DateField(help_text="Vilket datum jobbet gäller.")
+
+    start_time = models.TimeField(help_text="När jobbet ska börja.", default=default_start)
+    end_time = models.TimeField(help_text="När jobbet ska sluta.", default=default_end)
 
     description = models.TextField(null=True, blank=True)
-    duration = models.IntegerField()
     points = models.IntegerField()
     slots = models.IntegerField()
 

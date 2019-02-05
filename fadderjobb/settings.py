@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import json
-from datetime import date
+from datetime import date, time
 
 from django.utils import timezone
 
@@ -138,14 +138,18 @@ DATABASES = {
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {
-    'DEFAULT_JOB_HIDDEN_AFTER': (date(timezone.now().year + 1, 1, 1), 'När jobben kommer döljas. '
+    'DEFAULT_JOB_HIDDEN_AFTER': (date(timezone.now().year + 1, 1, 1), 'EFTER detta datum kommer jobben att döljas. '
                                                                       'Kan ändras per jobb.'),
-    'DEFAULT_JOB_HIDDEN_UNTIL': (date(timezone.now().year, 1, 1), 'När jobben kommer visas. '
+    'DEFAULT_JOB_HIDDEN_UNTIL': (date(timezone.now().year, 1, 1), 'Jobben kommer att visas PÅ detta datum. '
                                                                   'Kan ändras per jobb.'),
-    'DEFAULT_JOB_LOCKED_AFTER': (date(timezone.now().year + 1, 1, 1), 'När jobben kommer låsas. '
+    'DEFAULT_JOB_LOCKED_AFTER': (date(timezone.now().year + 1, 1, 1), 'EFTER detta datum kommer jobben att låsas. '
                                                                       'Kan ändras per jobb.'),
-    'DEFAULT_JOB_LOCKED_UNTIL': (date(timezone.now().year, 1, 1), 'När jobben kommer låsas upp. '
+    'DEFAULT_JOB_LOCKED_UNTIL': (date(timezone.now().year, 1, 1), 'Jobben kommer att låsas upp PÅ detta datum. '
                                                                   'Kan ändras per jobb.'),
+    'DEFAULT_JOB_START_TIME': (time(0, 0, 0), 'När jobben ska börja. '
+                                              'Kan ändras per jobb.'),
+    'DEFAULT_JOB_END_TIME': (time(23, 59, 59), 'När jobben ska sluta. '
+                                               'Kan ändras per jobb.'),
     'MIN_POINTS': (0, 'Minsta antalet poäng som krävs av en fadder.'),
 }
 
