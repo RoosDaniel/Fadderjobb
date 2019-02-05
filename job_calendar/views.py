@@ -36,7 +36,7 @@ class JobFeed(ICalFeed):
 
     def item_guid(self, item):
         url = re.compile(r"https?://(www\.)?")
-        return url.sub("", "{}{}".format(item.slug, settings.DEFAULT_DOMAIN))
+        return url.sub("", "{}@{}".format(item.slug, settings.DEFAULT_DOMAIN))
 
     def item_title(self, item):
         return item.name
