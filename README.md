@@ -44,6 +44,7 @@ _En fadder:_
 - Får mail när:
     - De har fått ett jobb som de köat för.
     - De har tappat ett jobb som de köat för att avanmäla sig till.
+- Kan hämta en .ics-länk till en kalender för alla sina jobb.
 
 ## Planerat
 
@@ -61,7 +62,6 @@ _En fadder ska:_
 
 - Vid utsatt tidpunkt innan nolle-p, få ett mail av STABEN med detaljerad
 information angående de jobb som faddern har registrerat sig på.
-- Kunna hämta en .ics-länk till en kalender för alla sina jobb.
 
 ## Deployment
 
