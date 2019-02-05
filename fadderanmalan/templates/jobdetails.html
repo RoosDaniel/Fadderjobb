@@ -35,7 +35,7 @@
                        data-toggle="tooltip" data-placement="bottom" title="Jobbet är fullt">
                     </i>{{ " " }}
                 {% endif %}
-                {% if job.locked %}
+                {% if job.is_locked %}
                     <i class="fas fa-lock"
                        data-toggle="tooltip" data-placement="bottom" title="Jobbet är låst">
                     </i>{{ " " }}
@@ -83,7 +83,7 @@
         {% if user.is_authenticated %}
             {% if registered_to_job %}  {# Registered #}
                 <h3>Avanmälan</h3>
-                {% if job.locked %}  {# Locked #}
+                {% if job.is_locked %}  {# Locked #}
                     {% if queued_leave_job %}  {# Has previously requested leave #}
                         <p><i>
                             Du står i kö för att avanmäla dig från det här jobbet. Vill du ta bort din köplats?

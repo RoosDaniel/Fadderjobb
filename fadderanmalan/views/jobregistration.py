@@ -53,7 +53,7 @@ def deregister_for_job(request, job_id):
             messages.add_message(request, messages.INFO,
                                  "Din köplats är nu borttagen.")
         except EnterQueue.DoesNotExist:  # We were not in the eq
-            if job.locked:
+            if job.is_locked():
                 try:  # If someone else wants to enter, give the slot to them
                     eq = EnterQueue.get_first(job=job)
                     job.users.remove(request.user)

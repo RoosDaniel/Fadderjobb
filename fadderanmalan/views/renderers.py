@@ -14,7 +14,7 @@ def index(request):
 
 
 def jobsignup(request):
-    jobs = Job.objects.order_by("date").all()
+    jobs = Job.objects.order_by("date").filter(~Job.is_hidden_query_filter()).all()
 
     search = request.GET.get("search", "")
 

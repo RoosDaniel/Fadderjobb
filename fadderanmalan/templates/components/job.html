@@ -25,7 +25,7 @@
                    data-toggle="tooltip" data-placement="left" title="Jobbet är fullt">
                 </i>{{ " " }}
             {% endif %}
-            {% if job.locked %}
+            {% if job.is_locked %}
                 <i class="fas fa-lock"
                    data-toggle="tooltip" data-placement="left" title="Jobbet är låst">
                 </i>{{ " " }}
