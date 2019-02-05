@@ -115,14 +115,6 @@ class Job(models.Model):
     points = models.IntegerField()
     slots = models.IntegerField()
 
-    locked = models.BooleanField(help_text="Om jobbet ska vara låst. "
-                                           "Överskrider datumen nedan.")
-
-    locked_after = models.DateField(default=default_locked_after,
-                                    help_text="EFTER detta datum kommer jobbet att låsas.")
-    locked_until = models.DateField(default=default_locked_until,
-                                    help_text="Jobbet kommer att låsas upp PÅ detta datum.")
-
     hidden = models.BooleanField(help_text="Om jobbet ska döljas från frontend:en. "
                                            "Överskrider datumen nedan")
 
@@ -130,6 +122,14 @@ class Job(models.Model):
                                     help_text="EFTER detta datum kommer jobbet att döljas.")
     hidden_until = models.DateField(default=default_hidden_until,
                                     help_text="Jobbet kommer att visas PÅ detta datum.")
+
+    locked = models.BooleanField(help_text="Om jobbet ska vara låst. "
+                                           "Överskrider datumen nedan.")
+
+    locked_after = models.DateField(default=default_locked_after,
+                                    help_text="EFTER detta datum kommer jobbet att låsas.")
+    locked_until = models.DateField(default=default_locked_until,
+                                    help_text="Jobbet kommer att låsas upp PÅ detta datum.")
 
     slug = models.SlugField(max_length=100, null=True, blank=True)
 
@@ -185,23 +185,23 @@ class Job(models.Model):
     def locked_status(self):
         return "locked" if self.is_locked() else "unlocked"
 
-    def is_locked(self):
-        today = timezone.now().date()
-        return self.locked or not (self.locked_until < today <= self.locked_after)
-
     def is_hidden(self):
         today = timezone.now().date()
         return self.hidden or not (self.hidden_until < today <= self.hidden_after)
 
-    @staticmethod
-    def is_locked_query_filter():
+    def is_locked(self):
         today = timezone.now().date()
-        return Q(locked=True) | ~(Q(locked_until__lt=today) & Q(locked_after__gte=today))
+        return self.locked or not (self.locked_until < today <= self.locked_after)
 
     @staticmethod
     def is_hidden_query_filter():
         today = timezone.now().date()
         return Q(hidden=True) | ~(Q(hidden_until__lt=today) & Q(hidden_after__gte=today))
+
+    @staticmethod
+    def is_locked_query_filter():
+        today = timezone.now().date()
+        return Q(locked=True) | ~(Q(locked_until__lt=today) & Q(locked_after__gte=today))
 
     def has_enter_queue(self):
         return self.enter_queue.count() > 0
