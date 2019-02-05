@@ -146,9 +146,9 @@ CONSTANCE_CONFIG = {
                                                                       'Kan ändras per jobb.'),
     'DEFAULT_JOB_LOCKED_UNTIL': (date(timezone.now().year, 1, 1), 'Jobben kommer att låsas upp PÅ detta datum. '
                                                                   'Kan ändras per jobb.'),
-    'DEFAULT_JOB_START_TIME': (time(0, 0, 0), 'När jobben ska börja. '
+    'DEFAULT_JOB_TIME_START': (time(0, 0, 0), 'När jobben ska börja. '
                                               'Kan ändras per jobb.'),
-    'DEFAULT_JOB_END_TIME': (time(23, 59, 59), 'När jobben ska sluta. '
+    'DEFAULT_JOB_TIME_END': (time(23, 59, 59), 'När jobben ska sluta. '
                                                'Kan ändras per jobb.'),
     'MIN_POINTS': (0, 'Minsta antalet poäng som krävs av en fadder.'),
 }
@@ -198,11 +198,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+# ----
+
 SYSTEM_ADMINS = [
     "danro880",
     "felfl076",
     "alban042"
 ]
+
+DEFAULT_DOMAIN = "https://fadderjobb.staben.info"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

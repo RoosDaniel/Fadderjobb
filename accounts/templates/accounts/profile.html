@@ -22,6 +22,10 @@
             {{ user.username }} - {{ user.points }}<span class="lowercase">p</span>
         </h1>
     </div>
+    {% if request.user == user %}
+        <a href="{% url 'job_calendar:get_calendar' user.username %}">Din kalender</a>. Infoga länken i t.ex.
+        Google Calendar.
+    {% endif %}
     <h2>Motto</h2>
     {% if user.motto %}
         <i>"{{ user.motto }}"</i>

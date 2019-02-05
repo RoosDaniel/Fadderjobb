@@ -64,9 +64,7 @@ form
 
 a
     position: relative
-    text-decoration: none
-    &:hover
-        text-decoration: none
+    text-decoration: underline
     &:hover:before, &.active:before
         visibility: visible
         transform: scaleX(1)
@@ -87,10 +85,11 @@ a
         &:before
             display: none
     &.nounderline
+        text-decoration: none
         &:hover
-            text-decoration: none
+            text-decoration: none !important
         &:before
-            display: none
+            display: none !important
 
 .darkmode-toggler
     &:hover

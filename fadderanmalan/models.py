@@ -2,6 +2,7 @@ from collections import OrderedDict
 
 import datetime
 
+from django.conf import settings
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils import timezone
@@ -51,11 +52,8 @@ class EnterQueue(models.Model):
         self.delete()
         self.job.save()
 
-        job_url = "https://fadderjobb.staben.info" + \
-                  reverse("fadderanmalan:jobsignup_detail", args=[self.job.slug])
-
         send_mail(self.user.email, "Du har fått en plats på ett jobb du har köat för",
-                  "Du har fått en plats på jobbet '%s'. Se jobbet här: %s" % (self.job.name, job_url))
+                  "Du har fått en plats på jobbet '%s'. Se jobbet här: %s" % (self.job.name, self.job.url()))
 
 
 class LeaveQueue(models.Model):
@@ -87,11 +85,8 @@ class LeaveQueue(models.Model):
         self.delete()
         self.job.save()
 
-        job_url = "https://fadderjobb.staben.info" + \
-                  reverse("fadderanmalan:jobsignup_detail", args=[self.job.slug])
-
         send_mail(self.user.email, "Någon har tagit en plats på ett jobb du vill lämna",
-                  "Någon har tagit din plats på jobbet '%s'. Se jobbet här: %s" % (self.job.name, job_url))
+                  "Någon har tagit din plats på jobbet '%s'. Se jobbet här: %s" % (self.job.name, self.job.url()))
 
 
 def default_locked_after():
@@ -111,11 +106,11 @@ def default_hidden_until():
 
 
 def default_start():
-    return config.DEFAULT_JOB_START_TIME
+    return config.DEFAULT_JOB_TIME_START
 
 
 def default_end():
-    return config.DEFAULT_JOB_END_TIME
+    return config.DEFAULT_JOB_TIME_END
 
 
 class Job(models.Model):
@@ -186,6 +181,10 @@ class Job(models.Model):
         if len(self.name) > 20:
             return self.name[:20] + "..."
         return self.name
+
+    def url(self):
+        return settings.DEFAULT_DOMAIN + \
+               reverse("fadderanmalan:jobsignup_detail", args=[self.slug])
 
     @staticmethod
     def group_by_date(queryset):
