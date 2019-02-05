@@ -10,6 +10,8 @@ User = get_user_model()
 class UserAdmin(admin.ModelAdmin):
     model = User
 
+    exclude = ("password",)
+
     inlines = [
         JobsInline,
     ]
