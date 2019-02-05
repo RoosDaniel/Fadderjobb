@@ -5,6 +5,7 @@ from django.template.defaultfilters import slugify
 from django.utils import timezone
 from django.urls import reverse
 from django.db.models import Q
+from django.core.exceptions import ValidationError
 
 from constance import config
 
@@ -110,6 +111,7 @@ class LeaveQueue(models.Model):
 class Job(models.Model):
     name = models.CharField(max_length=100)
     date = models.DateField()
+
     description = models.TextField(null=True, blank=True)
     duration = models.IntegerField()
     points = models.IntegerField()
@@ -117,7 +119,6 @@ class Job(models.Model):
 
     hidden = models.BooleanField(help_text="Om jobbet ska döljas från frontend:en. "
                                            "Överskrider datumen nedan")
-
     hidden_after = models.DateField(default=default_hidden_after,
                                     help_text="EFTER detta datum kommer jobbet att döljas.")
     hidden_until = models.DateField(default=default_hidden_until,
@@ -125,7 +126,6 @@ class Job(models.Model):
 
     locked = models.BooleanField(help_text="Om jobbet ska vara låst. "
                                            "Överskrider datumen nedan.")
-
     locked_after = models.DateField(default=default_locked_after,
                                     help_text="EFTER detta datum kommer jobbet att låsas.")
     locked_until = models.DateField(default=default_locked_until,
@@ -138,6 +138,18 @@ class Job(models.Model):
 
     def __str__(self):
         return self.name
+
+    def clean(self):
+        if self.hidden_until > self.hidden_after:
+            raise ValidationError({
+                "hidden_until": "'Hidden until' has to be before 'Hidden after'.",
+                "hidden_after": "'Hidden until' has to be before 'Hidden after'.",
+            })
+        if self.locked_until > self.locked_after:
+            raise ValidationError({
+                "locked_until": "'Locked until' has to be before 'Locked after'.",
+                "locked_after": "'Locked until' has to be before 'Locked after'."
+            })
 
     def save(self, *args, **kwargs):
         res = super(Job, self).save(*args, **kwargs)
@@ -187,21 +199,21 @@ class Job(models.Model):
 
     def is_hidden(self):
         today = timezone.now().date()
-        return self.hidden or not (self.hidden_until < today <= self.hidden_after)
+        return self.hidden or not (self.hidden_until <= today <= self.hidden_after)
 
     def is_locked(self):
         today = timezone.now().date()
-        return self.locked or not (self.locked_until < today <= self.locked_after)
+        return self.locked or not (self.locked_until <= today <= self.locked_after)
 
     @staticmethod
     def is_hidden_query_filter():
         today = timezone.now().date()
-        return Q(hidden=True) | ~(Q(hidden_until__lt=today) & Q(hidden_after__gte=today))
+        return Q(hidden=True) | ~(Q(hidden_until__lte=today) & Q(hidden_after__gte=today))
 
     @staticmethod
     def is_locked_query_filter():
         today = timezone.now().date()
-        return Q(locked=True) | ~(Q(locked_until__lt=today) & Q(locked_after__gte=today))
+        return Q(locked=True) | ~(Q(locked_until__lte=today) & Q(locked_after__gte=today))
 
     def has_enter_queue(self):
         return self.enter_queue.count() > 0

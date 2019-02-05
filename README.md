@@ -61,6 +61,7 @@ _En fadder ska:_
 
 - Vid utsatt tidpunkt innan nolle-p, få ett mail av STABEN med detaljerad
 information angående de jobb som faddern har registrerat sig på.
+- Kunna hämta en .ics-länk till en kalender för alla sina jobb.
 
 ## Deployment
 
