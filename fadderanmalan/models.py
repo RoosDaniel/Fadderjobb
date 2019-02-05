@@ -157,10 +157,17 @@ class Job(models.Model):
                 "hidden_until": "'Hidden until' has to be before 'Hidden after'.",
                 "hidden_after": "'Hidden until' has to be before 'Hidden after'.",
             })
+
         if self.locked_until > self.locked_after:
             raise ValidationError({
                 "locked_until": "'Locked until' has to be before 'Locked after'.",
-                "locked_after": "'Locked until' has to be before 'Locked after'."
+                "locked_after": "'Locked until' has to be before 'Locked after'.",
+            })
+
+        if self.start_time > self.end_time:
+            raise ValidationError({
+                "start_time": "'Start time' has to be before 'End time'.",
+                "end_time": "'Start time' has to be before 'End time'.",
             })
 
     def save(self, *args, **kwargs):
