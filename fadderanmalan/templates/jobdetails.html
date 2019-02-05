@@ -63,8 +63,8 @@
         <h3>Övrig information</h3>
         <table class="table jobdetails-table">
             <tr>
-                <td>Uppskattad tidsåtgång</td>
-                <td>{{ job.duration }} timm{{ job.duration|pluralize:"e,ar" }}</td>
+                <td>Timmar</td>
+                <td>{{ job.start_time|time:"G:i" }} - {{ job.end_time|time:"G:i" }}</td>
             </tr>
             <tr>
                 <td>Platser</td>
