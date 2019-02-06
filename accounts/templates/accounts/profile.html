@@ -8,6 +8,7 @@
 {% block head %}
     <link rel="stylesheet" href="{% sass_src 'sass/profile.sass' %}">
     <link rel="stylesheet" href="{% sass_src 'sass/components/job.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/components/equipment_ownership.sass' %}">
 {% endblock head %}
 
 {% block content %}
@@ -35,6 +36,12 @@
         {% else %}
             <i>Användaren har inte satt något motto.</i>
         {% endif %}
+    {% endif %}
+    {% if request.user == user %}
+        <h2>Utlämnad utrustning</h2>
+        {% for equipment_ownership in user.equipments.all %}
+            {% equipment_ownership_component equipment_ownership %}
+        {% endfor %}
     {% endif %}
     <h2>Registrerade jobb</h2>
     {% for day, jobs in day_grouped.items %}

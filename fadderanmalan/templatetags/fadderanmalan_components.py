@@ -11,3 +11,8 @@ def job_component(job):
 @register.inclusion_tag("components/filter_checkbox.html")
 def filter_checkbox_component(label, id, prev):
     return {"label": label, "id": id, "prev": prev}
+
+
+@register.inclusion_tag("components/equipment_ownership.html")
+def equipment_ownership_component(equipment_ownership):
+    return {"eo": equipment_ownership}
