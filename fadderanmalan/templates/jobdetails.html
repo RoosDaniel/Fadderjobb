@@ -63,12 +63,12 @@
         <h3>Övrig information</h3>
         <table class="table jobdetails-table">
             <tr>
-                <td>Timmar</td>
+                <td>Tid</td>
                 <td>{{ job.start_time|time:"G:i" }} - {{ job.end_time|time:"G:i" }}</td>
             </tr>
             <tr>
-                <td>Platser</td>
-                <td>{{ job.slots }} person{{ job.slots|pluralize:",er" }}</td>
+                <td>Personer</td>
+                <td>{{ job.slots }}</td>
             </tr>
             <tr>
                 <td>Poäng</td>

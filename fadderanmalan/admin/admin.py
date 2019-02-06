@@ -1,8 +1,8 @@
 from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
 
-from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job
-from .actions import set_locked
+from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership
+from .actions import job_set_locked, job_set_hidden, equipmentownership_set_returned
 
 
 class JobsInline(admin.TabularInline):
@@ -29,23 +29,21 @@ class EQInline(admin.TabularInline):
 class JobAdmin(admin.ModelAdmin):
     model = Job
 
-    inlines = [
+    inlines = (
         JobsInline,
         LQInline,
         EQInline
-    ]
+    )
 
-    list_display = ["name", "date", "locked", "signed_up"]
+    list_display = ("name", "date", "locked", "signed_up")
 
-    exclude = [
-        "users",
-    ]
+    exclude = ("users",)
 
-    actions = [set_locked]
+    actions = (job_set_locked, job_set_hidden)
 
-    list_filter = ["locked", "types", ("date", admin.AllValuesFieldListFilter)]
+    list_filter = ("locked", "types", ("date", admin.AllValuesFieldListFilter))
 
-    search_fields = ["name"]
+    search_fields = ("name",)
 
     change_form_template = "admin/fadderanmalan/change_job.html"
 
@@ -72,17 +70,48 @@ class JobAdmin(admin.ModelAdmin):
 class EnterQueueAdmin(admin.ModelAdmin):
     model = EnterQueue
 
-    list_display = ["job", "user"]
+    list_display = ("job", "user")
 
-    search_fields = ["job__name", "user__username"]
+    search_fields = ("job__name", "user__username")
 
 
 class LeaveQueueAdmin(admin.ModelAdmin):
     model = LeaveQueue
 
-    list_display = ["job", "user"]
+    list_display = ("job", "user")
 
-    search_fields = ["job__name", "user__username"]
+    search_fields = ("job__name", "user__username")
+
+
+class EquipmentAdmin(admin.ModelAdmin):
+    model = Equipment
+
+    list_display = ("name", "size")
+
+
+class EquipmentOwnershipAdmin(admin.ModelAdmin):
+    model = EquipmentOwnership
+
+    list_display = ("name", "size", "fadder", "job", "returned")
+
+    actions = (equipmentownership_set_returned,)
+
+    search_fields = ("fadder__username", "job__name")
+
+    list_filter = ("equipment", "returned")
+
+    def get_changeform_initial_data(self, request):
+        try:
+            last = EquipmentOwnership.objects.latest("dispensed_at")
+
+            return {"job": last.job}
+        except EquipmentOwnership.DoesNotExist:
+            return {}
+
+    def render_change_form(self, request, context, *args, **kwargs):
+        context.update({'help_text': ''})
+        return super(EquipmentOwnershipAdmin, self)\
+            .render_change_form(request, context, *args, **kwargs)
 
 
 admin.site.register(Type)
@@ -90,3 +119,6 @@ admin.site.register(EnterQueue, EnterQueueAdmin)
 admin.site.register(LeaveQueue, LeaveQueueAdmin)
 
 admin.site.register(Job, JobAdmin)
+
+admin.site.register(Equipment, EquipmentAdmin)
+admin.site.register(EquipmentOwnership, EquipmentOwnershipAdmin)

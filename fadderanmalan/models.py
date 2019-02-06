@@ -23,6 +23,42 @@ class Type(models.Model):
         return self.name
 
 
+class Equipment(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(null=True, blank=True)
+
+    size = models.CharField(max_length=10, null=True, blank=True, help_text="Frivillig storlek på utrustningen. "
+                                                                            "Användbart för t.ex. t-shirts.")
+
+    def __str__(self):
+        if self.size != "":
+            return "%s | %s" % (self.size, self.name)
+        return self.name
+
+
+class EquipmentOwnership(models.Model):
+    dispensed_at = models.DateTimeField(default=timezone.now)
+    returned = models.BooleanField(default=False)
+
+    job = models.ForeignKey("Job", on_delete=models.SET_NULL, related_name="equipments",
+                                null=True, blank=True, help_text="Vilket jobb gäller utdelningen? Kan vara tom. "
+                                                                 "Defaultar till senast skapade utdelningen.")
+
+    equipment = models.ForeignKey("Equipment", on_delete=models.CASCADE, related_name="ownerships")
+    fadder = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="equipments",
+                               verbose_name="Fadder")
+
+    def __str__(self):
+        return "%s | %s" % (self.equipment, self.fadder)
+
+    # Used in list_display in admin
+    def name(self):
+        return self.equipment.name
+
+    def size(self):
+        return self.equipment.size
+
+
 class EnterQueue(models.Model):
     created = models.DateField(editable=False)
 
