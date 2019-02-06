@@ -2,14 +2,18 @@ from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
 
 from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership
-from .actions import job_set_locked, job_set_hidden, equipmentownership_set_returned
+from .actions import job_set_locked, job_set_hidden, equipment_ownership_set_returned
+
+from fadderjobb.filters import DropdownFilterRelated
 
 
-class JobsInline(admin.TabularInline):
+class UsersInline(admin.TabularInline):
     verbose_name = "User"
     verbose_name_plural = "Users"
 
     model = Job.users.through
+
+    extra = 0
 
 
 class LQInline(admin.TabularInline):
@@ -30,7 +34,7 @@ class JobAdmin(admin.ModelAdmin):
     model = Job
 
     inlines = (
-        JobsInline,
+        UsersInline,
         LQInline,
         EQInline
     )
@@ -49,6 +53,13 @@ class JobAdmin(admin.ModelAdmin):
 
     def signed_up(self, obj):
         return ", ".join([user.username for user in obj.users.all()])
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context.update({'help_text': 'Sökbara fält: jobb-namn.'})
+
+        return super(JobAdmin, self)\
+            .changelist_view(request, extra_context=extra_context)
 
     def response_change(self, request, obj):
         if "_dequeue" in request.POST:
@@ -72,7 +83,14 @@ class EnterQueueAdmin(admin.ModelAdmin):
 
     list_display = ("job", "user")
 
-    search_fields = ("job__name", "user__username")
+    search_fields = ("user__username", "job__name")
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context.update({'help_text': 'Sökbara fält: liu-id, jobb-namn.'})
+
+        return super(EnterQueueAdmin, self)\
+            .changelist_view(request, extra_context=extra_context)
 
 
 class LeaveQueueAdmin(admin.ModelAdmin):
@@ -80,7 +98,14 @@ class LeaveQueueAdmin(admin.ModelAdmin):
 
     list_display = ("job", "user")
 
-    search_fields = ("job__name", "user__username")
+    search_fields = ("user__username", "job__name")
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context.update({'help_text': 'Sökbara fält: liu-id, jobb-namn.'})
+
+        return super(LeaveQueueAdmin, self)\
+            .changelist_view(request, extra_context=extra_context)
 
 
 class EquipmentAdmin(admin.ModelAdmin):
@@ -94,11 +119,11 @@ class EquipmentOwnershipAdmin(admin.ModelAdmin):
 
     list_display = ("name", "size", "fadder", "job", "returned")
 
-    actions = (equipmentownership_set_returned,)
+    actions = (equipment_ownership_set_returned,)
 
     search_fields = ("fadder__username", "job__name")
 
-    list_filter = ("equipment", "returned")
+    list_filter = (("equipment", DropdownFilterRelated), "returned")
 
     def get_changeform_initial_data(self, request):
         try:
@@ -110,8 +135,22 @@ class EquipmentOwnershipAdmin(admin.ModelAdmin):
 
     def render_change_form(self, request, context, *args, **kwargs):
         context.update({'help_text': ''})
+
         return super(EquipmentOwnershipAdmin, self)\
             .render_change_form(request, context, *args, **kwargs)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context.update({'help_text': 'Sökbara fält: liu-id, jobb-namn.'})
+
+        return super(EquipmentOwnershipAdmin, self)\
+            .changelist_view(request, extra_context=extra_context)
+
+    def name(self, obj):
+        return obj.equipment.name
+
+    def size(self, obj):
+        return obj.equipment.size
 
 
 admin.site.register(Type)

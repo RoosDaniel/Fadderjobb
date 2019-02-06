@@ -51,13 +51,6 @@ class EquipmentOwnership(models.Model):
     def __str__(self):
         return "%s | %s" % (self.equipment, self.fadder)
 
-    # Used in list_display in admin
-    def name(self):
-        return self.equipment.name
-
-    def size(self):
-        return self.equipment.size
-
 
 class EnterQueue(models.Model):
     created = models.DateField(editable=False)

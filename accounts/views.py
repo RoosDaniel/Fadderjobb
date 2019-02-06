@@ -40,9 +40,9 @@ def edit_profile(request):
             messages.add_message(request, messages.ERROR,
                                  "Ett eller flera problem uppstod.")
     else:
-        form = FadderEditForm(initial={
-            "motto": request.user.motto
-        })
+        form = FadderEditForm(initial=dict(
+            motto=request.user.motto
+        ))
 
     return render(request, "accounts/edit_profile.html", dict(
         form=form

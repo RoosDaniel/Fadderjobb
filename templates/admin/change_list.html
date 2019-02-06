@@ -1,0 +1,7 @@
+{% extends "admin/change_list.html" %}
+{% block content %}
+    {% if help_text %}
+        <i>{{ help_text }}</i>
+    {% endif %}
+    {{ block.super }}
+{% endblock %}

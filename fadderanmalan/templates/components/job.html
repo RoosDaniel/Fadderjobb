@@ -30,7 +30,7 @@
                    data-toggle="tooltip" data-placement="left" title="Jobbet är låst">
                 </i>{{ " " }}
             {% endif %}
-            {{ job.users.count }}/{{ job.slots }}
+            {{ job.users.count }}/{{ job.slots }} - {{ job.points }}p
         </div>
     </div>
     <div class="job-body">{{ job.short_desc }}</div>

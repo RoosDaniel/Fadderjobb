@@ -27,6 +27,11 @@
                     <td><a href="{% url 'admin:fadderanmalan_job_changelist' %}" class="changelink">Change</a></td>
                 </tr>
                 <tr>
+                    <th scope="row"><a href="{% url 'admin:accounts_user_changelist' %}">Users</a></th>
+                    <td><a href="{% url 'admin:accounts_user_add' %}" class="addlink">Add</a></td>
+                    <td><a href="{% url 'admin:accounts_user_changelist' %}" class="changelink">Change</a></td>
+                </tr>
+                <tr>
                     <th scope="row"><a href="{% url 'admin:fadderanmalan_type_changelist' %}">Types</a></th>
                     <td><a href="{% url 'admin:fadderanmalan_type_add' %}" class="addlink">Add</a></td>
                     <td><a href="{% url 'admin:fadderanmalan_type_changelist' %}" class="changelink">Change</a></td>

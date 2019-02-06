@@ -8,6 +8,6 @@ def job_set_hidden(modeladmin, request, queryset):
 job_set_hidden.short_description = "Hide selected jobs"
 
 
-def equipmentownership_set_returned(modeladmin, request, queryset):
+def equipment_ownership_set_returned(modeladmin, request, queryset):
     queryset.update(returned=True)
-equipmentownership_set_returned.short_description = "Set as returned"
+equipment_ownership_set_returned.short_description = "Set as returned"
