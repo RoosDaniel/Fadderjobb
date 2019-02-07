@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership
 from .actions import job_set_locked, job_set_hidden, equipment_ownership_set_returned
 
-from fadderjobb.filters import DropdownFilterRelated
+from fadderjobb.filters import DropdownFilterRelated, DropdownFilter
 
 
 class UsersInline(admin.TabularInline):
@@ -45,11 +45,9 @@ class JobAdmin(admin.ModelAdmin):
 
     actions = (job_set_locked, job_set_hidden)
 
-    list_filter = ("locked", "types", ("date", admin.AllValuesFieldListFilter))
+    list_filter = ("locked", "types", ("date", DropdownFilter))
 
     search_fields = ("name",)
-
-    change_form_template = "admin/fadderanmalan/change_job.html"
 
     def signed_up(self, obj):
         return ", ".join([user.username for user in obj.users.all()])
@@ -112,6 +110,19 @@ class EquipmentAdmin(admin.ModelAdmin):
     model = Equipment
 
     list_display = ("name", "size")
+
+    def render_change_form(self, request, context, *args, **kwargs):
+        context.update({'help_text': 'Generella utrustningar. Skapa dessa innan utdelning.'})
+
+        return super(EquipmentAdmin, self)\
+            .render_change_form(request, context, *args, **kwargs)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context.update({'help_text': 'Generella utrustningar. Skapa dessa innan utdelning.'})
+
+        return super(EquipmentAdmin, self)\
+            .changelist_view(request, extra_context=extra_context)
 
 
 class EquipmentOwnershipAdmin(admin.ModelAdmin):

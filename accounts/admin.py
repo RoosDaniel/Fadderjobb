@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 
 from fadderanmalan.models import EquipmentOwnership
+from fadderjobb.filters import DropdownFilterRelated
 
 
 User = get_user_model()
@@ -39,6 +40,13 @@ class UserAdmin(admin.ModelAdmin):
         EquipmentOwnershipInline,
     )
 
-    list_filter = ("jobs",)
+    # fields = ("username", )
+
+    list_display = ("username", "equipment")
+
+    list_filter = (("jobs", DropdownFilterRelated), ("equipments__equipment", DropdownFilterRelated))
+
+    def equipment(self, obj):
+        return ", ".join(str(eq.equipment) for eq in obj.equipments.all())
 
 admin.site.register(User, UserAdmin)
