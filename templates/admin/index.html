@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="{% static 'admin/css/forms.css' %}">
 {% endblock %}
 
+{% block branding %}
+    {{ block.super }}
+{% endblock branding %}
+
+
 {% block content %}
     <div class="content-extra">
         <div class="module module-core">
