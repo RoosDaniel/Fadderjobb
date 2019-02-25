@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'post_office',
     'constance',
     'constance.backends.database',
+    'phonenumber_field',
     'fadderanmalan',
     'accounts',
 ]
@@ -115,6 +116,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'fadderjobb.wsgi.application'
 
 # CAS
+# https://github.com/kstateome/django-cas/
+
 CAS_SERVER_URL = "https://login.liu.se/cas/"
 CAS_LOGOUT_COMPLETELY = True
 CAS_PROVIDE_URL_TO_LOGOUT = True
@@ -137,7 +140,9 @@ DATABASES = {
     }
 }
 
-# Live settings
+# Constance (live settings)
+# https://github.com/jazzband/django-constance/
+
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 CONSTANCE_CONFIG = {
@@ -167,6 +172,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Email
 # https://docs.djangoproject.com/en/2.1/topics/email/
+
 EMAIL_BACKEND = 'post_office.EmailBackend'
 
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
@@ -201,7 +207,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-# ----
+# Phone number
+# https://github.com/stefanfoulis/django-phonenumber-field/
+
+PHONENUMBER_DEFAULT_REGION = "SE"
+
+# Used by CAS to set admin-status
 
 SYSTEM_ADMINS = [
     "danro880",

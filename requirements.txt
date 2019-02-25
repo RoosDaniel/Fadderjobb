@@ -11,3 +11,5 @@ django-ical
 django-picklefield
 django-post-office
 django-sass-processor
+django-phonenumber-field
+phonenumbers

@@ -6,6 +6,8 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.sessions.models import Session
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 class _UserManager(UserManager):
     def get_by_natural_key(self, username):
@@ -17,7 +19,7 @@ class User(AbstractUser):
     objects = _UserManager()
 
     motto = models.TextField(max_length=100, blank=True)
-    phone_number = models.IntegerField(blank=True, null=True)
+    phone_number = PhoneNumberField(blank=True, null=True)
 
     def points(self):
         return self.jobs.all().aggregate(Sum("points"))["points__sum"] or 0
