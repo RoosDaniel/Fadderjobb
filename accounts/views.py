@@ -31,6 +31,7 @@ def edit_profile(request):
 
         if form.is_valid():
             request.user.motto = form.cleaned_data.get("motto", request.user.motto)
+            request.user.phone_number = form.cleaned_data.get("phone_number", request.user.phone_number)
 
             request.user.save()
 
@@ -41,7 +42,8 @@ def edit_profile(request):
                                  "Ett eller flera problem uppstod.")
     else:
         form = FadderEditForm(initial=dict(
-            motto=request.user.motto
+            motto=request.user.motto,
+            phone_number=request.user.phone_number
         ))
 
     return render(request, "accounts/edit_profile.html", dict(

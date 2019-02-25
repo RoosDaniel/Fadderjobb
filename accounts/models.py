@@ -17,6 +17,10 @@ class User(AbstractUser):
     objects = _UserManager()
 
     motto = models.TextField(max_length=100, blank=True)
+    phone_number = models.IntegerField(blank=True, null=True)
 
     def points(self):
         return self.jobs.all().aggregate(Sum("points"))["points__sum"] or 0
+
+    def can_register(self):
+        return self.phone_number is not None

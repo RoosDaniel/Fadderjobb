@@ -80,7 +80,7 @@
             </tr>
         </table>
 
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and user.can_register %}
             {% if registered_to_job %}  {# Registered #}
                 <h3>Avanmälan</h3>
                 {% if job.is_locked %}  {# Locked #}
