@@ -170,7 +170,7 @@ class Job(models.Model):
     slug = models.SlugField(max_length=100, null=True, blank=True)
 
     types = models.ManyToManyField("Type", blank=True)
-    users = models.ManyToManyField("accounts.User", blank=True, related_name="jobs")
+    users = models.ManyToManyField("accounts.User", blank=True, related_name="jobs", through="JobUser")
 
     def __str__(self):
         return self.name
@@ -278,3 +278,11 @@ class Job(models.Model):
             except EnterQueue.DoesNotExist:
                 break
         return dequeued
+
+
+class JobUser(models.Model):
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+    job = models.ForeignKey("Job", on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'fadderanmalan_job_users'
