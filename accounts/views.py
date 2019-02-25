@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login as django_login, logout as django_logout, get_user_model
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 from .forms import FadderEditForm
 from fadderanmalan.models import Job
@@ -36,7 +37,8 @@ def edit_profile(request):
             request.user.save()
 
             messages.add_message(request, messages.INFO,
-                                 "Din profil har uppdaterats. <a href='/accounts/my_profile'>Se dina ändringar.</a>")
+                                 "Din profil har uppdaterats. "
+                                 "<a href='%s'>Se dina ändringar.</a>" % reverse("accounts:my_profile"))
         else:
             messages.add_message(request, messages.ERROR,
                                  "Ett eller flera problem uppstod.")
