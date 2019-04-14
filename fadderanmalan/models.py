@@ -283,11 +283,7 @@ class Job(models.Model):
 
     def send_info_mail(self, user=None, all_registered=False):
         job_formatting = {("job__%s" % field.name): getattr(self, field.name) for field in self._meta.fields}
-
-        job_formatting = {
-            **job_formatting,
-            "job__url": self.url(),
-        }
+        job_formatting["job__url"] = self.url()
 
         if user:
             recipients = [user]
