@@ -152,20 +152,22 @@ class Job(models.Model):
     description = models.TextField(null=True, blank=True)
     points = models.IntegerField()
     slots = models.IntegerField()
+    extra_info = models.URLField(null=True, blank=True, help_text="Länk till extra information om jobbet. "
+                                                                  "Visas ändast för faddrar registrerade på jobbet.")
 
     hidden = models.BooleanField(help_text="Om jobbet ska döljas från frontend:en. "
                                            "Överskrider datumen nedan")
     hidden_after = models.DateField(default=default_hidden_after,
-                                    help_text="EFTER detta datum kommer jobbet att döljas.")
+                                    help_text="Dagen EFTER detta datum kommer jobbet att döljas.")
     hidden_until = models.DateField(default=default_hidden_until,
-                                    help_text="Jobbet kommer att visas PÅ detta datum.")
+                                    help_text="Jobbet kommer att visas FRÅN OCH MED detta datum.")
 
     locked = models.BooleanField(help_text="Om jobbet ska vara låst. "
                                            "Överskrider datumen nedan.")
     locked_after = models.DateField(default=default_locked_after,
-                                    help_text="EFTER detta datum kommer jobbet att låsas.")
+                                    help_text="Dagen EFTER detta datum kommer jobbet att låsas.")
     locked_until = models.DateField(default=default_locked_until,
-                                    help_text="Jobbet kommer att låsas upp PÅ detta datum.")
+                                    help_text="Jobbet kommer att låsas upp FRÅN OCH MED detta datum.")
 
     slug = models.SlugField(max_length=100, null=True, blank=True)
 

@@ -76,8 +76,20 @@
             </tr>
             <tr>
                 <td>Typer</td>
-                <td>{% if job.types.all %}{{ job.types.all|join:", " }}{% else %}<i>Inga typer</i>{% endif %}</td>
+                <td>{% if job.types.all %}{{ job.types.all|join:", " }}{% else %}<i>Inga typer ännu</i>{% endif %}</td>
             </tr>
+            {% if registered_to_job %}
+                <tr>
+                    <td>Extra information</td>
+                    <td>
+                        {% if job.extra_info %}
+                            <a href="{{ job.extra_info }}" target="_blank">Länk</a>
+                        {% else %}
+                            <i>Ingen extra info ännu</i>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
         </table>
 
         {% if user.is_authenticated and user.can_register %}
