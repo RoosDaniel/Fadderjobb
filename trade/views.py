@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 
 from .forms import TradeForm
 
@@ -14,6 +15,7 @@ def trade(request, receiver_username):
         form = TradeForm(sender=request.user, receiver=receiver, data=request.POST)
 
         if form.is_valid():
+            form.save()
             messages.add_message(request, messages.INFO,
                                  "Bytesförfrågan har skickats på mail till %s." % receiver.username)
         else:

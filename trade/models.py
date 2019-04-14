@@ -1,3 +1,9 @@
 from django.db import models
+from django.utils import timezone
 
-# Create your models here.
+
+class Trade(models.Model):
+    created = models.DateTimeField(default=timezone.now)
+
+    sent = models.ManyToManyField("fadderanmalan.JobUser", related_name="sent_in_trades")
+    requested = models.ManyToManyField("fadderanmalan.JobUser", related_name="requested_in_trades")

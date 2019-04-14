@@ -306,6 +306,9 @@ class JobUser(models.Model):
     requested_give = models.ManyToManyField("accounts.User", blank=True, related_name="give_requests")
     requested_take = models.ManyToManyField("accounts.User", blank=True, related_name="take_requests")
 
+    def __str__(self):
+        return str(self.job)
+
     class Meta:
         db_table = "fadderanmalan_job_users"
 

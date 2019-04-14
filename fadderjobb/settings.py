@@ -168,7 +168,7 @@ Jobbet hittar du här:
 
 {job__url}""", 'Infomail. Om jobbet har extra info definerat kommer mailet skickas ut direkt när en användare'
                   'registrerar sig, annars kan det skickas ut manuellt genom admin-panelen.'),
-    'MIN_POINTS': (0, 'Minsta antalet poäng som krävs av en fadder.'),
+    'MIN_POINTS': (0, 'Minsta antalet poäng som krävs av en fadder. Fyller i dagsläget ingen funktionalitet.'),
 }
 
 # Password validation
