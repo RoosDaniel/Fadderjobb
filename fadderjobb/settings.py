@@ -99,7 +99,7 @@ ROOT_URLCONF = 'fadderjobb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates", "accounts.templates", "fadderanmalan.templates"],
+        'DIRS': ["templates", "accounts.templates", "fadderanmalan.templates", "trade.templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
