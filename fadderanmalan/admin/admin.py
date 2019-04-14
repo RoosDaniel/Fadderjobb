@@ -73,6 +73,11 @@ class JobAdmin(admin.ModelAdmin):
                     messages.add_message(request, messages.ERROR, "No users to dequeue.")
 
             return HttpResponseRedirect(".")
+        elif "_infomail" in request.POST:
+            obj.send_info_mail(all_registered=True)
+            messages.add_message(request, messages.INFO, "Mailed %s users." % obj.users.count())
+
+            return HttpResponseRedirect(".")
         return super().response_change(request, obj)
 
 

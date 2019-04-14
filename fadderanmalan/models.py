@@ -281,6 +281,28 @@ class Job(models.Model):
                 break
         return dequeued
 
+    def send_info_mail(self, user=None, all_registered=False):
+        job_formatting = {("job__%s" % field.name): getattr(self, field.name) for field in self._meta.fields}
+
+        job_formatting = {
+            **job_formatting,
+            "job__url": self.url(),
+        }
+
+        if user:
+            recipients = [user]
+        elif all_registered:
+            recipients = self.users.all()
+        else:
+            return
+
+        for user in recipients:
+            user_formatting = {("user__%s" % field.name): getattr(user, field.name) for field in user._meta.fields}
+
+            formatted_mail = config.INFO_MAIL.format(**job_formatting, **user_formatting)
+
+            send_mail(user.email, "Infomail för jobb %s" % self.name, formatted_mail)
+
 
 class JobUser(models.Model):
     job = models.ForeignKey("Job", on_delete=models.CASCADE)
