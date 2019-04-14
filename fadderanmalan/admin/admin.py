@@ -15,6 +15,8 @@ class UsersInline(admin.TabularInline):
 
     extra = 0
 
+    fields = ("user",)
+
 
 class LQInline(admin.TabularInline):
     verbose_name = "Leavequeue"
