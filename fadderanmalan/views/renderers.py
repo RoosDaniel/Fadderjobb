@@ -23,28 +23,28 @@ def jobsignup(request):
     if search != "":
         jobs = jobs.filter(Q(name__icontains=search.lower()) | Q(description__icontains=search.lower()))
 
-    full = request.GET.get("full", None)
+    full = request.GET.get("filter-full", None)
 
     if full == "1":
         jobs = jobs.annotate(users_count=Count("users")).filter(slots=F("users_count"))
     elif full == "0":
         jobs = jobs.annotate(users_count=Count("users")).exclude(slots=F("users_count"))
 
-    signedup = request.GET.get("signedup", None)
+    signedup = request.GET.get("filter-signedup", None)
 
     if signedup == "1":
-        jobs = jobs.filter(users__user__username__contains=request.user.username)
+        jobs = jobs.filter(id__in=request.user.jobs.values_list('id', flat=True))
     elif signedup == "0":
-        jobs = jobs.exclude(users__user__username__contains=request.user.username)
+        jobs = jobs.exclude(id__in=request.user.jobs.values_list('id', flat=True))
 
-    leavequeue = request.GET.get("leavequeue", None)
+    leavequeue = request.GET.get("filter-leavequeue", None)
 
     if leavequeue == "1":
         jobs = jobs.exclude(leave_queue=None)
     elif leavequeue == "0":
         jobs = jobs.filter(leave_queue=None)
 
-    enterqueue = request.GET.get("enterqueue", None)
+    enterqueue = request.GET.get("filter-enterqueue", None)
 
     if enterqueue == "1":
         jobs = jobs.exclude(enter_queue=None)

@@ -3,14 +3,14 @@
     <div class="filter-checkbox-container">
         <div class="filter-checkbox">
             <label>
-                <input type="checkbox" name="full"
+                <input type="checkbox" name="{{ id }}"
                        value="0" {% if prev == "0" %}checked{% endif %}>
                 <span class="filter-checkbox-label filter-checkbox-label-no"></span>
             </label>
         </div>
         <div class="filter-checkbox">
             <label>
-                <input type="checkbox" name="full"
+                <input type="checkbox" name="{{ id }}"
                        value="1" {% if prev == "1" %}checked{% endif %}>
                 <span class="filter-checkbox-label filter-checkbox-label-yes"></span>
             </label>
