@@ -11,8 +11,8 @@ from fadderanmalan.models import Job
 User = get_user_model()
 
 
-def profile(request, liu_id):
-    user = User.objects.get(username=liu_id)
+def profile(request, username):
+    user = User.objects.get(username=username)
     day_grouped = Job.group_by_date(user.jobs.all())
 
     return render(request, "accounts/profile.html", dict(

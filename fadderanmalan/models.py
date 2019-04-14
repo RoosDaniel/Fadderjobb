@@ -77,7 +77,7 @@ class EnterQueue(models.Model):
         return res
 
     def apply(self):
-        self.job.users.add(self.user)
+        JobUser.create(self.job, self.user)
         self.delete()
         self.job.save()
 
@@ -110,7 +110,7 @@ class LeaveQueue(models.Model):
         return res
 
     def apply(self):
-        self.job.users.remove(self.user)
+        JobUser.remove(self.job, self.user)
         self.delete()
         self.job.save()
 
@@ -281,8 +281,29 @@ class Job(models.Model):
 
 
 class JobUser(models.Model):
-    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
     job = models.ForeignKey("Job", on_delete=models.CASCADE)
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+
+    requested_give = models.ManyToManyField("accounts.User", blank=True, related_name="give_requests")
+    requested_take = models.ManyToManyField("accounts.User", blank=True, related_name="take_requests")
 
     class Meta:
-        db_table = 'fadderanmalan_job_users'
+        db_table = "fadderanmalan_job_users"
+
+    @staticmethod
+    def create(job, user):
+        job_user = JobUser(user=user, job=job)
+        job_user.save()
+
+        return job_user
+
+    @staticmethod
+    def remove(job, user):
+        job_user = JobUser.objects.filter(user=user, job=job).first()
+        job_user.delete()
+
+        return job_user
+
+    @staticmethod
+    def get(job, user):
+        return JobUser.objects.filter(user=user, job=job).first()

@@ -18,7 +18,15 @@
     <div class="header">
         <h1>
             {% if request.user == user %}
-                <a href="{% url 'accounts:edit_profile' %}" class="nounderline"><i class="fas fa-user-edit"></i></a>
+                <a href="{% url 'accounts:edit_profile' %}" class="nounderline">
+                    <i class="fas fa-user-edit" data-toggle="tooltip"
+                       data-placement="bottom" title="Redigera min profil"></i>
+                </a>
+            {% else %}
+                <a href="{% url 'fadderanmalan:trade' user.username %}" class="nounderline">
+                    <i class="fas fa-sync-alt" data-toggle="tooltip"
+                       data-placement="bottom" title="Byt jobb"></i>
+                </a>
             {% endif %}
             {{ user.username }} - {{ user.points }}<span class="lowercase">p</span>
         </h1>

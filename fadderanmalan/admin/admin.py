@@ -39,7 +39,7 @@ class JobAdmin(admin.ModelAdmin):
         EQInline
     )
 
-    list_display = ("name", "date", "locked", "signed_up")
+    list_display = ("name", "date", "locked", "hidden", "signed_up")
 
     exclude = ("users",)
 

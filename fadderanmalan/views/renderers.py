@@ -2,8 +2,10 @@ from django.http import Http404
 from django.shortcuts import render
 from django.db.models import Count, F, Q, Sum
 from django.contrib.auth import get_user_model
+from django.contrib import messages
 
-from fadderanmalan.models import Job, EnterQueue, LeaveQueue, Type
+from ..models import Job, EnterQueue, LeaveQueue, Type
+from ..forms import TradeForm
 
 
 User = get_user_model()
@@ -97,4 +99,25 @@ def topchart(request):
 
     return render(request, "topchart.html", dict(
         users=users
+    ))
+
+
+def trade(request, receiver_username):
+    receiver = User.objects.get(username=receiver_username)
+
+    if request.method == "POST":
+        form = TradeForm(sender=request.user, receiver=receiver, data=request.POST)
+
+        if form.is_valid():
+            messages.add_message(request, messages.INFO,
+                                 "Bytesförfrågan skickad. Ett mail har skickats till %s." % receiver.username)
+        else:
+            messages.add_message(request, messages.ERROR,
+                                 "Ett eller flera problem uppstod.")
+    else:
+        form = TradeForm(sender=request.user, receiver=receiver)
+
+    return render(request, "trade.html", dict(
+        trade_form=form,
+        receiver=receiver,
     ))
