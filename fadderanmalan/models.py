@@ -282,8 +282,8 @@ class Job(models.Model):
         return dequeued
 
     def send_info_mail(self, user=None, all_registered=False):
-        job_formatting = {("job__%s" % field.name): getattr(self, field.name) for field in self._meta.fields}
-        job_formatting["job__url"] = self.url()
+        formatting = {("job__%s" % field.name): getattr(self, field.name) for field in self._meta.fields}
+        formatting["job__url"] = self.url()
 
         if user:
             recipients = [user]
@@ -293,11 +293,10 @@ class Job(models.Model):
             return
 
         for user in recipients:
-            user_formatting = {("user__%s" % field.name): getattr(user, field.name) for field in user._meta.fields}
+            formatting.update({("user__%s" % field.name): getattr(user, field.name) for field in user._meta.fields})
+            formatted_mail = config.INFO_MAIL.format(formatting)
 
-            formatted_mail = config.INFO_MAIL.format(**job_formatting, **user_formatting)
-
-            send_mail(user.email, "Infomail för jobb %s" % self.name, formatted_mail)
+            send_mail(user.email, "Information angående '%s'" % self.name, formatted_mail)
 
 
 class JobUser(models.Model):
