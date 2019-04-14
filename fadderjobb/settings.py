@@ -73,6 +73,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'fadderanmalan',
     'accounts',
+    'trade',
 ]
 
 MIDDLEWARE = [

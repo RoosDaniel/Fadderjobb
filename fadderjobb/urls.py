@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include("fadderanmalan.urls")),
     path('accounts/', include("accounts.urls")),
     path('calendar/', include("job_calendar.urls")),
+    path('trade/', include("trade.urls")),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
