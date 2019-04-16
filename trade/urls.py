@@ -6,5 +6,6 @@ from . import views
 app_name = "trade"
 
 urlpatterns = [
-    path('<str:receiver_username>/', views.trade, name="start"),
+    path('start/<str:receiver_username>/', views.start, name="start"),
+    path('complete/<str:sender_username>/', views.complete, name="complete"),
 ]

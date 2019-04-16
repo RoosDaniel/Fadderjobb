@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+{% load sass_tags %}
+{% load fadderanmalan_components %}
+
+{% block title %}Bytesförfrågan från {{ sender.username }} - {% endblock title %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% sass_src 'sass/trade_complete.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/components/job.sass' %}">
+{% endblock head %}
+
+{% block content %}
+    <h1>Bytesförfrågan från {{ receiver.username }}</h1>
+
+    <form action="{% url 'trade:complete' sender_username=sender.username %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Acceptera bytet" name="confirm">
+        <input type="submit" value="Avslå bytet" name="deny">
+    </form>
+{% endblock content %}

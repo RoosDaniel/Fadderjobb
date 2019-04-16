@@ -240,7 +240,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "fadderjobb", "static"),
     os.path.join(BASE_DIR, "fadderanmalan", "static"),
-    os.path.join(BASE_DIR, "accounts", "static")
+    os.path.join(BASE_DIR, "accounts", "static"),
+    os.path.join(BASE_DIR, "trade", "static"),
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
