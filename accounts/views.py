@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import login as django_login, logout as django_logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.http import Http404
 
 from .forms import FadderEditForm
 from fadderanmalan.models import Job
@@ -12,7 +13,10 @@ User = get_user_model()
 
 
 def profile(request, username):
-    user = User.objects.get(username=username)
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        raise Http404("Kunde inte hitta användaren '%s'" % username)
     day_grouped = Job.group_by_date(user.jobs.all())
 
     return render(request, "accounts/profile.html", dict(
