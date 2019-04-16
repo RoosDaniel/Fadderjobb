@@ -294,7 +294,7 @@ class Job(models.Model):
 
         for user in recipients:
             formatting.update({("user__%s" % field.name): getattr(user, field.name) for field in user._meta.fields})
-            formatted_mail = config.INFO_MAIL.format(formatting)
+            formatted_mail = config.INFO_MAIL.format(**formatting)
 
             send_mail(user.email, "Information angående '%s'" % self.name, formatted_mail)
 

@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.conf import settings
 
 from fadderjobb.staben_mail import send_mail
 
@@ -18,11 +19,13 @@ class Trade(models.Model):
     def __str__(self):
         return "%s -> %s" % (self.sender, self.receiver)
 
+    def url(self):
+        return settings.DEFAULT_DOMAIN + \
+               reverse("trade:complete", kwargs={"sender_username": self.sender.username})
+
     def notify_receiver(self):
-        message = """Du har mottagit en bytesförfrågan från {username}.
-Se bytet här: {trade_url}""".format(
-            username=self.sender.username,
-            trade_url=reverse("trade:complete", **{"sender": self.sender.username}))
+        message = "Du har mottagit en bytesförfrågan från {username}.\n\nSe bytet här: {url}"\
+            .format(username=self.sender.username, url=self.url())
 
         send_mail(self.receiver.email, "Bytesförfrågan", message=message)
 
