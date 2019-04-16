@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
+import cas.views
+
 
 admin.autodiscover()
 
@@ -27,6 +29,7 @@ urlpatterns = [
     path('accounts/', include("accounts.urls")),
     path('calendar/', include("job_calendar.urls")),
     path('trade/', include("trade.urls")),
+    path('login/', cas.views.login, name="cas.views.login"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

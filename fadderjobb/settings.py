@@ -53,6 +53,9 @@ ALLOWED_HOSTS = ["localhost", "fadderjobb.staben.info", "fadderjobb.herokuapp.co
 AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_URL = 'accounts:login'
+LOGINAS_LOGOUT_REDIRECT_URL = 'admin:index'
+LOGINAS_MESSAGE_LOGIN_SWITCH = 'Du är nu inloggad som {username} - klicka på "Återgå" för att avsluta sessionen.'
+LOGINAS_MESSAGE_LOGIN_REVERT = "Du är nu inloggad som {username} igen."
 
 # Application definition
 
@@ -71,6 +74,7 @@ INSTALLED_APPS = [
     'constance',
     'constance.backends.database',
     'phonenumber_field',
+    'loginas',
     'fadderanmalan',
     'accounts',
     'trade',
@@ -107,7 +111,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'fadderjobb.context_processors.debug'
+                'loginas.context_processors.impersonated_session_status',
+                'fadderjobb.context_processors.debug',
             ],
         },
     },

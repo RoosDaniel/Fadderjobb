@@ -25,4 +25,4 @@ class User(AbstractUser):
         return self.jobs.all().aggregate(Sum("points"))["points__sum"] or 0
 
     def can_register(self):
-        return self.phone_number is not None
+        return self.is_authenticated and self.phone_number is not None

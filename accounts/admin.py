@@ -1,5 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+from loginas.utils import login_as
 
 from fadderanmalan.models import EquipmentOwnership
 from fadderjobb.filters import DropdownFilterRelated
@@ -40,13 +44,18 @@ class UserAdmin(admin.ModelAdmin):
         EquipmentOwnershipInline,
     )
 
-    # fields = ("username", )
-
     list_display = ("username", "equipment")
 
     list_filter = (("jobs", DropdownFilterRelated), ("equipments__equipment", DropdownFilterRelated))
 
     def equipment(self, obj):
         return ", ".join(str(eq.equipment) for eq in obj.equipments.all())
+
+    def response_change(self, request, obj):
+        if "_loginas" in request.POST:
+            login_as(obj, request)
+
+            return HttpResponseRedirect(reverse("fadderanmalan:index"))
+        return super().response_change(request, obj)
 
 admin.site.register(User, UserAdmin)
