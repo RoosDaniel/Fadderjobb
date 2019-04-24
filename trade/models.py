@@ -29,7 +29,14 @@ class Trade(models.Model):
 
         send_mail(self.receiver.email, "Bytesförfrågan", message=message)
 
-    def apply(self):
-        self.completed = True
+    def apply(self, accepted):
+        if accepted:
+            self.completed = True
+        else:
+            pass
 
         self.save()
+
+    @staticmethod
+    def get_active(sender, receiver):
+        return Trade.objects.get(sender=sender, receiver=receiver, completed=False)

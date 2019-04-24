@@ -11,11 +11,30 @@
 {% endblock head %}
 
 {% block content %}
-    <h1>Bytesförfrågan från {{ receiver.username }}</h1>
+    <h1>Bytesförfrågan från {{ sender.username }}</h1>
+
+    <div class="trade">
+        <div class="trade-sent">
+            <h3>Deras jobb</h3>
+            {% for job_user in trade.sent.all %}
+                <div class="trade-job">
+                    {% job_component job_user.job %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="trade-received">
+            <h3>Dina jobb</h3>
+            {% for job_user in trade.requested.all %}
+                <div class="trade-job">
+                    {% job_component job_user.job %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
     <form action="{% url 'trade:complete' sender_username=sender.username %}" method="post">
         {% csrf_token %}
-        <input type="submit" value="Acceptera bytet" name="confirm">
-        <input type="submit" value="Avslå bytet" name="deny">
+        <button type="submit" value="false" name="accept" class="btn btn-primary">Avslå bytet</button>
+        <button type="submit" value="true" name="accept" class="btn btn-primary">Acceptera bytet</button>
     </form>
 {% endblock content %}
