@@ -27,15 +27,25 @@ class Trade(models.Model):
         message = "Du har mottagit en bytesförfrågan från {username}.\n\nSe bytet här: {url}"\
             .format(username=self.sender.username, url=self.url())
 
-        send_mail(self.receiver.email, "Bytesförfrågan", message=message)
+        send_mail(self.receiver.email, "Bytesförfrågan", message)
 
     def apply(self, accepted):
         if accepted:
-            self.completed = True
-        else:
-            pass
+            subject = "Ett byte har gått igenom"
+            message = "{username} har accepterat ditt byte!" \
+                .format(username=self.receiver.username)
 
-        self.save()
+            self.completed = True
+            self.save()
+
+        else:
+            subject = "Ett byte har avslagits"
+            message = "{username} har tackat nej till ditt byte." \
+                .format(username=self.receiver.username)
+
+            self.delete()
+
+        send_mail(self.sender.email, subject, message)
 
     @staticmethod
     def get_active(sender, receiver):
