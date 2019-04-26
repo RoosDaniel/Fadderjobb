@@ -9,10 +9,12 @@
 {% endblock head %}
 
 {% block content %}
-    <h1>Bytesförfrågan från {{ sender.username }}</h1>
+    <h1>Ditt byte med {{ other.username }}</h1>
     {% if accepted %}
-        <p>Bytet har genomförts!</p>
-    {% else %}
+        <p>Bytet har genomförts.</p>
+    {% elif denied %}
         <p>Bytet har avslagits.</p>
+    {% elif canceled %}
+        <p>Du har avbrutit bytesförfrågan.</p>
     {% endif %}
 {% endblock content %}

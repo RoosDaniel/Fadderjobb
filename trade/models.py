@@ -23,7 +23,7 @@ class Trade(models.Model):
 
     def url(self):
         return settings.DEFAULT_DOMAIN + \
-               reverse("trade:complete", kwargs={"sender_username": self.sender.username})
+               reverse("trade:see", args=[self.sender.username])
 
     def notify_receiver(self):
         message = "Du har mottagit en bytesförfrågan från {username}.\n\nSe bytet här: {url}"\
@@ -31,26 +31,30 @@ class Trade(models.Model):
 
         send_mail(self.receiver.email, "Bytesförfrågan", message)
 
-    def apply(self, accepted):
-        if accepted:
-            subject = "Ett byte har gått igenom"
-            message = "{username} har accepterat ditt byte!" \
-                .format(username=self.receiver.username)
+    def accept(self):
+        subject = "Ett byte har gått igenom"
+        message = "{username} har accepterat ditt byte!" \
+            .format(username=self.receiver.username)
 
-            self.sent.update(user=self.receiver)
-            self.requested.update(user=self.sender)
+        self.sent.update(user=self.receiver)
+        self.requested.update(user=self.sender)
 
-            self.completed = True
-            self.save()
+        self.completed = True
+        self.save()
 
-        else:
-            subject = "Ett byte har avslagits"
-            message = "{username} har tackat nej till ditt byte." \
-                .format(username=self.receiver.username)
+        send_mail(send.sender.email, subject, message)
 
-            self.delete()
+    def deny(self):
+        subject = "Ett byte har avslagits"
+        message = "{username} har tackat nej till ditt byte." \
+            .format(username=self.receiver.username)
+
+        self.delete()
 
         send_mail(self.sender.email, subject, message)
+
+    def cancel(self):
+        self.delete()
 
     @staticmethod
     def get_active(sender, receiver):

@@ -35,6 +35,31 @@
     <h2>Utlämnad utrustning</h2>
     {% for equipment_ownership in user.equipments.all %}
         {% equipment_ownership_component equipment_ownership %}
+    {% empty %}
+        <i>Du har ingen utlämnad utrustning</i>
+    {% endfor %}
+    <h2>Pågående byten</h2>
+    <h3>Inkommande</h3>
+    {% for received_trade in request.user.get_active_received_trades %}
+        <p>
+            <i class="fas fa-exclamation" data-toggle="tooltip"
+                   data-placement="bottom" title="Inkommande byte"></i>
+            <a href="{% url 'trade:see' received_trade.sender.username %}">
+                Byte från {{ received_trade.sender.username }}
+            </a>
+        </p>
+    {% empty %}
+        <i>Du har inga inkommande bytesförfrågningar</i>
+    {% endfor %}
+    <h3>Utgående</h3>
+    {% for sent_trade in request.user.get_active_sent_trades %}
+        <p>
+            <a href="{% url 'trade:see' sent_trade.receiver.username %}">
+                Byte till {{ sent_trade.receiver.username }}
+            </a>
+        </p>
+    {% empty %}
+        <i>Du har inga utgående bytesförfrågningar</i>
     {% endfor %}
     <h2>Registrerade jobb</h2>
     {% for day, jobs in day_grouped.items %}

@@ -26,3 +26,9 @@ class User(AbstractUser):
 
     def can_register(self):
         return self.is_authenticated and self.phone_number is not None
+
+    def get_active_received_trades(self):
+        return self.received_trades.filter(completed=False).all()
+
+    def get_active_sent_trades(self):
+        return self.sent_trades.filter(completed=False).all()

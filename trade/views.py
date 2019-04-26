@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -73,28 +73,72 @@ def start(request, receiver_username):
 
 
 @login_required
-def complete(request, sender_username):
+def see_trade(request, other_username):
     try:
-        sender = User.objects.get(username=sender_username)
+        other = User.objects.get(username=other_username)
     except User.DoesNotExist:
-        raise Http404("Kunde inte hitta användaren '%s'" % sender_username)
+        raise Http404("Kunde inte hitta användaren '%s'" % other_username)
 
     try:
-        trade = Trade.get_active(sender=sender, receiver=request.user)
+        trade = Trade.get_active(sender=other, receiver=request.user)
     except Trade.DoesNotExist:
-        raise Http404("Bytesförfrågan hittades ej. Sändaren kan ha avbrutit förfrågan.")
+        try:
+            trade = Trade.get_active(sender=request.user, receiver=other)
+        except Trade.DoesNotExist:
+            raise Http404("Bytesförfrågan hittades ej. Användaren som skickade den kan ha avbrutit bytet.")
 
-    if request.method == "POST":
-        accepted = "true" in request.POST.get("accept", [])
-
-        trade.apply(accepted=accepted)
-
-        return render(request, "trade/confirmation.html", dict(
-            sender=sender,
-            accepted=accepted
+    if trade.sender == request.user:
+        return render(request, "trade/sent.html", dict(
+            other=other,
+            trade=trade
         ))
     else:
         return render(request, "trade/complete.html", dict(
-            sender=sender,
+            other=other,
             trade=trade,
         ))
+
+
+@login_required
+def change_trade(request, other_username):
+    if request.method == "GET":
+        return redirect(reverse("trade:see", args=[other_username]))
+
+    try:
+        other = User.objects.get(username=other_username)
+    except User.DoesNotExist:
+        raise Http404("Kunde inte hitta användaren '%s'" % other_username)
+
+    try:
+        trade = Trade.get_active(sender=other, receiver=request.user)
+    except Trade.DoesNotExist:
+        try:
+            trade = Trade.get_active(sender=request.user, receiver=other)
+        except Trade.DoesNotExist:
+            raise Http404("Bytet hittades ej.")
+
+    if request.method == "POST":
+        if trade.sender == request.user:
+            canceled = "cancel" in request.POST
+
+            if canceled:
+                trade.cancel()
+
+            return render(request, "trade/confirmation.html", dict(
+                other=other,
+                canceled=canceled,
+            ))
+        else:
+            accepted = "accept" in request.POST
+            denied = "deny" in request.POST
+
+            if accepted:
+                trade.accept()
+            elif denied:
+                trade.deny()
+
+            return render(request, "trade/confirmation.html", dict(
+                other=other,
+                accepted=accepted,
+                denied=denied,
+            ))
