@@ -19,20 +19,10 @@ def start(request, receiver_username):
         raise Http404("Kunde inte hitta användaren '%s'" % receiver_username)
 
     try:
-        Trade.get_active(sender=request.user, receiver=receiver)
+        Trade.get_trade(request.user, receiver)
 
         return render(request, "400.html", dict(
-            exception="Du har redan skickat ett bytesförslag till den här personen."
-        ))
-    except Trade.DoesNotExist:
-        pass
-
-    try:
-        Trade.get_active(sender=receiver, receiver=request.user)
-
-        return render(request, "400.html", dict(
-            exception="Den här användaren har redan skickat en bytesförfrågan till dig. "
-                      "Svara på den innan du skickar en ny förfrågan."
+            exception="Ett byte mellan dig och den här personen existerar redan."
         ))
     except Trade.DoesNotExist:
         pass
@@ -82,12 +72,9 @@ def see_trade(request, other_username):
         raise Http404("Kunde inte hitta användaren '%s'" % other_username)
 
     try:
-        trade = Trade.get_active(sender=other, receiver=request.user)
+        trade = Trade.get_trade(request.user, other)
     except Trade.DoesNotExist:
-        try:
-            trade = Trade.get_active(sender=request.user, receiver=other)
-        except Trade.DoesNotExist:
-            raise Http404("Bytesförfrågan hittades ej. Användaren som skickade den kan ha avbrutit bytet.")
+        raise Http404("Bytesförfrågan hittades ej. Användaren som skickade den kan ha avbrutit bytet.")
 
     if trade.sender == request.user:
         return render(request, "trade/sent.html", dict(
@@ -112,12 +99,9 @@ def change_trade(request, other_username):
         raise Http404("Kunde inte hitta användaren '%s'" % other_username)
 
     try:
-        trade = Trade.get_active(sender=other, receiver=request.user)
+        trade = Trade.get_trade(request.user, other)
     except Trade.DoesNotExist:
-        try:
-            trade = Trade.get_active(sender=request.user, receiver=other)
-        except Trade.DoesNotExist:
-            raise Http404("Bytet hittades ej.")
+        raise Http404("Bytet hittades ej.")
 
     if request.method == "POST":
         if trade.sender == request.user:

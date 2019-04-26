@@ -10,6 +10,8 @@ from loginas.views import user_logout as la_restore
 from .forms import FadderEditForm
 from fadderanmalan.models import Job
 
+from trade.models import Trade
+
 
 User = get_user_model()
 
@@ -26,9 +28,15 @@ def profile(request, username):
         raise Http404("Kunde inte hitta användaren '%s'" % username)
     day_grouped = Job.group_by_date(user.jobs.all())
 
+    try:
+        trade = Trade.get_trade(request.user, user)
+    except Trade.DoesNotExist:
+        trade = None
+
     return render(request, "accounts/profile.html", dict(
         user=user,
-        day_grouped=day_grouped
+        day_grouped=day_grouped,
+        trade=trade,
     ))
 
 
@@ -62,7 +70,7 @@ def edit_profile(request):
         ))
 
     return render(request, "accounts/edit_profile.html", dict(
-        form=form
+        form=form,
     ))
 
 

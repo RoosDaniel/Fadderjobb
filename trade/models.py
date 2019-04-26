@@ -59,3 +59,10 @@ class Trade(models.Model):
     @staticmethod
     def get_active(sender, receiver):
         return Trade.objects.get(sender=sender, receiver=receiver, completed=False)
+
+    @staticmethod
+    def get_trade(user_1, user_2):
+        try:
+            return Trade.get_active(user_1, user_2)
+        except Trade.DoesNotExist:
+            return Trade.get_active(user_2, user_1)
