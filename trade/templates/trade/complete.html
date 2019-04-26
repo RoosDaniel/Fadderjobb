@@ -20,6 +20,8 @@
                 <div class="trade-job">
                     {% job_component job_user.job %}
                 </div>
+            {% empty %}
+                <i>Inga jobb</i>
             {% endfor %}
         </div>
         <div class="trade-received">
@@ -28,6 +30,8 @@
                 <div class="trade-job">
                     {% job_component job_user.job %}
                 </div>
+            {% empty %}
+                <i>Inga jobb</i>
             {% endfor %}
         </div>
     </div>

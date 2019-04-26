@@ -5,6 +5,8 @@ from django.conf import settings
 
 from fadderjobb.staben_mail import send_mail
 
+from fadderanmalan.models import JobUser
+
 
 class Trade(models.Model):
     created = models.DateTimeField(default=timezone.now)
@@ -34,6 +36,9 @@ class Trade(models.Model):
             subject = "Ett byte har gått igenom"
             message = "{username} har accepterat ditt byte!" \
                 .format(username=self.receiver.username)
+
+            self.sent.update(user=self.receiver)
+            self.requested.update(user=self.sender)
 
             self.completed = True
             self.save()
