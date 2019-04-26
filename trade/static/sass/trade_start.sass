@@ -1,0 +1,20 @@
+@import darkmode/d_trade_start
+@import mobile/m_trade_start
+
+.trade-job
+    display: flex
+    align-items: center
+
+    .job
+        margin-left: 0
+
+input[type=checkbox]
+    height: 50px
+    width: 30px
+
+    margin: 0
+
+    &:checked+.job
+        background-color: black
+        *
+            color: white

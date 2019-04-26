@@ -15,7 +15,22 @@
 
     <form action="{% url 'trade:start' receiver_username=receiver.username %}" method="post">
         {% csrf_token %}
-        {{ trade_form }}
-        <input type="submit" value="Skicka bytesförfrågan">
+        {{ trade_form.non_field_errors }}
+
+        {% for hidden_field in trade_form.hidden_fields %}
+            {{ hidden_field.errors }}
+            {{ hidden_field }}
+        {% endfor %}
+
+        {% for field in trade_form %}
+            <h2>{{ field.label }}</h2>
+            {% for job_user in field.field.choices %}
+                <div class="trade-job">
+                    <input type="checkbox" name="{{ field.name }}" value="{{ job_user.id }}">
+                    {% job_component job_user.job %}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Skicka bytesförfrågan</button>
     </form>
 {% endblock content %}

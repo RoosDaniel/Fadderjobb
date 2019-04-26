@@ -4,13 +4,30 @@ from .models import Trade
 from fadderanmalan.models import JobUser
 
 
+class CustomModelChoiceIterator(forms.models.ModelChoiceIterator):
+    def choice(self, obj):
+        return obj
+
+
+class CustomModelChoiceField(forms.models.ModelMultipleChoiceField):
+    def _get_choices(self):
+        if hasattr(self, '_choices'):
+            return self._choices
+        return CustomModelChoiceIterator(self)
+
+    choices = property(_get_choices,
+                       forms.MultipleChoiceField._set_choices)
+
+
 class TradeForm(forms.ModelForm):
     class Meta:
         model = Trade
-        fields = ("sent", "requested")
+        fields = ("requested", "sent")
 
     def __init__(self, sender, receiver, *args, **kwargs):
         super(TradeForm, self).__init__(*args, **kwargs)
+
+        self.label_suffix = ""
 
         sender_jobs = JobUser.objects.filter(user=sender)\
             .exclude(job__id__in=receiver.jobs.values_list('id', flat=True))
@@ -18,16 +35,16 @@ class TradeForm(forms.ModelForm):
         receiver_jobs = JobUser.objects.filter(user=receiver)\
             .exclude(job__id__in=sender.jobs.values_list('id', flat=True))
 
-        self.fields["sent"] = forms.ModelMultipleChoiceField(
-            queryset=sender_jobs,
-            label="Dina jobb",
+        self.fields["requested"] = CustomModelChoiceField(
+            queryset=receiver_jobs,
+            label="Deras jobb",
             widget=forms.CheckboxSelectMultiple(),
             required=False,
         )
 
-        self.fields["requested"] = forms.ModelMultipleChoiceField(
-            queryset=receiver_jobs,
-            label="Deras jobb",
+        self.fields["sent"] = CustomModelChoiceField(
+            queryset=sender_jobs,
+            label="Dina jobb",
             widget=forms.CheckboxSelectMultiple(),
             required=False,
         )

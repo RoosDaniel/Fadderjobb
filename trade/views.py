@@ -60,6 +60,8 @@ def start(request, receiver_username):
 
             messages.add_message(request, messages.INFO,
                                  "Bytesförfrågan har skickats på mail till %s." % receiver.username)
+
+            return redirect(reverse("trade:see", args=[receiver_username]))
         else:
             messages.add_message(request, messages.ERROR,
                                  "Ett eller flera problem uppstod.")
