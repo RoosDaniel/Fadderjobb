@@ -15,6 +15,11 @@ User = get_user_model()
 
 
 def profile(request, username):
+    if username == request.user.username:
+        return render(request, "accounts/my_profile.html", dict(
+            day_grouped=Job.group_by_date(request.user.jobs.all())
+        ))
+
     try:
         user = User.objects.get(username=username)
     except User.DoesNotExist:

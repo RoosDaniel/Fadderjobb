@@ -17,19 +17,25 @@
     {% endif %}
     <div class="header">
         <h1>
-            <a href="{% url 'trade:start' user.username %}" class="nounderline">
-                <i class="fas fa-sync-alt" data-toggle="tooltip"
-                   data-placement="bottom" title="Byt jobb"></i>
+            <a href="{% url 'accounts:edit_profile' %}" class="nounderline">
+                <i class="fas fa-user-edit" data-toggle="tooltip"
+                   data-placement="bottom" title="Redigera min profil"></i>
             </a>
             {{ user.username }} - {{ user.points }}<span class="lowercase">p</span>
         </h1>
     </div>
+    <a href="{% url 'job_calendar:get_calendar' user.username %}">Din kalender</a>. Infoga länken i t.ex.
+    Google Calendar.
     <h2>Motto</h2>
     {% if user.motto %}
         <i>"{{ user.motto }}"</i>
     {% else %}
-        <i>Användaren har inte satt något motto.</i>
+        <i>Du har inte satt något motto än. <a href="{% url 'accounts:edit_profile' %}">Sätt ditt motto här.</a></i>
     {% endif %}
+    <h2>Utlämnad utrustning</h2>
+    {% for equipment_ownership in user.equipments.all %}
+        {% equipment_ownership_component equipment_ownership %}
+    {% endfor %}
     <h2>Registrerade jobb</h2>
     {% for day, jobs in day_grouped.items %}
         <h3 class="job-day">{{ day }}</h3>
