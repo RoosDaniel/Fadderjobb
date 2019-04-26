@@ -16,7 +16,7 @@
     <div class="trade">
         <div class="trade-sent">
             <h3>Deras jobb</h3>
-            {% for job_user in trade.sent.all %}
+            {% for job_user in trade.requested.all %}
                 <div class="trade-job">
                     {% job_component job_user.job %}
                 </div>
@@ -26,7 +26,7 @@
         </div>
         <div class="trade-received">
             <h3>Dina jobb</h3>
-            {% for job_user in trade.requested.all %}
+            {% for job_user in trade.sent.all %}
                 <div class="trade-job">
                     {% job_component job_user.job %}
                 </div>
@@ -35,7 +35,6 @@
             {% endfor %}
         </div>
     </div>
-
 
     <form action="{% url 'trade:change' other.username %}" method="post">
         {% csrf_token %}
