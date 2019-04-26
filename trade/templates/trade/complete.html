@@ -15,7 +15,7 @@
 
     <div class="trade">
         <div class="trade-sent">
-            <h3>Deras jobb</h3>
+            <h3>{% block requested_title %}Dina jobb{% endblock %}</h3>
             {% for job_user in trade.requested.all %}
                 <div class="trade-job">
                     {% job_component job_user.job %}
@@ -25,7 +25,7 @@
             {% endfor %}
         </div>
         <div class="trade-received">
-            <h3>Dina jobb</h3>
+            <h3>{% block sent_title %}Deras jobb{% endblock %}</h3>
             {% for job_user in trade.sent.all %}
                 <div class="trade-job">
                     {% job_component job_user.job %}

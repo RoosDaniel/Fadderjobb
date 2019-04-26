@@ -42,7 +42,7 @@ class Trade(models.Model):
         self.completed = True
         self.save()
 
-        send_mail(send.sender.email, subject, message)
+        send_mail(self.sender.email, subject, message)
 
     def deny(self):
         subject = "Ett byte har avslagits"

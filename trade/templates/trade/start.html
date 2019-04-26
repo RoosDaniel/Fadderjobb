@@ -13,6 +13,11 @@
 {% block content %}
     <h1>Byt jobb med {{ receiver.username }}</h1>
 
+    <p style="width: 700px; max-width: 95vw;">
+        Observera att bytet kommer att tas bort automatiskt om du avregistrerar dig från något jobb du erbjuder
+        eller registrerar dig på något du förfrågar, alternativ om den du skickar förfrågan till gör det samma.
+    </p>
+
     <form action="{% url 'trade:start' receiver_username=receiver.username %}" method="post">
         {% csrf_token %}
         {{ trade_form.non_field_errors }}
@@ -29,6 +34,8 @@
                     <input type="checkbox" name="{{ field.name }}" value="{{ job_user.id }}">
                     {% job_component job_user.job %}
                 </div>
+            {% empty %}
+                <p><i>Finns inga jobb att erbjuda.</i></p>
             {% endfor %}
         {% endfor %}
         <button type="submit" class="btn btn-primary">Skicka bytesförfrågan</button>

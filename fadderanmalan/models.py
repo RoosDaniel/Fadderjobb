@@ -275,7 +275,7 @@ class Job(models.Model):
         while not self.full():
             try:
                 eq = EnterQueue.get_first(self)
-                eq.accept()
+                eq.apply()
                 dequeued.append(eq.user)
             except EnterQueue.DoesNotExist:
                 break
