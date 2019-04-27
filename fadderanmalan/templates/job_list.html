@@ -7,14 +7,14 @@
 
 {% block head %}
     <!--suppress HtmlUnknownTarget -->
-    <link rel="stylesheet" href="{% sass_src 'sass/jobsignup.sass' %}">
+    <link rel="stylesheet" href="{% sass_src 'sass/job_list.sass' %}">
     <link rel="stylesheet" href="{% sass_src 'sass/components/job.sass' %}">
     <link rel="stylesheet" href="{% sass_src 'sass/components/filter_checkbox.sass' %}">
     <link rel="stylesheet" href="{% sass_src 'sass/form.sass' %}">
 {% endblock head %}
 
 {% block scripts %}
-    <script src="{% static 'js/jobsignup.js' %}"></script>
+    <script src="{% static 'js/job_list.js' %}"></script>
 {% endblock scripts %}
 
 {% block content %}
@@ -22,7 +22,7 @@
         <a href="{% url 'admin:fadderanmalan_job_add' %}" target="_blank">Lägg till nytt jobb</a>
     {% endif %}
 
-    <form action="{% url 'fadderanmalan:jobsignup' %}" method="get" id="filter-container">
+    <form action="{% url 'fadderanmalan:job_list' %}" method="get" id="filter-container">
         <input class="filter filter-search form-control" placeholder="Jobbnamn" type="text" aria-label="Jobbnamn"
                aria-describedby="basic-addon2" name="search" value="{{ filter_search }}" id="filter-name">
         <div class="filter filter-dropdown-container dropdown" id="filter-jobtype">

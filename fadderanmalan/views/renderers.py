@@ -12,7 +12,7 @@ def index(request):
     return render(request, "index.html")
 
 
-def jobsignup(request):
+def job_list(request):
     jobs = Job.objects.order_by("date").filter(~Job.is_hidden_query_filter()).all()
 
     search = request.GET.get("search", "")
@@ -55,7 +55,7 @@ def jobsignup(request):
 
     day_grouped = Job.group_by_date(jobs)
 
-    return render(request, "jobsignup.html", dict(
+    return render(request, "job_list.html", dict(
         day_grouped=day_grouped,
         jobtypes=(t.name for t in Type.objects.all()),
         filter_search=search,

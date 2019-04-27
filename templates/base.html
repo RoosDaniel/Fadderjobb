@@ -60,8 +60,8 @@
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a href="{% url 'fadderanmalan:jobsignup' %}"
-               class="nav-item nav-link{% if request.resolver_match.view_name|startswith:'fadderanmalan:jobsignup' %} active{% endif %}">
+            <a href="{% url 'fadderanmalan:job_list' %}"
+               class="nav-item nav-link{% if request.resolver_match.view_name|startswith:'fadderanmalan:job_list' %} active{% endif %}">
                 Jobbanmälan
             </a>
             <a href="{% url 'fadderanmalan:topchart' %}"

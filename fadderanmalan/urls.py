@@ -7,7 +7,7 @@ app_name = "fadderanmalan"
 urlpatterns = [
     path('', renderers.index, name="index"),
 
-    path('jobsignup/', renderers.jobsignup, name="jobsignup"),
+    path('jobsignup/', renderers.job_list, name="job_list"),
     path('jobsignup/<str:slug>/', renderers.jobdetails, name="jobsignup_detail"),
     path('topchart/', renderers.topchart, name="topchart"),
 
