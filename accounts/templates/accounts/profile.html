@@ -17,16 +17,18 @@
     {% endif %}
     <div class="header">
         <h1>
-            {% if not trade %}
-                <a href="{% url 'trade:start' user.username %}" class="nounderline">
-                    <i class="fas fa-sync-alt" data-toggle="tooltip"
-                       data-placement="bottom" title="Byt jobb"></i>
-                </a>
-            {% else %}
-                <a href="{% url 'trade:see' user.username %}" class="nounderline">
-                    <i class="fas fa-sync-alt" data-toggle="tooltip"
-                       data-placement="bottom" title="Gå till aktivt byte"></i>
-                </a>
+            {% if request.user.is_authenticated %}
+                {% if not trade %}
+                    <a href="{% url 'trade:start' user.username %}" class="nounderline">
+                        <i class="fas fa-sync-alt" data-toggle="tooltip"
+                           data-placement="bottom" title="Byt jobb"></i>
+                    </a>
+                {% else %}
+                    <a href="{% url 'trade:see' user.username %}" class="nounderline">
+                        <i class="fas fa-sync-alt" data-toggle="tooltip"
+                           data-placement="bottom" title="Gå till aktivt byte"></i>
+                    </a>
+                {% endif %}
             {% endif %}
             {{ user }}
         </h1>

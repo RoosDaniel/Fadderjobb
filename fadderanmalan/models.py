@@ -12,7 +12,7 @@ from django.core.exceptions import ValidationError
 
 from constance import config
 
-from fadderjobb.staben_mail import send_mail
+from fadderjobb.utils import notify_user
 
 
 class Type(models.Model):
@@ -81,7 +81,7 @@ class EnterQueue(models.Model):
         self.delete()
         self.job.save()
 
-        send_mail(self.user.email, "Du har fått en plats på ett jobb du har köat för",
+        notify_user(self.user, "Du har fått en plats på ett jobb du har köat för",
                   "Du har fått en plats på jobbet '%s'. Se jobbet här: %s" % (self.job.name, self.job.url()))
 
 
@@ -114,7 +114,7 @@ class LeaveQueue(models.Model):
         self.delete()
         self.job.save()
 
-        send_mail(self.user.email, "Någon har tagit en plats på ett jobb du vill lämna",
+        notify_user(self.user, "Någon har tagit en plats på ett jobb du vill lämna",
                   "Någon har tagit din plats på jobbet '%s'. Se jobbet här: %s" % (self.job.name, self.job.url()))
 
 
@@ -296,7 +296,7 @@ class Job(models.Model):
             formatting.update({("user__%s" % field.name): getattr(user, field.name) for field in user._meta.fields})
             formatted_mail = config.INFO_MAIL.format(**formatting)
 
-            send_mail(user.email, "Information angående '%s'" % self.name, formatted_mail)
+            notify_user(user, "Information angående '%s'" % self.name, formatted_mail)
 
 
 class JobUser(models.Model):

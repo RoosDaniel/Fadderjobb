@@ -83,6 +83,7 @@ INSTALLED_APPS = [
     'constance.backends.database',
     'phonenumber_field',
     'loginas',
+    'webpush',
     'fadderanmalan',
     'accounts',
     'trade',
@@ -273,3 +274,8 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder',
 ]
+
+# Webpush
+# https://github.com/safwanrahman/django-webpush
+
+WEBPUSH_SETTINGS = credentials["webpush"]

@@ -28,10 +28,13 @@ def profile(request, username):
         raise Http404("Kunde inte hitta användaren '%s'" % username)
     day_grouped = Job.group_by_date(user.jobs.all())
 
-    try:
-        trade = Trade.get_trade(request.user, user)
-    except Trade.DoesNotExist:
+    if request.user.is_anonymous:
         trade = None
+    else:
+        try:
+            trade = Trade.get_trade(request.user, user)
+        except Trade.DoesNotExist:
+            trade = None
 
     return render(request, "accounts/profile.html", dict(
         user=user,

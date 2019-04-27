@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.conf import settings
 
-from fadderjobb.staben_mail import send_mail
+from fadderjobb.utils import notify_user
 
 from fadderanmalan.models import JobUser
 
@@ -29,7 +29,7 @@ class Trade(models.Model):
         message = "Du har mottagit en bytesförfrågan från {username}.\n\nSe bytet här: {url}"\
             .format(username=self.sender.username, url=self.url())
 
-        send_mail(self.receiver.email, "Bytesförfrågan", message)
+        notify_user(self.receiver, "Bytesförfrågan", message)
 
     def accept(self):
         subject = "Ett byte har gått igenom"
@@ -55,7 +55,7 @@ class Trade(models.Model):
             JobUser.create(job=job, user=self.sender)
             JobUser.remove(job=job, user=self.receiver)
 
-        send_mail(self.sender.email, subject, message)
+        notify_user(self.sender, subject, message)
 
     def deny(self):
         subject = "Ett byte har avslagits"
@@ -64,7 +64,7 @@ class Trade(models.Model):
 
         self.delete()
 
-        send_mail(self.sender.email, subject, message)
+        notify_user(self.sender, subject, message)
 
     def cancel(self):
         self.delete()

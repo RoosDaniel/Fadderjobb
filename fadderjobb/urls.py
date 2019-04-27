@@ -21,9 +21,7 @@ import cas.views
 
 from . import views
 
-
 admin.autodiscover()
-
 
 urlpatterns = [
     path('', views.index, name="index"),
@@ -42,6 +40,8 @@ urlpatterns = [
     # Meaning: You should _not_ use this path for reversing. If a reverse for logging in is needed, use the one
     # configured in the accounts app.
     path('accounts/login', cas.views.login, name="cas.views.login"),
+
+    path('webpush/', include('webpush.urls'))
 ]
 
 urlpatterns += staticfiles_urlpatterns()
