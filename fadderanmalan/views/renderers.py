@@ -6,10 +6,6 @@ from django.shortcuts import render
 from ..models import Job, Type
 
 
-def index(request):
-    return render(request, "index.html")
-
-
 def job_list(request):
     jobs = Job.objects.order_by("date").filter(~Job.is_hidden_query_filter()).all()
 

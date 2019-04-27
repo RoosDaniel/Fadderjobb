@@ -19,13 +19,17 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 import cas.views
 
+from . import views
+
 
 admin.autodiscover()
 
 
 urlpatterns = [
+    path('', views.index, name="index"),
+
     path('admin/', admin.site.urls),
-    path('', include("fadderanmalan.urls")),
+    path('job/', include("fadderanmalan.urls")),
     path('accounts/', include("accounts.urls")),
 
     # Going to /admin when not logged in results in a redirect to cas.views.login, which I can't be bothered to
