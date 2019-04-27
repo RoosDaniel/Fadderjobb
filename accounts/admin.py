@@ -71,7 +71,7 @@ class UserAdmin(admin.ModelAdmin):
         if "_loginas" in request.POST:
             login_as(obj, request)
 
-            return HttpResponseRedirect(reverse("fadderanmalan:index"))
+            return HttpResponseRedirect(reverse("index"))
         return super().response_change(request, obj)
 
 admin.site.register(User, UserAdmin)
