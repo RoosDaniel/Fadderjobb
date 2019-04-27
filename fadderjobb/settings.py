@@ -48,11 +48,19 @@ else:
 DEBUG = os.environ.get("DEBUG", None) == "True"
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
-ALLOWED_HOSTS = ["localhost", "fadderjobb.staben.info", "fadderjobb.herokuapp.com"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "fadderjobb.staben.info",
+    "fadderjobb.herokuapp.com",
+]
 
 AUTH_USER_MODEL = 'accounts.User'
 
 LOGIN_URL = 'accounts:login'
+
+# Impersonation
+# https://github.com/skorokithakis/django-loginas
+
 LOGINAS_LOGOUT_REDIRECT_URL = 'admin:index'
 LOGINAS_MESSAGE_LOGIN_SWITCH = 'Du är nu inloggad som {username} - klicka på "Återgå" för att avsluta sessionen.'
 LOGINAS_MESSAGE_LOGIN_REVERT = "Du är nu inloggad som {username} igen."
@@ -104,7 +112,13 @@ ROOT_URLCONF = 'fadderjobb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates", "accounts.templates", "fadderanmalan.templates", "trade.templates", "topchart.templates"],
+        'DIRS': [
+            "templates",
+            "accounts.templates",
+            "fadderanmalan.templates",
+            "trade.templates",
+            "topchart.templates",
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -146,7 +160,7 @@ DATABASES = {
     }
 }
 
-# Constance (live settings)
+# Live settings
 # https://github.com/jazzband/django-constance/
 
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
@@ -202,7 +216,7 @@ EMAIL_HOST_PASSWORD = credentials["email"]["password"]
 EMAIL_USE_TLS = True
 
 POST_OFFICE = {
-    "LOG_LEVEL": 1  # Log only failed deliveries
+    "LOG_LEVEL": 1,  # Log only failed deliveries
 }
 
 try:
@@ -233,7 +247,7 @@ PHONENUMBER_DEFAULT_REGION = "SE"
 SYSTEM_ADMINS = [
     "danro880",
     "felfl076",
-    "alban042"
+    "alban042",
 ]
 
 DEFAULT_DOMAIN = "https://fadderjobb.staben.info"
