@@ -20,14 +20,14 @@
             Innan du börjar använda portalen måste du <a href="{% url 'accounts:login' %}">logga in</a> och följa
             instruktionerna.
         </p>
+    {% else %}
+        <p>
+            Innan du registrerar dig på jobb måste du <a href="{% url 'guide' %}">läsa jobbguiden.</a>
+            {% if request.user.read_guide %}
+                Det har ju du varit så duktig och redan gjort, men den kan alltid vara bra att dubbelkolla!
+            {% endif %}
+        </p>
     {% endif %}
-
-    <p>
-        Innan du registrerar dig på jobb måste du <a href="{% url 'guide' %}">läsa jobbguiden.</a>
-        {% if request.user.read_guide %}
-            Det har ju du varit så duktig och redan gjort, men den kan alltid vara bra att dubbelkolla!
-        {% endif %}
-    </p>
 
     <p>
         Hitta planerad funktionalitet, bakgrund och källkod i projektets

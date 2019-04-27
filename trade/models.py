@@ -36,8 +36,18 @@ class Trade(models.Model):
         message = "{username} har accepterat ditt byte!" \
             .format(username=self.receiver.username)
 
-        self.sent.update(user=self.receiver)
-        self.requested.update(user=self.sender)
+        # We need to create new instances instead of updating the old ones in order to
+        # trigger the signal for removing all other trades concerning these job-user combinations.
+        for job_user in self.sent.all():
+            JobUser.create(job=job_user.job, user=self.receiver)
+        for job_user in self.requested.all():
+            JobUser.create(job=job_user.job, user=self.sender)
+
+        # A problem with this is that there is no point in saving the Trade since
+        # all its M2M relations will have been removed
+        # TODO Find a way to save info about a Trade that doesn't rely on JobUser instances
+        self.sent.delete()
+        self.requested.delete()
 
         self.completed = True
         self.save()

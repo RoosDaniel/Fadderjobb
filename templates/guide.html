@@ -9,14 +9,62 @@
 {% block content %}
     <h1>Guide</h1>
 
-    Här kommer det finnas en guide i framtiden. Just nu behöver du bara klicka på knappen nedan.
+    <i>Det här är en guide i hur fadderjobbsportalen fungerar.</i>
+
+    <h2>Att registrera sig på ett jobb</h2>
+    <p>
+        Att registrera sig på jobb är ganska självförklarat: klicka på
+        <a href="{% url 'fadderanmalan:job_list' %}">Jobbanmälan</a> i menyn och välj det jobb
+        du vill registrera dig på. Om jobbet har platser över (eller om det är låst men någon registrerad vill lämna
+        det) kan du registrera dig på jobbet. Har jobbet inga platser över kan du ändå ställa dig i kö för att
+        registrera dig, och du kommer då automatiskt bli registrerad om någon lämnar.
+    </p>
+
+    <h4>Avregistrering</h4>
+    <p>
+        Avregistrering från ett jobb fungerar på i princip samma sätt som registrering. Värt att notera är att om ett
+        jobb är låst behöver någon annan stå i kö för att registrera sig på jobbet för att du ska få lämna, annars
+        kommer du ställas i en utgående kö och automatiskt bli avregistrerad när någon annan vill ha jobbet.
+    </p>
+
+    <h2>Jobbyten</h2>
+    <p>
+        Att byta jobb mellan två faddrar har aldrig varit simplare! Systemet har tagit inspiration från trade-offers i
+        Steam, och fungerar ungefär på samma sätt. D.v.s. du kan skicka samma jobb i flera olika bytesförfrågningar, men
+        när något av dem accepteras försvinner de andra. Du kan också avregistrera dig på jobb du har skickat i
+        förfrågningar, vilket också kommer ta bort bytesförfrågan. Samma sak gäller registrering på jobb som du har
+        blivit förfrågad om; om du registrerar dig på ett sånt kommer bytesförfrågan att tas bort automatiskt.
+    </p>
+
+    <h4>Jobbyten och köplatser</h4>
+    <p>
+        Om du står i kö till något jobb som du istället byter dig till, eller om du står i kö för att lämna ett jobb
+        som du istället byter bort, kommer dina köplatser automatiskt att tas bort. Samma gäller den du byter med.
+    </p>
+
+    <h2>Övrig funktionalitet</h2>
+
+    <h4>Topplistan</h4>
+    <p>
+        <a href="{% url 'topchart:index' %}">Topplistan</a> agerar som ett sätt att både se ställningen mellan alla
+        faddrar samt som ett sätt för faddrar att hitta varandras profiler eftersom jag var för lat för att skriva
+        ett söksystem. Om du av någon anledning vill hitta till en fadders profil och du inte hittar dem i toplistan
+        är det lättast att bara ändra URL:en till dess liu-id.
+    </p>
+
+    <h4>Kalender</h4>
+    <p>
+        Du kan hämta en .ics-länk till en kalender som innehåller alla jobb som du är registrerad på under
+        <a href="{% url 'accounts:my_profile' %}">din profil</a>. Observera att kalendern inte är garanterad att
+        fungera, så dubbelkolla gärna att den håller sig uppdaterad.
+    </p>
 
     <br/><br/>
 
     {% if request.user.read_guide %}
         <p><i>Du har redan läst guiden, men gu' så kul att du var sugen på att läsa den igen!</i></p>
     {% elif request.user.is_staff or request.user_is_superuser %}
-        <p><i>Du är admin, ju. Ska du verkligen behöva läsa guiden?</i></p>
+        <p><i>Du är ju en admin. Ska du verkligen behöva läsa guiden?</i></p>
     {% else %}
         <form action="{% url 'guide' %}" method="post">
             {% csrf_token %}

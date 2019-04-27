@@ -13,6 +13,8 @@ def _delete_trades(job_user):
         .delete()
 
 
+# TODO Remove EQ and LQ instances
+
 @receiver(pre_delete, sender=JobUser)
 def on_deregistration(sender, instance, **kwargs):
     _delete_trades(instance)
