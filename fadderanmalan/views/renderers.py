@@ -67,7 +67,7 @@ def job_list(request):
     ))
 
 
-def jobdetails(request, slug):
+def job_details(request, slug):
     try:
         job = Job.objects.get(slug=slug)
     except Job.DoesNotExist:
@@ -82,7 +82,7 @@ def jobdetails(request, slug):
         queued_enter_job = False
         queued_leave_job = False
 
-    return render(request, "jobdetails.html", dict(
+    return render(request, "job_details.html", dict(
         job=job,
         registered_to_job=registered_to_job,
         queued_enter_job=queued_enter_job,

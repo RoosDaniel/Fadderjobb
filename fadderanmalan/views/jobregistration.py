@@ -42,7 +42,7 @@ def register_for_job(request, job_id):
             messages.add_message(request, messages.INFO,
                                  "Du är nu registrerad på passet.")
 
-    return redirect("fadderanmalan:jobsignup_detail", job.slug)
+    return redirect("fadderanmalan:job_details", job.slug)
 
 
 @login_required
@@ -87,4 +87,4 @@ def deregister_for_job(request, job_id):
 
                 messages.add_message(request, messages.INFO, message)
 
-    return redirect("fadderanmalan:jobsignup_detail", job.slug)
+    return redirect("fadderanmalan:job_details", job.slug)

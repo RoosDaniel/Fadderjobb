@@ -215,7 +215,7 @@ class Job(models.Model):
 
     def url(self):
         return settings.DEFAULT_DOMAIN + \
-               reverse("fadderanmalan:jobsignup_detail", args=[self.slug])
+               reverse("fadderanmalan:job_details", args=[self.slug])
 
     @staticmethod
     def group_by_date(queryset):

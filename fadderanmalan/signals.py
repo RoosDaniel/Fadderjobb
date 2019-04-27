@@ -23,4 +23,4 @@ def on_registration(sender, instance, created, **kwargs):
     if not created:
         return
 
-    _delete_trades(job_user)
+    _delete_trades(instance)
