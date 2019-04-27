@@ -37,6 +37,8 @@ urlpatterns = [
 
     path('calendar/', include("job_calendar.urls")),
     path('trade/', include("trade.urls")),
+
+    path('topchart/', include("topchart.urls"))
 ]
 
 urlpatterns += staticfiles_urlpatterns()

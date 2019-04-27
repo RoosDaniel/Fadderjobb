@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'fadderanmalan',
     'accounts',
     'trade',
+    'topchart',
 ]
 
 MIDDLEWARE = [
@@ -103,7 +104,7 @@ ROOT_URLCONF = 'fadderjobb.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates", "accounts.templates", "fadderanmalan.templates", "trade.templates"],
+        'DIRS': ["templates", "accounts.templates", "fadderanmalan.templates", "trade.templates", "topchart.templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -247,6 +248,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "fadderanmalan", "static"),
     os.path.join(BASE_DIR, "accounts", "static"),
     os.path.join(BASE_DIR, "trade", "static"),
+    os.path.join(BASE_DIR, "topchart", "static"),
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")

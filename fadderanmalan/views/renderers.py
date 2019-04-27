@@ -1,11 +1,9 @@
 from django.contrib.auth import get_user_model
-from django.db.models import Count, F, Q, Sum
+from django.db.models import Count, F, Q
 from django.http import Http404
 from django.shortcuts import render
 
 from ..models import Job, Type
-
-User = get_user_model()
 
 
 def index(request):
@@ -87,13 +85,4 @@ def job_details(request, slug):
         registered_to_job=registered_to_job,
         queued_enter_job=queued_enter_job,
         queued_leave_job=queued_leave_job,
-    ))
-
-
-def topchart(request):
-    users = User.objects.annotate(points=Sum("jobs__points"))\
-        .filter(points__gte=1).filter(is_staff=False).order_by("points").all()
-
-    return render(request, "topchart.html", dict(
-        users=users
     ))

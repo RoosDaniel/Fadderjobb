@@ -64,8 +64,8 @@
                class="nav-item nav-link{% if request.resolver_match.view_name|startswith:'fadderanmalan:job_list' %} active{% endif %}">
                 Jobbanmälan
             </a>
-            <a href="{% url 'fadderanmalan:topchart' %}"
-               class="nav-item nav-link{% if request.resolver_match.view_name|startswith:'fadderanmalan:topchart' %} active{% endif %}">
+            <a href="{% url 'topchart:index' %}"
+               class="nav-item nav-link{% if request.resolver_match.view_name|startswith:'topchart:index' %} active{% endif %}">
                 Topplistan
             </a>
         </div>
