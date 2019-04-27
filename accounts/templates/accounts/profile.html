@@ -28,8 +28,9 @@
                        data-placement="bottom" title="Gå till aktivt byte"></i>
                 </a>
             {% endif %}
-            {{ user.username }} - {{ user.points }}<span class="lowercase">p</span>
+            {{ user }}
         </h1>
+        <small>Poäng: {{ user.points }}<span class="lowercase">p</span></small>
     </div>
     <h2>Motto</h2>
     {% if user.motto %}

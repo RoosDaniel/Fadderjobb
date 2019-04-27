@@ -12,7 +12,7 @@
 
 {% block content %}
     <h1>Redigera min profil</h1>
-    <form class="login-form" action="{% url 'accounts:edit_profile' %}" method="post">
+    <form class="edit-profile-form" action="{% url 'accounts:edit_profile' %}" method="post">
         {% csrf_token %}
         {{ form }}
         <input type="submit" value="Uppdatera profil" class="btn btn-primary">

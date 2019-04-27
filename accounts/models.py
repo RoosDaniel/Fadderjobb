@@ -20,6 +20,12 @@ class User(AbstractUser):
 
     motto = models.TextField(max_length=100, blank=True)
     phone_number = PhoneNumberField(blank=True, null=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        if self.name:
+            return "%s (%s)" % (self.name, self.username)
+        return self.username
 
     def points(self):
         return self.jobs.all().aggregate(Sum("points"))["points__sum"] or 0

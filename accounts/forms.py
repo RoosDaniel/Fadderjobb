@@ -10,6 +10,9 @@ class FadderEditForm(forms.Form):
     email = forms.EmailField(label="Epost", required=True,
                              widget=forms.EmailInput(attrs={"class": "form-control"}))
 
+    name = forms.CharField(label="Namn", required=False, max_length=100, help_text="Vad vill du bli kallad?",
+                           widget=forms.TextInput(attrs={"class": "form-control"}))
+
     phone_number = PhoneNumberField(label="Telefonnummer", required=False,
                                     widget=PhoneWidget(attrs={"class": "form-control"}))
 

@@ -21,8 +21,9 @@
                 <i class="fas fa-user-edit" data-toggle="tooltip"
                    data-placement="bottom" title="Redigera min profil"></i>
             </a>
-            {{ user.username }} - {{ user.points }}<span class="lowercase">p</span>
+            {{ user }}
         </h1>
+        <small>Poäng: {{ user.points }}<span class="lowercase">p</span></small>
     </div>
     <a href="{% url 'job_calendar:get_calendar' user.username %}">Din kalender</a>. Infoga länken i t.ex.
     Google Calendar.
@@ -43,7 +44,7 @@
     {% for received_trade in request.user.get_active_received_trades %}
         <p>
             <i class="fas fa-exclamation" data-toggle="tooltip"
-                   data-placement="bottom" title="Inkommande byte"></i>
+               data-placement="bottom" title="Inkommande byte"></i>
             <a href="{% url 'trade:see' received_trade.sender.username %}">
                 Byte från {{ received_trade.sender.username }}
             </a>

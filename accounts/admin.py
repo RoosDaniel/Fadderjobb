@@ -37,7 +37,23 @@ class EquipmentOwnershipInline(admin.TabularInline):
 class UserAdmin(admin.ModelAdmin):
     model = User
 
-    exclude = ("password",)
+    exclude = ("password", "first_name", "last_name", "is_active")
+
+    fields = (
+        "username",
+        "name",
+        "email",
+        "phone_number",
+        "motto",
+        "is_superuser",
+        "is_staff",
+        "groups",
+        "user_permissions",
+        "date_joined",
+        "last_login",
+    )
+
+    readonly_fields = ("date_joined", "last_login")
 
     inlines = (
         JobsInline,
