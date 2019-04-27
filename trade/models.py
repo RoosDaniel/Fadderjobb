@@ -15,8 +15,8 @@ class Trade(models.Model):
     sender = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="sent_trades")
     receiver = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="received_trades")
 
-    sent = models.ManyToManyField("fadderanmalan.JobUser", related_name="sent_in_trades")
-    requested = models.ManyToManyField("fadderanmalan.JobUser", related_name="requested_in_trades")
+    sent = models.ManyToManyField("fadderanmalan.Job", related_name="sent_in_trades", blank=True)
+    requested = models.ManyToManyField("fadderanmalan.Job", related_name="requested_in_trades", blank=True)
 
     def __str__(self):
         return "%s -> %s" % (self.sender, self.receiver)
@@ -36,21 +36,24 @@ class Trade(models.Model):
         message = "{username} har accepterat ditt byte!" \
             .format(username=self.receiver.username)
 
-        # We need to create new instances instead of updating the old ones in order to
-        # trigger the signal for removing all other trades concerning these job-user combinations.
-        for job_user in self.sent.all():
-            JobUser.create(job=job_user.job, user=self.receiver)
-        for job_user in self.requested.all():
-            JobUser.create(job=job_user.job, user=self.sender)
-
-        # A problem with this is that there is no point in saving the Trade since
-        # all its M2M relations will have been removed
-        # TODO Find a way to save info about a Trade that doesn't rely on JobUser instances
-        self.sent.delete()
-        self.requested.delete()
-
+        # A Trade needs to be marked as completed before adding and removing of JobUsers since we don't want
+        # to delete completed trades. (The deletion function in signals.py won't delete completed Trades.)
         self.completed = True
         self.save()
+
+        # These need to be created before adding and removing JobUsers since the signal-listeners
+        # will start removing them right away.
+        receiver_gets = self.sent.all()
+        sender_gets = self.requested.all()
+
+        # We need to create new instances instead of updating the old ones in order to
+        # trigger the signal for removing all other trades concerning these job-user combinations.
+        for job in receiver_gets:
+            JobUser.create(job=job, user=self.receiver)
+            JobUser.remove(job=job, user=self.sender)
+        for job in sender_gets:
+            JobUser.create(job=job, user=self.sender)
+            JobUser.remove(job=job, user=self.receiver)
 
         send_mail(self.sender.email, subject, message)
 

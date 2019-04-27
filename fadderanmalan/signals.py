@@ -9,7 +9,8 @@ from trade.models import Trade
 def _delete_trades(job_user):
     Trade.objects\
         .filter(Q(sender=job_user.user) | Q(receiver=job_user.user))\
-        .filter(Q(sent__job=job_user.job) | Q(requested__job=job_user.job))\
+        .filter(Q(sent=job_user.job) | Q(requested=job_user.job))\
+        .exclude(completed=True)\
         .delete()
 
 

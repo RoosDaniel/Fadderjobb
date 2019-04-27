@@ -18,6 +18,8 @@ class JobsInline(admin.TabularInline):
 
     model = User.jobs.through
 
+    fields = ("job",)
+
     extra = 0
 
 

@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import Trade
-from fadderanmalan.models import JobUser
+from fadderanmalan.models import Job
 
 
 class CustomModelChoiceIterator(forms.models.ModelChoiceIterator):
@@ -29,11 +29,8 @@ class TradeForm(forms.ModelForm):
 
         self.label_suffix = ""
 
-        sender_jobs = JobUser.objects.filter(user=sender)\
-            .exclude(job__id__in=receiver.jobs.values_list('id', flat=True))
-
-        receiver_jobs = JobUser.objects.filter(user=receiver)\
-            .exclude(job__id__in=sender.jobs.values_list('id', flat=True))
+        sender_jobs = sender.jobs.exclude(id__in=receiver.jobs.values_list('id', flat=True))
+        receiver_jobs = receiver.jobs.exclude(id__in=sender.jobs.values_list('id', flat=True))
 
         self.fields["requested"] = CustomModelChoiceField(
             queryset=receiver_jobs,
