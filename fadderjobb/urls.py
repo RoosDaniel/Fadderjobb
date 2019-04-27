@@ -27,6 +27,7 @@ admin.autodiscover()
 
 urlpatterns = [
     path('', views.index, name="index"),
+    path('guide/', views.guide, name="guide"),
 
     path('admin/', admin.site.urls),
     path('accounts/', include("accounts.urls")),

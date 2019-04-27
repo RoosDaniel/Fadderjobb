@@ -21,6 +21,7 @@ class User(AbstractUser):
     motto = models.TextField(max_length=100, blank=True)
     phone_number = PhoneNumberField(blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
+    read_guide = models.BooleanField(default=False)
 
     def __str__(self):
         if self.name:
@@ -31,7 +32,7 @@ class User(AbstractUser):
         return self.jobs.all().aggregate(Sum("points"))["points__sum"] or 0
 
     def can_register(self):
-        return self.is_authenticated and self.phone_number is not None
+        return self.is_authenticated and self.phone_number is not None and self.read_guide
 
     def get_active_received_trades(self):
         return self.received_trades.filter(completed=False).all()

@@ -100,6 +100,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'cas.middleware.CASMiddleware',
     'accounts.middleware.warn_no_phone_number',
+    'accounts.middleware.warn_not_read_guide',
 ]
 
 AUTHENTICATION_BACKENDS = (

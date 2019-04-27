@@ -11,7 +11,22 @@
     <h1>Välkommen</h1>
 
     <p>
-        ...till STABENs fadderjobbsida! Här kan du anmäla dig till fadderjobb och se vilka pass andra faddrar har tagit.
+        ...till STABENs fadderjobbsportal! Här kan du anmäla dig till fadderjobb, se vilka pass andra faddrar har tagit,
+        byta jobb med andra faddrar, och mycket mer.
+    </p>
+
+    {% if not request.user.is_authenticated %}
+        <p>
+            Innan du börjar använda portalen måste du <a href="{% url 'accounts:login' %}">logga in</a> och följa
+            instruktionerna.
+        </p>
+    {% endif %}
+
+    <p>
+        Innan du registrerar dig på jobb måste du <a href="{% url 'guide' %}">läsa jobbguiden.</a>
+        {% if request.user.read_guide %}
+            Det har ju du varit så duktig och redan gjort, men den kan alltid vara bra att dubbelkolla!
+        {% endif %}
     </p>
 
     <p>

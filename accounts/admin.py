@@ -45,6 +45,7 @@ class UserAdmin(admin.ModelAdmin):
         "email",
         "phone_number",
         "motto",
+        "read_guide",
         "is_superuser",
         "is_staff",
         "groups",
