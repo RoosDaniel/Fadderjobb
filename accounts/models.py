@@ -32,6 +32,9 @@ class User(AbstractUser):
         return self.jobs.all().aggregate(Sum("points"))["points__sum"] or 0
 
     def can_register(self):
+        if self.is_superuser or self.is_staff:
+            return True
+
         return self.is_authenticated and self.phone_number is not None and self.read_guide
 
     def get_active_received_trades(self):

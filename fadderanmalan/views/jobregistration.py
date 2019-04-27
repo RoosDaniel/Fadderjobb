@@ -9,7 +9,7 @@ from fadderanmalan.models import Job, EnterQueue, LeaveQueue, JobUser
 def register_for_job(request, job_id):
     job = Job.objects.get(id=job_id)
 
-    if request.method == "POST":
+    if request.method == "POST" and request.user.can_register():
         if job.full():
             try:  # First try removing ourselves from the lq if we changed our mind
                 lq = LeaveQueue.objects.get(job=job, user=request.user)
@@ -49,7 +49,7 @@ def register_for_job(request, job_id):
 def deregister_for_job(request, job_id):
     job = Job.objects.get(id=job_id)
 
-    if request.method == "POST":
+    if request.method == "POST" and request.user.can_register():
         try:  # First try removing ourselves from the eq
             eq = EnterQueue.objects.get(job=job, user=request.user)
             eq.delete()

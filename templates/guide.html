@@ -11,12 +11,14 @@
 
     Här kommer det finnas en guide i framtiden. Just nu behöver du bara klicka på knappen nedan.
 
+    <br/><br/>
+
     {% if request.user.read_guide %}
         <p><i>Du har redan läst guiden, men gu' så kul att du var sugen på att läsa den igen!</i></p>
     {% elif request.user.is_staff or request.user_is_superuser %}
         <p><i>Du är admin, ju. Ska du verkligen behöva läsa guiden?</i></p>
     {% else %}
-        <form action="{% url 'guide' %}" method="post" style="margin-top: 20px;">
+        <form action="{% url 'guide' %}" method="post">
             {% csrf_token %}
             <button type="submit" name="accept" class="btn btn-primary">
                 Jag har läst guiden, låt mig börja<br/>registrera mig på jobb!
