@@ -65,6 +65,18 @@ LOGINAS_LOGOUT_REDIRECT_URL = 'admin:index'
 LOGINAS_MESSAGE_LOGIN_SWITCH = 'Du är nu inloggad som {username} - klicka på "Återgå" för att avsluta sessionen.'
 LOGINAS_MESSAGE_LOGIN_REVERT = "Du är nu inloggad som {username} igen."
 
+# Logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'loggers': {
+        'post_office': {
+            'level': 'WARNING',
+        }
+    },
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -189,7 +201,7 @@ Här kommer en länk till extrainformation för jobbet "{job__name}" som du har 
 Jobbet hittar du här:
 
 {job__url}""", 'Infomail. Om jobbet har extra info definerat kommer mailet skickas ut direkt när en användare'
-                  'registrerar sig, annars kan det skickas ut manuellt genom admin-panelen.'),
+               'registrerar sig, annars kan det skickas ut manuellt genom admin-panelen.'),
     'MIN_POINTS': (0, 'Minsta antalet poäng som krävs av en fadder. Fyller i dagsläget ingen funktionalitet.'),
 }
 
