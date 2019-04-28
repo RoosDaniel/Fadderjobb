@@ -20,7 +20,7 @@ def register_for_job(request, job_id):
             except LeaveQueue.DoesNotExist:  # We weren't queued to leave, try to register us
                 try:  # If someone else wants to leave, take their slot
                     lq = LeaveQueue.get_first(job=job)
-                    lq.accept()
+                    lq.apply()
 
                     JobUser.create(job, request.user)
 
@@ -61,7 +61,7 @@ def deregister_for_job(request, job_id):
                 try:  # If someone else wants to enter, give the slot to them
                     eq = EnterQueue.get_first(job=job)
                     JobUser.remove(job, request.user)
-                    eq.accept()
+                    eq.apply()
 
                     messages.add_message(request, messages.INFO,
                                          "Du är nu avregistrerad från passet. %s tog din plats."
@@ -79,7 +79,7 @@ def deregister_for_job(request, job_id):
 
                 try:  # If there is someone queued, give the slot to them
                     eq = EnterQueue.get_first(job=job)
-                    eq.accept()
+                    eq.apply()
 
                     message += " %s tog din plats." % eq.user.username
                 except EnterQueue.DoesNotExist:
