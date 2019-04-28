@@ -321,11 +321,10 @@ class JobUser(models.Model):
 
     @staticmethod
     def remove(job, user):
-        job_user = JobUser.objects.filter(user=user, job=job).first()
-        job_user.delete()
+        job_user = JobUser.objects.filter(user=user, job=job).delete()
 
         return job_user
 
     @staticmethod
     def get(job, user):
-        return JobUser.objects.filter(user=user, job=job).first()
+        return JobUser.objects.get(user=user, job=job)
