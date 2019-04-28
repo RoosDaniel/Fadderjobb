@@ -218,7 +218,7 @@ EMAIL_HOST_PASSWORD = credentials["email"]["password"]
 EMAIL_USE_TLS = True
 
 POST_OFFICE = {
-    "LOG_LEVEL": 1,  # Log only failed deliveries
+    "LOG_LEVEL": 0,  # Log nothing
 }
 
 try:
