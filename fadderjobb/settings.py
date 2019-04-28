@@ -70,10 +70,24 @@ LOGINAS_MESSAGE_LOGIN_REVERT = "Du är nu inloggad som {username} igen."
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'post_office': {
+            'format': '[%(levelname)s]%(asctime)s PID %(process)d: %(message)s',
+            'datefmt': '%d-%m-%Y %H:%M:%S',
+        },
+    },
+    'handlers': {
+        'post_office': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler',
+            'formatter': 'post_office',
+        },
+    },
     'loggers': {
         'post_office': {
-            'level': 'WARNING',
-        }
+            'handlers': ['post_office'],
+            'level': 'ERROR',
+        },
     },
 }
 
