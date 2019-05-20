@@ -36,9 +36,6 @@ def register_for_job(request, job_id):
         else:  # Not full, just register
             JobUser.create(job, request.user)
 
-            if job.extra_info:
-                job.send_info_mail(user=request.user)
-
             messages.add_message(request, messages.INFO,
                                  "Du är nu registrerad på passet.")
 

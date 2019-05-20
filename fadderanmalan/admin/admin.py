@@ -43,7 +43,7 @@ class JobAdmin(admin.ModelAdmin):
 
     list_display = ("name", "date", "locked", "hidden", "signed_up")
 
-    exclude = ("users",)
+    exclude = ("users", "slug")
 
     actions = (job_set_locked, job_set_hidden)
 
@@ -73,11 +73,6 @@ class JobAdmin(admin.ModelAdmin):
                     messages.add_message(request, messages.INFO, "Users '%s' dequeued." % "', '".join(added))
                 else:
                     messages.add_message(request, messages.ERROR, "No users to dequeue.")
-
-            return HttpResponseRedirect(".")
-        elif "_infomail" in request.POST:
-            obj.send_info_mail(all_registered=True)
-            messages.add_message(request, messages.INFO, "Mailed %s users." % obj.users.count())
 
             return HttpResponseRedirect(".")
         return super().response_change(request, obj)

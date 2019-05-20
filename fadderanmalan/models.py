@@ -81,8 +81,10 @@ class EnterQueue(models.Model):
         self.delete()
         self.job.save()
 
-        notify_user(self.user, "Du har fått en plats på ett jobb du har köat för",
-                  "Du har fått en plats på jobbet '%s'. Se jobbet här: %s" % (self.job.name, self.job.url()))
+        notify_user(self.user,
+                    "Du har fått en plats på ett jobb du har köat för",
+                    "Du har fått en plats på jobbet '{job_name}'. Se jobbet här: {job_url}"
+                        .format(job_name=self.job.name, job_url=self.job.url()))
 
 
 class LeaveQueue(models.Model):
@@ -114,8 +116,10 @@ class LeaveQueue(models.Model):
         self.delete()
         self.job.save()
 
-        notify_user(self.user, "Någon har tagit en plats på ett jobb du vill lämna",
-                  "Någon har tagit din plats på jobbet '%s'. Se jobbet här: %s" % (self.job.name, self.job.url()))
+        notify_user(self.user,
+                    "Någon har tagit en plats på ett jobb du vill lämna",
+                    "Någon har tagit din plats på jobbet '{job_name}'. Se jobbet här: {job_url}"
+                        .format(job_name=self.job.name, job_url=self.job.url()))
 
 
 def default_locked_after():
@@ -152,8 +156,6 @@ class Job(models.Model):
     description = models.TextField(null=True, blank=True)
     points = models.IntegerField()
     slots = models.IntegerField()
-    extra_info = models.URLField(null=True, blank=True, help_text="Länk till extra information om jobbet. "
-                                                                  "Visas ändast för faddrar registrerade på jobbet.")
 
     hidden = models.BooleanField(help_text="Om jobbet ska döljas från frontend:en. "
                                            "Överskrider datumen nedan")
@@ -281,23 +283,6 @@ class Job(models.Model):
                 break
         return dequeued
 
-    def send_info_mail(self, user=None, all_registered=False):
-        formatting = {("job__%s" % field.name): getattr(self, field.name) for field in self._meta.fields}
-        formatting["job__url"] = self.url()
-
-        if user:
-            recipients = [user]
-        elif all_registered:
-            recipients = self.users.all()
-        else:
-            return
-
-        for user in recipients:
-            formatting.update({("user__%s" % field.name): getattr(user, field.name) for field in user._meta.fields})
-            formatted_mail = config.INFO_MAIL.format(**formatting)
-
-            notify_user(user, "Information angående '%s'" % self.name, formatted_mail)
-
 
 class JobUser(models.Model):
     job = models.ForeignKey("Job", on_delete=models.CASCADE)
@@ -316,6 +301,11 @@ class JobUser(models.Model):
     def create(job, user):
         job_user = JobUser(user=user, job=job)
         job_user.save()
+
+        notify_user(user,
+                    "Du har registrerats på jobbet {job_name}".format(job_name=job.name),
+                    "Se jobbet här: {job_url}\n\nJobbets beskrivning:\n{job_desc}"
+                    .format(job_url=job.url(), job_desc=job.description))
 
         return job_user
 

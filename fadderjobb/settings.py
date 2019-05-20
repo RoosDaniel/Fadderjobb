@@ -206,16 +206,6 @@ CONSTANCE_CONFIG = {
                                                'Kan ändras per jobb.'),
     'DEFAULT_JOB_TIME_START': (time(0, 0, 0), 'När på dagen jobben ska börja. '
                                               'Kan ändras per jobb.'),
-    'INFO_MAIL': ("""Hej {user__username}!
-
-Här kommer en länk till extrainformation för jobbet "{job__name}" som du har registrerat dig till:
-
-{job__extra_info}
-
-Jobbet hittar du här:
-
-{job__url}""", 'Infomail. Om jobbet har extra info definerat kommer mailet skickas ut direkt när en användare'
-               'registrerar sig, annars kan det skickas ut manuellt genom admin-panelen.'),
     'MIN_POINTS': (0, 'Minsta antalet poäng som krävs av en fadder. Fyller i dagsläget ingen funktionalitet.'),
 }
 

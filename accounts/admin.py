@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.db import models
 
 from loginas.utils import login_as
 
@@ -63,7 +64,7 @@ class UserAdmin(admin.ModelAdmin):
         EquipmentOwnershipInline,
     )
 
-    list_display = ("username", "equipment")
+    list_display = ("username", "name", "points", "equipment")
 
     list_filter = (("jobs", DropdownFilterRelated), ("equipments__equipment", DropdownFilterRelated))
 
@@ -76,5 +77,15 @@ class UserAdmin(admin.ModelAdmin):
 
             return HttpResponseRedirect(reverse("index"))
         return super().response_change(request, obj)
+
+    def get_queryset(self, request):
+        qs = super(UserAdmin, self).get_queryset(request)
+        qs = qs.annotate(models.Sum('jobs__points'))
+        return qs
+
+    def points(self, obj):
+        return obj.jobs__points__sum
+
+    points.admin_order_field = 'jobs__points'
 
 admin.site.register(User, UserAdmin)
