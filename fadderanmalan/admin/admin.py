@@ -1,5 +1,6 @@
 from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 
 from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership
 from .actions import job_set_locked, job_set_hidden, equipment_ownership_set_returned
@@ -24,12 +25,34 @@ class LQInline(admin.TabularInline):
 
     model = LeaveQueue
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        field = super(LQInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+        if db_field.name == "user":
+            if request.obj_ is not None:
+                field.queryset = field.queryset.filter(id__in=request.obj_.users.all())
+            else:
+                field.queryset = field.queryset.none()
+
+        return field
+
 
 class EQInline(admin.TabularInline):
     verbose_name = "Enterqueue"
     verbose_name_plural = "EnterQueue"
 
     model = EnterQueue
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        field = super(EQInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+        if db_field.name == "user":
+            if request.obj_ is not None:
+                field.queryset = field.queryset.filter(~Q(id__in=request.obj_.users.all()))
+            else:
+                field.queryset = field.queryset.none()
+
+        return field
 
 
 class JobAdmin(admin.ModelAdmin):
@@ -76,6 +99,11 @@ class JobAdmin(admin.ModelAdmin):
 
             return HttpResponseRedirect(".")
         return super().response_change(request, obj)
+
+    def get_form(self, request, obj=None, **kwargs):
+        request.obj_ = obj
+
+        return super(JobAdmin, self).get_form(request, obj, **kwargs)
 
 
 class EnterQueueAdmin(admin.ModelAdmin):
