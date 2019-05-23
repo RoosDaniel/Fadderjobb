@@ -1,9 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.db.models import Count, F, Q
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from ..models import Job, Type
+from .models import Job, Type
+from . import utils
+from .exceptions import UserError
 
 
 def job_list(request):
@@ -67,18 +69,17 @@ def job_details(request, slug):
     except Job.DoesNotExist:
         raise Http404("Kunde inte hitta jobbet '%s'" % slug)
 
-    if request.user.is_authenticated:
-        registered_to_job = request.user in job.users.all()
-        queued_enter_job = job.enter_queue.filter(user=request.user).first()
-        queued_leave_job = job.leave_queue.filter(user=request.user).first()
-    else:
-        registered_to_job = False
-        queued_enter_job = False
-        queued_leave_job = False
+    if request.method == "POST" and request.user.can_register():
+        try:
+            utils.handle_register(request, job)
+        except UserError as e:
+            return render(request, "400.html", dict(exception=str(e)))
+
+    hint_text, button_text, button_name = utils.generate_registration_text(request, job)
 
     return render(request, "job_details.html", dict(
         job=job,
-        registered_to_job=registered_to_job,
-        queued_enter_job=queued_enter_job,
-        queued_leave_job=queued_leave_job,
+        hint_text=hint_text,
+        button_text=button_text,
+        button_name=button_name
     ))
