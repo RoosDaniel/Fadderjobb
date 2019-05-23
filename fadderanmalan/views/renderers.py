@@ -63,7 +63,7 @@ def job_list(request):
 
 def job_details(request, slug):
     try:
-        job = Job.objects.get(slug=slug)
+        job = Job.objects.get(slug=slug, hidden=False)
     except Job.DoesNotExist:
         raise Http404("Kunde inte hitta jobbet '%s'" % slug)
 

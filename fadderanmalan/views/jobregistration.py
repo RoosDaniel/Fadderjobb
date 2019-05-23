@@ -7,7 +7,7 @@ from fadderanmalan.models import Job, EnterQueue, LeaveQueue, JobUser
 
 @login_required
 def register_for_job(request, job_id):
-    job = Job.objects.get(id=job_id)
+    job = Job.objects.get(id=job_id, hidden=False)
 
     if request.method == "POST" and request.user.can_register():
         if job.full():
@@ -44,7 +44,7 @@ def register_for_job(request, job_id):
 
 @login_required
 def deregister_for_job(request, job_id):
-    job = Job.objects.get(id=job_id)
+    job = Job.objects.get(id=job_id, hidden=False)
 
     if request.method == "POST" and request.user.can_register():
         try:  # First try removing ourselves from the eq
