@@ -64,7 +64,7 @@ class JobAdmin(admin.ModelAdmin):
         EQInline
     )
 
-    list_display = ("name", "date", "locked", "hidden", "signed_up")
+    list_display = ("name", "date", "locked", "hidden", "registered")
 
     exclude = ("users", "slug")
 
@@ -74,7 +74,7 @@ class JobAdmin(admin.ModelAdmin):
 
     search_fields = ("name",)
 
-    def signed_up(self, obj):
+    def registered(self, obj):
         return ", ".join([user.username for user in obj.users.all()])
 
     def changelist_view(self, request, extra_context=None):
