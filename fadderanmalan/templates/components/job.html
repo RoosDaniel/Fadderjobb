@@ -1,4 +1,4 @@
-<a href="{% url 'fadderanmalan:job_details' job.slug %}"
+<a href="{{ job.local_url }}"
    class="job {{ job.full_status }} {{ job.locked_status }} nounderline">
     <div class="job-title">
         <h3>

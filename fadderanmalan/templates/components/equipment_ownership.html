@@ -1,5 +1,8 @@
 <div class="equipment_ownership">
     <h4>{{ eo.equipment.name }}</h4>
     <p>Utgiven: {{ eo.dispensed_at.date|date:"j b" }}</p>
+    {% if eo.job %}
+        <p>Kopplat till jobb: <a href="{{ eo.job.local_url }}">{{ eo.job }}</a></p>
+    {% endif %}
     <p>{{ eo.equipment.description }}</p>
 </div>

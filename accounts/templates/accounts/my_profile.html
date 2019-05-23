@@ -15,7 +15,7 @@
 
 {% block content %}
     <button id="webpush-subscribe-button" class="btn btn-primary" data-url="{% url 'save_webpush_info' %}">
-        Slå på push-notiser
+        Fråga om pushnotiser
     </button>
     {% if request.user.is_staff %}
         <a href="{% url 'admin:accounts_user_change' user.id %}" target="_blank">Redigera användare</a>

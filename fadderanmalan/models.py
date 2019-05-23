@@ -215,9 +215,11 @@ class Job(models.Model):
             return self.name[:15] + "..."
         return self.name
 
+    def local_url(self):
+        return reverse("fadderanmalan:job_details", args=[self.slug])
+
     def url(self):
-        return settings.DEFAULT_DOMAIN + \
-               reverse("fadderanmalan:job_details", args=[self.slug])
+        return settings.DEFAULT_DOMAIN + self.local_url()
 
     @staticmethod
     def group_by_date(queryset):
@@ -305,7 +307,8 @@ class JobUser(models.Model):
         notify_user(user,
                     "Du har registrerats på jobbet {job_name}".format(job_name=job.name),
                     "Se jobbet här: {job_url}\n\nJobbets beskrivning:\n{job_desc}"
-                    .format(job_url=job.url(), job_desc=job.description))
+                    .format(job_url=job.url(), job_desc=job.description),
+                    push_link=job.url())
 
         return job_user
 
