@@ -51,7 +51,7 @@ def job_list(request):
 
     day_grouped = Job.group_by_date(jobs)
 
-    return render(request, "job_list.html", dict(
+    return render(request, "fadderanmalan/job_list.html", dict(
         day_grouped=day_grouped,
         jobtypes=(t.name for t in Type.objects.all()),
         filter_search=search,
@@ -77,7 +77,7 @@ def job_details(request, slug):
 
     hint_text, button_text, button_name = utils.generate_registration_text(request, job)
 
-    return render(request, "job_details.html", dict(
+    return render(request, "fadderanmalan/job_details.html", dict(
         job=job,
         hint_text=hint_text,
         button_text=button_text,
