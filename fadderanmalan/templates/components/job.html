@@ -33,5 +33,8 @@
             {{ job.users.count }}/{{ job.slots }} - {{ job.points }}p
         </div>
     </div>
-    <div class="job-body"><strong>{{ job.date|date:"d/m" }}</strong> - {{ job.short_desc }}</div>
+    <div class="job-body">
+        <strong>{{ job.date|date:"d M" }}</strong>
+        {% if job.description %} - {{ job.short_desc }} {% endif %}
+    </div>
 </a>
