@@ -26,16 +26,11 @@ class Trade(models.Model):
                reverse("trade:see", args=[self.sender.username])
 
     def notify_receiver(self):
-        message = "Du har mottagit en bytesförfrågan från {username}.\n\nSe bytet här: {url}"\
-            .format(username=self.sender.username, url=self.url())
-
-        notify_user(self.receiver, "Bytesförfrågan", message)
+        notify_user(self.receiver, template="trade_received", template_context=dict(
+            sender=self.sender, trade_url=self.url()
+        ))
 
     def accept(self):
-        subject = "Ett byte har gått igenom"
-        message = "{username} har accepterat ditt byte!" \
-            .format(username=self.receiver.username)
-
         # A Trade needs to be marked as completed before adding and removing of JobUsers since we don't want
         # to delete completed trades. (The deletion function in signals.py won't delete completed Trades.)
         self.completed = True
@@ -55,16 +50,16 @@ class Trade(models.Model):
             JobUser.create(job=job, user=self.sender)
             JobUser.remove(job=job, user=self.receiver)
 
-        notify_user(self.sender, subject, message)
+        notify_user(self.sender, template="trade_accepted", template_context=dict(
+            receiver=self.receiver
+        ))
 
     def deny(self):
-        subject = "Ett byte har avslagits"
-        message = "{username} har tackat nej till ditt byte." \
-            .format(username=self.receiver.username)
-
         self.delete()
 
-        notify_user(self.sender, subject, message)
+        notify_user(self.sender, template="trade_denied", template_context=dict(
+                        receiver=self.receiver
+                    ))
 
     def cancel(self):
         self.delete()

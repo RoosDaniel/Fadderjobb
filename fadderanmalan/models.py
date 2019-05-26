@@ -81,10 +81,10 @@ class EnterQueue(models.Model):
         self.delete()
         self.job.save()
 
-        notify_user(self.user,
-                    "Du har fått en plats på ett jobb du har köat för",
-                    "Du har fått en plats på jobbet '{job_name}'. Se jobbet här: {job_url}"
-                        .format(job_name=self.job.name, job_url=self.job.url()))
+        notify_user(self.user, template="job_enterqueue", template_context=dict(
+            job=self.job,
+            user=self.user
+        ))
 
 
 class LeaveQueue(models.Model):
@@ -116,10 +116,10 @@ class LeaveQueue(models.Model):
         self.delete()
         self.job.save()
 
-        notify_user(self.user,
-                    "Någon har tagit en plats på ett jobb du vill lämna",
-                    "Någon har tagit din plats på jobbet '{job_name}'. Se jobbet här: {job_url}"
-                        .format(job_name=self.job.name, job_url=self.job.url()))
+        notify_user(self.user, template="job_leavequeue", template_context=dict(
+            job=self.job,
+            user=self.user
+        ))
 
 
 def default_locked_after():
@@ -304,11 +304,10 @@ class JobUser(models.Model):
         job_user = JobUser(user=user, job=job)
         job_user.save()
 
-        notify_user(user,
-                    "Du har registrerats på jobbet {job_name}".format(job_name=job.name),
-                    "Se jobbet här: {job_url}\n\nJobbets beskrivning:\n{job_desc}"
-                    .format(job_url=job.url(), job_desc=job.description),
-                    push_link=job.url())
+        notify_user(user, template="job_registration", template_context=dict(
+            job=job,
+            user=user
+        ), push_link=job.url())
 
         return job_user
 
