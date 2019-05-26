@@ -13,10 +13,18 @@
 
 {% block content %}
     <h1>Topplistan</h1>
+    <form action="{% url 'topchart:index' %}" method="get" id="filter-container" class="topchart-search-form">
+        <input class="filter filter-search form-control" placeholder="LiU-id eller namn" type="text"
+               aria-label="LiU-id eller namn" aria-describedby="basic-addon2" name="search"
+               value="{{ filter_search }}" id="filter-name">
+        <button class="btn btn-primary filter-button" type="submit">Sök</button>
+    </form>
+
     <div class="topchart">
         {% for user in users %}
             <div>
-                <div class="topchart-counter">#{{ forloop.counter }}</div>{% userlink user %}
+                <div class="topchart-counter">#{{ forloop.counter }}</div>
+                {% userlink user %}
             </div>
         {% endfor %}
     </div>
