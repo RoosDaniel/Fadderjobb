@@ -84,7 +84,7 @@ class UserAdmin(admin.ModelAdmin):
         return qs
 
     def points(self, obj):
-        return obj.jobs__points__sum
+        return obj.jobs__points__sum or 0
 
     points.admin_order_field = 'jobs__points'
 
