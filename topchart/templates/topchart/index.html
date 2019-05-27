@@ -21,10 +21,10 @@
     </form>
 
     <div class="topchart">
-        {% for user in users %}
+        {% for user in users_and_placings %}
             <div>
-                <div class="topchart-counter">#{{ forloop.counter }}</div>
-                {% userlink user %}
+                <div class="topchart-counter">#{{ user.1 }}</div>
+                {% userlink user.0 %}
             </div>
         {% endfor %}
     </div>
