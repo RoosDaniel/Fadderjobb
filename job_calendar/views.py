@@ -11,7 +11,6 @@ from django_ical.views import ICalFeed
 from accounts.models import User
 
 
-# TODO Currently 2 hours out of sync
 class JobFeed(ICalFeed):
     product_id = '-//fadderjobb.staben.info/calendar'
     timezone = str(get_current_timezone())
