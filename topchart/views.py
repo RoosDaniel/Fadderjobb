@@ -23,7 +23,9 @@ def index(request):
     usernames = users.values_list('username', flat=True)
     placings = [placing for username, placing in placings.items() if username in usernames]
 
+    users_and_placings = sorted(zip(users, placings), key=lambda p: p[1])
+
     return render(request, "topchart/index.html", dict(
-        users_and_placings=zip(users, placings),
+        users_and_placings=users_and_placings,
         filter_search=search
     ))
