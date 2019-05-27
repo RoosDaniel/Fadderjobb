@@ -7,8 +7,8 @@ User = get_user_model()
 
 
 def _get_user(tree):
-    username = tree[0][0].text
-    user, _ = User.objects.get_or_create(username=username)
+    username = tree[0][0].text.lower()
+    user, _ = User.objects.get_or_create(username__iexact=username)
     return user
 
 
