@@ -40,7 +40,9 @@
     {% endif %}
     <h2>Utlämnad utrustning</h2>
     {% for equipment_ownership in user.equipments.all %}
-        {% equipment_ownership_component equipment_ownership %}
+        {% if not equipment_ownership.returned %}
+            {% equipment_ownership_component equipment_ownership %}
+        {% endif %}
     {% empty %}
         <i>Du har ingen utlämnad utrustning</i>
     {% endfor %}
