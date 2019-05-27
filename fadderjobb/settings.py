@@ -264,8 +264,9 @@ PHONENUMBER_DEFAULT_REGION = "SE"
 
 SYSTEM_ADMINS = [
     "danro880",
-    "felfl076",
     "alban042",
+    "felfl076",
+    "alfst109"
 ]
 
 DEFAULT_DOMAIN = "https://fadderjobb.staben.info"
