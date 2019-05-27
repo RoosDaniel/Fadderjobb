@@ -39,10 +39,8 @@
         <i>Du har inte satt något motto än. <a href="{% url 'accounts:edit_profile' %}">Sätt ditt motto här.</a></i>
     {% endif %}
     <h2>Utlämnad utrustning</h2>
-    {% for equipment_ownership in user.equipments.all %}
-        {% if not equipment_ownership.returned %}
-            {% equipment_ownership_component equipment_ownership %}
-        {% endif %}
+    {% for equipment_ownership in non_returned_equipment_ownerships %}
+        {% equipment_ownership_component equipment_ownership %}
     {% empty %}
         <i>Du har ingen utlämnad utrustning</i>
     {% endfor %}

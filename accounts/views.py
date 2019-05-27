@@ -12,13 +12,13 @@ from fadderanmalan.models import Job
 
 from trade.models import Trade
 
-
 User = get_user_model()
 
 
 def profile(request, username):
     if username == request.user.username:
         return render(request, "accounts/my_profile.html", dict(
+            non_returned_equipment_ownerships=request.user.equipments.filter(returned=False).all(),
             day_grouped=Job.group_by_date(request.user.jobs.all())
         ))
 
