@@ -58,8 +58,8 @@ def edit_profile(request):
             # The "or None" part is necessary since the form will submit with empty strings, which means we
             # can't do checks like "if phone is None" (done in for example warn_no_phone_number middleware)
             request.user.phone_number = form.cleaned_data.get("phone_number") or None
-            request.user.motto = form.cleaned_data.get("motto") or None
-            request.user.name = form.cleaned_data.get("name") or None
+            request.user.motto = form.cleaned_data.get("motto")
+            request.user.name = form.cleaned_data.get("name")
 
             request.user.save()
 
