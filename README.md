@@ -45,6 +45,7 @@ _En fadder:_
     - De har fått ett jobb som de köat för.
     - De har tappat ett jobb som de köat för att avanmäla sig till.
 - Kan hämta en .ics-länk till en kalender för alla sina jobb.
+- Byta jobb med andra faddrar
 
 ## Planerat
 
@@ -52,16 +53,13 @@ _En fadder:_
 
 _STABEN ska:_
 
-- Kunna sätta en deadline för sista anmälan till ett jobb. Efter deadline låses jobbet.
-- Kunna lägga till detaljerad information som går ut i ett massutskick till faddrar efter deadline.
-- Kunna sätta en undre/övre gräns för krävda poäng för alla faddrar.
+- _Inget planerat_
 
 ### Fadder
 
 _En fadder ska:_
 
-- Vid utsatt tidpunkt innan nolle-p, få ett mail av STABEN med detaljerad
-information angående de jobb som faddern har registrerat sig på.
+- _Inget planerat_
 
 ## Deployment
 
