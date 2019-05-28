@@ -14,8 +14,8 @@
 
 
 {% block content %}
-    {% if request.user.is_superuser %}
-        <div class="content-extra">
+    <div class="content-extra">
+        {% if request.user.is_superuser %}
             <div class="module module-core">
                 <table>
                     <caption>
@@ -61,8 +61,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="content-extra bottom"></div>
-        </div>
-        {{ block.super }}
-    {% endif %}
+        {% endif %}
+        <div class="content-extra bottom"></div>
+    </div>
+    {{ block.super }}
 {% endblock content %}
