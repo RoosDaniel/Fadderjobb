@@ -44,6 +44,13 @@
             </h1>
             <small>{{ job.date }}</small>
         </div>
+        {% if job.only_visible_to.all %}
+            <h3>Exklusivt jobb</h3>
+            <p>
+                Detta jobb är endast synligt för användare som tillhör någon av grupperna:
+                {{ job.only_visible_to.all|join:", " }}
+            </p>
+        {% endif %}
         <h3>Beskrivning</h3>
         <p>
             {% if job.description %}

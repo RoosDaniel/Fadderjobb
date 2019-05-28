@@ -176,6 +176,10 @@ class Job(models.Model):
     types = models.ManyToManyField("Type", blank=True)
     users = models.ManyToManyField("accounts.User", blank=True, related_name="jobs", through="JobUser")
 
+    only_visible_to = models.ManyToManyField("auth.Group", blank=True, related_name="jobs",
+                                             help_text="Om satt till en eller flera grupper kommer jobbet endast "
+                                                       "att visas för användare som tillhör minst en av grupperna.")
+
     def __str__(self):
         return self.name
 

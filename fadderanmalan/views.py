@@ -9,7 +9,19 @@ from .exceptions import UserError
 
 
 def job_list(request):
-    jobs = Job.objects.order_by("date").filter(~Job.is_hidden_query_filter()).all()
+    jobs = Job.objects.order_by("date") \
+        .filter(~Job.is_hidden_query_filter()) \
+        .all()
+
+    if not request.user.is_superuser:
+        # First, remove all jobs that has a viewing requirement
+        jobs = jobs.filter(only_visible_to=None)
+
+        # Then add back the ones that are allowed for this user
+        if request.user.is_authenticated:
+            for group in request.user.groups.all():
+                group_jobs = group.jobs.filter(~Job.is_hidden_query_filter())  # Remove hidden jobs
+                jobs = jobs.union(group_jobs)
 
     search = request.GET.get("search", "")
 
@@ -49,6 +61,9 @@ def job_list(request):
     if jobtype != "":
         jobs = jobs.filter(types__name__iexact=jobtype)
 
+    # Call me paranoid, but I really don't want duplicates
+    jobs = jobs.distinct()
+
     day_grouped = Job.group_by_date(jobs)
 
     return render(request, "fadderanmalan/job_list.html", dict(
@@ -66,6 +81,18 @@ def job_list(request):
 def job_details(request, slug):
     try:
         job = Job.objects.get(slug=slug, hidden=False)
+
+        if job.only_visible_to.all():
+            if request.user.is_anonymous:
+                raise Job.DoesNotExist
+
+            if not request.user.is_superuser:
+                # Get the intersection of allowed groups and the user's groups
+                common_groups = set(job.only_visible_to.all()) & set(request.user.groups.all())
+
+                # If there are no groups, raise 404
+                if not common_groups:
+                    raise Job.DoesNotExist
     except Job.DoesNotExist:
         raise Http404("Kunde inte hitta jobbet '%s'" % slug)
 
