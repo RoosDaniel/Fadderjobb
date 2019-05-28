@@ -38,7 +38,6 @@ class Equipment(models.Model):
 
 class EquipmentOwnership(models.Model):
     dispensed_at = models.DateTimeField(default=timezone.now)
-    returned = models.BooleanField(default=False)
 
     job = models.ForeignKey("Job", on_delete=models.SET_NULL, related_name="equipments",
                             null=True, blank=True, help_text="Vilket jobb gäller utdelningen? Kan vara tom. "

@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.db.models import Q
 
 from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership
-from .actions import job_set_locked, job_set_hidden, equipment_ownership_set_returned
+from .actions import job_set_locked, job_set_hidden
 
 from fadderjobb.filters import DropdownFilterRelated, DropdownFilter
 
@@ -158,13 +158,11 @@ class EquipmentAdmin(admin.ModelAdmin):
 class EquipmentOwnershipAdmin(admin.ModelAdmin):
     model = EquipmentOwnership
 
-    list_display = ("name", "size", "fadder", "job", "returned")
-
-    actions = (equipment_ownership_set_returned,)
+    list_display = ("name", "size", "fadder", "job")
 
     search_fields = ("fadder__username", "job__name")
 
-    list_filter = (("equipment", DropdownFilterRelated), "returned")
+    list_filter = (("equipment", DropdownFilterRelated),)
 
     def get_changeform_initial_data(self, request):
         try:

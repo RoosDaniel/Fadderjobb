@@ -75,7 +75,7 @@ class UserAdmin(admin.ModelAdmin):
     ]
 
     def equipment(self, obj):
-        return ", ".join(str(eq.equipment) for eq in obj.equipments.filter(returned=False).all())
+        return ", ".join(str(eq.equipment) for eq in obj.equipments.all())
 
     def response_change(self, request, obj):
         if "_loginas" in request.POST:
