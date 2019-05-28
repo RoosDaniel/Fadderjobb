@@ -66,10 +66,14 @@ class UserAdmin(admin.ModelAdmin):
 
     list_display = ("username", "name", "points", "equipment")
 
-    list_filter = (("jobs", DropdownFilterRelated), ("equipments__equipment", DropdownFilterRelated))
+    list_filter = [
+        ("jobs", DropdownFilterRelated),
+        ("equipments__equipment", DropdownFilterRelated),
+        ("groups", DropdownFilterRelated),
+    ]
 
     def equipment(self, obj):
-        return ", ".join(str(eq.equipment) for eq in obj.equipments.all())
+        return ", ".join(str(eq.equipment) for eq in obj.equipments.filter(returned=False).all())
 
     def response_change(self, request, obj):
         if "_loginas" in request.POST:
