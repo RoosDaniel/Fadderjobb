@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
+from django.contrib.admin.filters import BooleanFieldListFilter
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.db import models
@@ -67,6 +68,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ("username", "name", "points", "equipment")
 
     list_filter = [
+        ("is_superuser", BooleanFieldListFilter),
         ("jobs", DropdownFilterRelated),
         ("equipments__equipment", DropdownFilterRelated),
         ("groups", DropdownFilterRelated),
