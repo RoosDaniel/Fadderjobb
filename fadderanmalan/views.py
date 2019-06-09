@@ -102,11 +102,10 @@ def job_details(request, slug):
         except UserError as e:
             return render(request, "400.html", dict(exception=str(e)))
 
-    hint_text, button_text, button_name = utils.generate_registration_text(request, job)
+    context = dict(job=job)
 
-    return render(request, "fadderanmalan/job_details.html", dict(
-        job=job,
-        hint_text=hint_text,
-        button_text=button_text,
-        button_name=button_name
-    ))
+    if not request.user.is_anonymous:
+        hint_text, button_text, button_name = utils.generate_registration_text(request, job)
+        context.update(hint_text=hint_text, button_text=button_text, button_name=button_name)
+
+    return render(request, "fadderanmalan/job_details.html", context)
