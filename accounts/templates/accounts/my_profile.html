@@ -76,4 +76,17 @@
             {% endfor %}
         </div>
     {% endfor %}
+    <h2>Köplatser</h2>
+    <h3>Jobb du köar in till</h3>
+    {% for eq in request.user.enter_queue.all %}
+        {% job_component eq.job %}
+    {% empty %}
+        <i>Du köar inte in till några jobb.</i>
+    {% endfor %}
+    <h3>Jobb du köar för att lämna</h3>
+    {% for lq in request.user.leave_queue.all %}
+        {% job_component lq.job %}
+    {% empty %}
+        <i>Du köar inte för att lämna några jobb.</i>
+    {% endfor %}
 {% endblock content %}
