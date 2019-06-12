@@ -30,6 +30,10 @@
                     </a>
                 {% endif %}
             {% endif %}
+            {% if user.is_staff %}
+                <i class="fas fa-user-shield" data-toggle="tooltip" data-placement="bottom"
+                   title="Den här användaren är administratör"></i>
+            {% endif %}
             {{ user }}
         </h1>
         <small>Poäng: {{ user.points }}<span class="lowercase">p</span></small>
