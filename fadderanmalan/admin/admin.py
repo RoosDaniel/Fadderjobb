@@ -4,6 +4,7 @@ from django.db.models import Q
 
 from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership
 from .actions import job_set_locked, job_set_hidden
+from .forms import JobAdminForm
 
 from fadderjobb.filters import DropdownFilterRelated, DropdownFilter
 
@@ -57,6 +58,7 @@ class EQInline(admin.TabularInline):
 
 class JobAdmin(admin.ModelAdmin):
     model = Job
+    form = JobAdminForm
 
     inlines = (
         UsersInline,
@@ -64,13 +66,13 @@ class JobAdmin(admin.ModelAdmin):
         EQInline
     )
 
-    list_display = ("name", "date", "locked", "hidden", "registered")
+    list_display = ("name", "start_date", "locked", "hidden", "registered")
 
     exclude = ("users", "slug")
 
     actions = (job_set_locked, job_set_hidden)
 
-    list_filter = ("locked", "types", ("date", DropdownFilter), "only_visible_to")
+    list_filter = ("locked", "types", ("start_date", DropdownFilter), "only_visible_to")
 
     search_fields = ("name",)
 

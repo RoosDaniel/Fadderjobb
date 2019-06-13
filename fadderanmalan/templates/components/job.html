@@ -34,7 +34,7 @@
         </div>
     </div>
     <div class="job-body">
-        <strong>{{ job.date|date:"d M" }}</strong>
+        <strong>{{ job.start_date|date:"d M" }}</strong>
         {% if job.description %} - {{ job.short_desc }} {% endif %}
     </div>
 </a>

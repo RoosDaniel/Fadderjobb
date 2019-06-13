@@ -42,7 +42,7 @@
                 {% endif %}
                 {{ job.name }}
             </h1>
-            <small>{{ job.date }}</small>
+            <small>{{ job.start_date }} - {{ job.end_date }}</small>
         </div>
         {% if job.only_visible_to.all %}
             <h3>Exklusivt jobb</h3>

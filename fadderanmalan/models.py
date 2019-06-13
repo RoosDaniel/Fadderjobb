@@ -147,7 +147,9 @@ def default_end():
 
 class Job(models.Model):
     name = models.CharField(max_length=100)
-    date = models.DateField(help_text="Vilket datum jobbet gäller.")
+
+    start_date = models.DateField(help_text="Vilket datum jobbet börjar.")
+    end_date = models.DateField(help_text="Vilket datum jobbet slutar.")
 
     start_time = models.TimeField(help_text="När jobbet ska börja.", default=default_start)
     end_time = models.TimeField(help_text="När jobbet ska sluta.", default=default_end)
@@ -181,25 +183,6 @@ class Job(models.Model):
 
     def __str__(self):
         return self.name
-
-    def clean(self):
-        if self.hidden_until > self.hidden_after:
-            raise ValidationError({
-                "hidden_until": "'Hidden until' has to be before 'Hidden after'.",
-                "hidden_after": "'Hidden until' has to be before 'Hidden after'.",
-            })
-
-        if self.locked_until > self.locked_after:
-            raise ValidationError({
-                "locked_until": "'Locked until' has to be before 'Locked after'.",
-                "locked_after": "'Locked until' has to be before 'Locked after'.",
-            })
-
-        if self.start_time > self.end_time:
-            raise ValidationError({
-                "start_time": "'Start time' has to be before 'End time'.",
-                "end_time": "'Start time' has to be before 'End time'.",
-            })
 
     def save(self, *args, **kwargs):
         res = super(Job, self).save(*args, **kwargs)
