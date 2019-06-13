@@ -211,8 +211,8 @@ class Job(models.Model):
     def group_by_date(queryset):
         day_grouped = OrderedDict()
 
-        for job in queryset.order_by("date"):
-            date = job.date.strftime("%d %b")
+        for job in queryset.order_by("start_date"):
+            date = job.start_date.strftime("%d %b")
 
             if date not in day_grouped.keys():
                 day_grouped[date] = [job]
