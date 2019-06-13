@@ -70,7 +70,7 @@ class JobAdmin(admin.ModelAdmin):
 
     actions = (job_set_locked, job_set_hidden)
 
-    list_filter = ("locked", "types", ("date", DropdownFilter))
+    list_filter = ("locked", "types", ("date", DropdownFilter), "only_visible_to")
 
     search_fields = ("name",)
 
