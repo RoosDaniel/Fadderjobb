@@ -1,6 +1,6 @@
 from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
-from django.db.models import Q
+from django.db.models import Q, Count
 
 from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership
 from .actions import job_set_locked, job_set_hidden
@@ -66,7 +66,7 @@ class JobAdmin(admin.ModelAdmin):
         EQInline
     )
 
-    list_display = ("name", "start_date", "locked", "hidden", "registered")
+    list_display = ("name", "start_date", "locked", "hidden", "slots_taken")
 
     exclude = ("users", "slug")
 
@@ -106,6 +106,16 @@ class JobAdmin(admin.ModelAdmin):
         request.obj_ = obj
 
         return super(JobAdmin, self).get_form(request, obj, **kwargs)
+
+    def get_queryset(self, request):
+        qs = super(JobAdmin, self).get_queryset(request)
+        qs = qs.annotate(user_count=Count('users'))
+        return qs
+
+    def slots_taken(self, obj: Job):
+        return "%s/%s" % (obj.user_count, obj.slots)
+
+    slots_taken.admin_order_field = "user_count"
 
 
 class EnterQueueAdmin(admin.ModelAdmin):
