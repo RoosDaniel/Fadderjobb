@@ -197,8 +197,8 @@ class Job(models.Model):
         return self.description
 
     def short_name(self):
-        if len(self.name) > 15:
-            return self.name[:15] + "..."
+        if len(self.name) > 25:
+            return self.name[:25] + "..."
         return self.name
 
     def local_url(self):
