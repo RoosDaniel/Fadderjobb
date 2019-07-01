@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.contrib.auth import get_user_model
 from django.db.models import Sum
-
+from django.db.models.functions import Coalesce
 
 User = get_user_model()
 
@@ -10,8 +10,8 @@ User = get_user_model()
 def index(request):
     search = request.GET.get("search", "")
 
-    users = User.objects.annotate(points=Sum("jobs__points"))\
-        .filter(is_staff=False).order_by("points").all()
+    users = User.objects.annotate(points=Coalesce(Sum("jobs__points"), 0))\
+        .filter(is_staff=False).order_by("-points").all()
 
     if search != "":
         name_filtered = users.filter(name__icontains=search)
