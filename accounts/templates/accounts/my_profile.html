@@ -75,6 +75,11 @@
                 {% job_component job %}
             {% endfor %}
         </div>
+    {% empty %}
+        <i>
+            Du har inte registrerat dig på några jobbpass än.
+            <a href="{% url 'fadderanmalan:job_list' %}">Hitta jobbpass här.</a>
+        </i>
     {% endfor %}
     <h2>Köplatser</h2>
     <h3>Jobb du köar in till</h3>
