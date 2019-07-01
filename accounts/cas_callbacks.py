@@ -9,13 +9,8 @@ User = get_user_model()
 def _get_user(tree):
     username = tree[0][0].text.lower()
 
-    try:
-        user = User.objects.get(username__iexact=username)
-    except User.DoesNotExist:
-        user = User(username=username)
-        user.save()
-
-    return user
+    # This will throw an exception if the user isn't found, which is fine since we have a whitelist
+    return User.objects.get(username__iexact=username)
 
 
 def add_email(tree):
