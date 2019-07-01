@@ -32,7 +32,7 @@ class JobFeed(ICalFeed):
         return super(JobFeed, self).__call__(request, *args, **kwargs)
 
     def items(self):
-        return self.user.jobs.all().order_by("-date")
+        return self.user.jobs.all().order_by("-start_date")
 
     def item_guid(self, item):
         url = re.compile(r"https?://(www\.)?")
@@ -45,10 +45,10 @@ class JobFeed(ICalFeed):
         return item.description
 
     def item_start_datetime(self, item):
-        return datetime.combine(item.date, item.start_time)
+        return datetime.combine(item.start_date, item.start_time)
 
     def item_end_datetime(self, item):
-        return datetime.combine(item.date, item.end_time)
+        return datetime.combine(item.end_date, item.end_time)
 
     def item_link(self, item):
         return item.url()
