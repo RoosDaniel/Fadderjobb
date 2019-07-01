@@ -67,6 +67,8 @@ class UserAdmin(admin.ModelAdmin):
 
     list_display = ("username", "name", "points", "equipment")
 
+    search_fields = ("username", "name")
+
     list_filter = [
         ("is_superuser", BooleanFieldListFilter),
         ("jobs", DropdownFilterRelated),
