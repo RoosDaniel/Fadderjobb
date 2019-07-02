@@ -1,13 +1,13 @@
 <a href="{{ job.local_url }}"
    class="job {{ job.full_status }} {{ job.locked_status }} nounderline">
-    <div class="job-title">
-        <h3>
+    <div class="job-title-container">
+        <h3 class="job-title">
             {% if request.user.is_authenticated and request.user in job.users.all %}
                 <i class="far fa-check-circle"
                    data-toggle="tooltip" data-placement="left" title="Du är registrerad på jobbet">
                 </i>
             {% endif %}
-            {{ job.short_name }}
+            {{ job.name }}
         </h3>
         <div class="job-status">
             {% if job.has_enter_queue %}
@@ -35,6 +35,6 @@
     </div>
     <div class="job-body">
         <strong>{{ job.start_date|date:"d M" }}</strong>
-        {% if job.description %} - {{ job.short_desc }} {% endif %}
+        {% if job.description %} - {{ job.description }} {% endif %}
     </div>
 </a>

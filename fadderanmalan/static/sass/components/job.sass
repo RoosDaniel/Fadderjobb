@@ -19,16 +19,26 @@
         text-decoration: none
         box-shadow: 0 1px 3px 0 #222
 
-.job-title
-    position: relative
+.job-title-container
+    display: flex
+    justify-content: space-between
 
-.job-status
-    position: absolute
-    right: 0
-    top: 0
-
-.job-title
-    > h3
-        font-size: 140%
     > *
         display: inline
+
+.job-title
+    font-size: 18px
+    margin-top: 0 !important
+
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+.job-status
+    white-space: nowrap
+
+
+.job-body
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
