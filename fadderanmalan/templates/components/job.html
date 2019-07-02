@@ -20,11 +20,6 @@
                    data-toggle="tooltip" data-placement="left" title="Faddrar vill lämna jobbet">
                 </i>{{ " " }}
             {% endif %}
-            {% if job.full %}
-                <i class="fas fa-ban"
-                   data-toggle="tooltip" data-placement="left" title="Jobbet är fullt">
-                </i>{{ " " }}
-            {% endif %}
             {% if job.is_locked %}
                 <i class="fas fa-lock"
                    data-toggle="tooltip" data-placement="left" title="Jobbet är låst">
