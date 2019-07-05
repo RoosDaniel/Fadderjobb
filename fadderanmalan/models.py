@@ -13,6 +13,7 @@ from django.core.exceptions import ValidationError
 from constance import config
 
 from fadderjobb.utils import notify_user
+from .enums import ActionTypes
 
 
 class Type(models.Model):
@@ -306,3 +307,23 @@ class JobUser(models.Model):
     @staticmethod
     def get(job, user):
         return JobUser.objects.get(user=user, job=job)
+
+
+class ActionLog(models.Model):
+    TYPES = ActionTypes
+
+    job = models.ForeignKey("Job", on_delete=models.CASCADE)
+    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE)
+
+    created = models.DateTimeField(editable=False)
+
+    type = models.CharField(max_length=100, choices=[(tag, tag.value) for tag in ActionTypes])
+
+    def __str__(self):
+        return str(self.job)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created = timezone.now()
+
+        return super(self.__class__, self).save(*args, **kwargs)

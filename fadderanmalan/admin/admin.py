@@ -2,7 +2,9 @@ from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
 from django.db.models import Q, Count
 
-from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership
+from django.contrib.admin.filters import BooleanFieldListFilter
+
+from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership, ActionLog
 from .actions import job_set_locked, job_set_hidden
 from .forms import JobAdminForm
 
@@ -204,6 +206,19 @@ class EquipmentOwnershipAdmin(admin.ModelAdmin):
         return obj.equipment.size
 
 
+class ActionLogAdmin(admin.ModelAdmin):
+    model = ActionLog
+
+    list_display = ("user", "job", "created", "action_type")
+
+    list_filter = (("type", DropdownFilter),)
+
+    search_fields = ("user__username", "job__name", "user__name")
+
+    def action_type(self, obj: ActionLog):
+        return obj.type
+
+
 admin.site.register(Type)
 admin.site.register(EnterQueue, EnterQueueAdmin)
 admin.site.register(LeaveQueue, LeaveQueueAdmin)
@@ -212,3 +227,5 @@ admin.site.register(Job, JobAdmin)
 
 admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(EquipmentOwnership, EquipmentOwnershipAdmin)
+
+admin.site.register(ActionLog, ActionLogAdmin)
