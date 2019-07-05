@@ -4,6 +4,7 @@ from post_office import mail
 from post_office.models import EmailTemplate
 
 from webpush import send_user_notification
+from webpush.models import PushInformation
 
 
 def send_mail(recipient, subject, message, html_message):
@@ -25,7 +26,11 @@ def send_push(user, subject, message, push_link=None):
     if push_link is not None:
         payload.update(url=push_link)
 
-    send_user_notification(user=user, payload=payload, ttl=1000)
+    try:
+        PushInformation.objects.get(user=user)
+        send_user_notification(user=user, payload=payload, ttl=1000)
+    except PushInformation.DoesNotExist:
+        pass
 
 
 def notify_user(user, subject=None, message=None, html_message=None, template=None, template_context=None,
