@@ -65,6 +65,32 @@ LOGINAS_LOGOUT_REDIRECT_URL = 'admin:index'
 LOGINAS_MESSAGE_LOGIN_SWITCH = 'Du är nu inloggad som {username} - klicka på "Återgå" för att avsluta sessionen.'
 LOGINAS_MESSAGE_LOGIN_REVERT = "Du är nu inloggad som {username} igen."
 
+# Logging
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'post_office': {
+            'format': '[%(levelname)s]%(asctime)s PID %(process)d: %(message)s',
+            'datefmt': '%d-%m-%Y %H:%M:%S',
+        },
+    },
+    'handlers': {
+        'post_office': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler',
+            'formatter': 'post_office',
+        },
+    },
+    'loggers': {
+        'post_office': {
+            'handlers': ['post_office'],
+            'level': 'ERROR',
+        },
+    },
+}
+
 # Application definition
 
 INSTALLED_APPS = [
