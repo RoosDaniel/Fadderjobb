@@ -22,9 +22,20 @@
 
     <div class="topchart">
         {% for user in users %}
-            <div>
-                <div class="topchart-counter">#{{ forloop.counter }}</div>
-                {% userlink user %}
+            <div class="topchart-user-container">
+                <a href="{% url 'accounts:profile' user.username %}">
+                    <div class="topchart-user">
+                        <h3 class="topchart-user-username">
+                            <span class="badge">#{{ forloop.counter }}</span> {{ user }}
+                        </h3>
+                        {% if user.motto %}
+                            <div class="topchart-user-motto">
+                                <i>"{{ user.motto }}"</i>
+                            </div>
+                        {% endif %}
+                    </div>
+                </a>
+                <hr>
             </div>
         {% endfor %}
     </div>
