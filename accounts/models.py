@@ -23,13 +23,17 @@ class User(AbstractUser):
     name = models.CharField(max_length=100, blank=True, null=True)
     read_guide = models.BooleanField(default=False)
 
+    points = models.IntegerField(default=0)
+    placing = models.IntegerField(blank=True, null=True)
+
     def __str__(self):
         if self.name:
             return "%s (%s)" % (self.name, self.username)
         return self.username
 
-    def points(self):
-        return self.jobs.all().aggregate(Sum("points"))["points__sum"] or 0
+    def update_points(self):
+        self.points = self.jobs.all().aggregate(Sum("points"))["points__sum"] or 0
+        self.save()
 
     def can_register(self):
         if self.is_superuser or self.is_staff:

@@ -34,9 +34,9 @@
                 <i class="fas fa-user-shield" data-toggle="tooltip" data-placement="bottom"
                    title="Den här användaren är administratör"></i>
             {% endif %}
+            <span class="badge">#{{ user.placing }}</span> <span class="badge">{{ user.points }}<span class="lowercase">p</span></span>
             {{ user }}
         </h1>
-        <small>Poäng: {{ user.points }}<span class="lowercase">p</span></small>
     </div>
     <h2>Motto</h2>
     {% if user.motto %}

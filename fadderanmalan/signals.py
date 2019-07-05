@@ -4,6 +4,7 @@ from django.db.models import Q
 
 from fadderanmalan.models import JobUser, LeaveQueue, EnterQueue, ActionLog
 from trade.models import Trade
+import accounts.utils
 
 
 def _delete_trades(job_user: JobUser):
@@ -30,6 +31,9 @@ def on_registration(sender, instance: JobUser, created, **kwargs):
     log = ActionLog(job=instance.job, user=instance.user, type=ActionLog.TYPES.REGISTRATION_CREATE.value)
     log.save()
 
+    instance.user.update_points()
+    accounts.utils.update_user_placings()
+
     _delete_trades(instance)
     _delete_LQ(instance)  # Technically impossible, but you never know
     _delete_EQ(instance)
@@ -39,6 +43,9 @@ def on_registration(sender, instance: JobUser, created, **kwargs):
 def on_deregistration(sender, instance: JobUser, **kwargs):
     log = ActionLog(job=instance.job, user=instance.user, type=ActionLog.TYPES.REGISTRATION_DELETE.value)
     log.save()
+
+    instance.user.update_points()
+    accounts.utils.update_user_placings()
 
     _delete_trades(instance)
     _delete_LQ(instance)

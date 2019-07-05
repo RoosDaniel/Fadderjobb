@@ -10,8 +10,7 @@ User = get_user_model()
 def index(request):
     search = request.GET.get("search", "")
 
-    users = User.objects.annotate(points=Coalesce(Sum("jobs__points"), 0))\
-        .filter(is_staff=False).order_by("-points").all()
+    users = User.objects.filter(is_staff=False).order_by("placing").all()
 
     if search != "":
         name_filtered = users.filter(name__icontains=search)

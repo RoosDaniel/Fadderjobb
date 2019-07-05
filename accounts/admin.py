@@ -88,14 +88,4 @@ class UserAdmin(admin.ModelAdmin):
             return HttpResponseRedirect(reverse("index"))
         return super().response_change(request, obj)
 
-    def get_queryset(self, request):
-        qs = super(UserAdmin, self).get_queryset(request)
-        qs = qs.annotate(models.Sum('jobs__points'))
-        return qs
-
-    def points(self, obj):
-        return obj.jobs__points__sum
-
-    points.admin_order_field = 'jobs__points'
-
 admin.site.register(User, UserAdmin)
