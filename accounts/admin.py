@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.admin.filters import BooleanFieldListFilter
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 from django.db import models
 
@@ -81,6 +81,8 @@ class UserAdmin(admin.ModelAdmin):
 
     def response_change(self, request, obj):
         if "_loginas" in request.POST:
+            if not request.user.is_superuser:
+                return HttpResponseForbidden()
             login_as(obj, request)
 
             return HttpResponseRedirect(reverse("index"))
