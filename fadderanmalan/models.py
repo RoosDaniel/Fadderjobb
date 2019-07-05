@@ -317,7 +317,7 @@ class ActionLog(models.Model):
 
     created = models.DateTimeField(editable=False)
 
-    type = models.CharField(max_length=100, choices=[(tag, tag.value) for tag in ActionTypes])
+    type = models.CharField(max_length=100, choices=[(tag.value, tag.value) for tag in ActionTypes])
 
     def __str__(self):
         return str(self.job)
