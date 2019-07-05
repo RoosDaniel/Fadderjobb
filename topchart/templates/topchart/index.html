@@ -26,7 +26,7 @@
                 <a href="{% url 'accounts:profile' user.username %}">
                     <div class="topchart-user">
                         <h3 class="topchart-user-username">
-                            <span class="badge">#{{ forloop.counter }}</span> {{ user }}
+                            <span class="badge">#{{ forloop.counter }}</span> <span class="badge">{{ user.points }}<span class="lowercase">p</span></span> {{ user }}
                         </h3>
                         {% if user.motto %}
                             <div class="topchart-user-motto">
