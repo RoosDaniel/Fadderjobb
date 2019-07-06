@@ -30,11 +30,6 @@
                        data-toggle="tooltip" data-placement="bottom" title="Faddrar vill lämna jobbet">
                     </i>{{ " " }}
                 {% endif %}
-                {% if job.full %}
-                    <i class="fas fa-ban"
-                       data-toggle="tooltip" data-placement="bottom" title="Jobbet är fullt">
-                    </i>{{ " " }}
-                {% endif %}
                 {% if job.is_locked %}
                     <i class="fas fa-lock"
                        data-toggle="tooltip" data-placement="bottom" title="Jobbet är låst">
@@ -42,8 +37,9 @@
                 {% endif %}
                 {{ job.name }}
             </h1>
-            <small>{{ job.start_date }}
-            {% if job.start_date != job.end_date %} - {{ job.end_date }}{% endif %}
+            <small>
+                {{ job.start_date }}
+                {% if job.start_date != job.end_date %} - {{ job.end_date }}{% endif %}
             </small>
         </div>
         {% if job.only_visible_to.all %}

@@ -12,8 +12,8 @@ from fadderjobb.filters import DropdownFilterRelated, DropdownFilter
 
 
 class UsersInline(admin.TabularInline):
-    verbose_name = "User"
-    verbose_name_plural = "Users"
+    verbose_name = "Registered user"
+    verbose_name_plural = "Registered users"
 
     model = Job.users.through
 

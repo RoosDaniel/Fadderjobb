@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
+from django.apps import apps
 from django.contrib.admin.filters import BooleanFieldListFilter
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
@@ -12,6 +13,8 @@ from fadderjobb.filters import DropdownFilterRelated
 
 
 User = get_user_model()
+
+auth_models = apps.get_model("auth.Group")._meta.app_label = "accounts"
 
 
 class JobsInline(admin.TabularInline):
