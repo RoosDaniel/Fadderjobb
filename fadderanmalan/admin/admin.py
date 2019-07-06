@@ -28,6 +28,8 @@ class LQInline(admin.TabularInline):
 
     model = LeaveQueue
 
+    extra = 0
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         field = super(LQInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
@@ -45,6 +47,8 @@ class EQInline(admin.TabularInline):
     verbose_name_plural = "EnterQueue"
 
     model = EnterQueue
+
+    extra = 0
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         field = super(EQInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
@@ -65,7 +69,7 @@ class JobAdmin(admin.ModelAdmin):
     inlines = (
         UsersInline,
         LQInline,
-        EQInline
+        EQInline,
     )
 
     list_display = ("name", "start_date", "locked", "hidden", "slots_taken")

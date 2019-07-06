@@ -8,7 +8,7 @@ from django.db import models
 
 from loginas.utils import login_as
 
-from fadderanmalan.models import EquipmentOwnership
+from fadderanmalan.models import EquipmentOwnership, LeaveQueue, EnterQueue
 from fadderjobb.filters import DropdownFilterRelated
 
 
@@ -22,6 +22,24 @@ class JobsInline(admin.TabularInline):
     model = User.jobs.through
 
     fields = ("job",)
+
+    extra = 0
+
+
+class LQInline(admin.TabularInline):
+    verbose_name = "Leavequeue"
+    verbose_name_plural = "Leavequeue"
+
+    model = LeaveQueue
+
+    extra = 0
+
+
+class EQInline(admin.TabularInline):
+    verbose_name = "Enterqueue"
+    verbose_name_plural = "EnterQueue"
+
+    model = EnterQueue
 
     extra = 0
 
@@ -64,6 +82,8 @@ class UserAdmin(admin.ModelAdmin):
     inlines = (
         JobsInline,
         EquipmentOwnershipInline,
+        EQInline,
+        LQInline,
     )
 
     list_display = ("username", "name", "points", "equipment")
