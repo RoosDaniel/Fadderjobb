@@ -14,8 +14,6 @@ from fadderjobb.filters import DropdownFilterRelated
 
 User = get_user_model()
 
-auth_models = apps.get_model("auth.Group")._meta.app_label = "accounts"
-
 
 class JobsInline(admin.TabularInline):
     verbose_name = "Job"

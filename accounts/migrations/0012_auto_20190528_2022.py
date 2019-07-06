@@ -11,10 +11,13 @@ def add_permissions(apps, schema_editor):
 def remove_permissions(apps, schema_editor):
     ContentType = apps.get_model('contenttypes.ContentType')
     Permission = apps.get_model('auth.Permission')
-    content_type = ContentType.objects.get(
-        model='fadder',
-        app_label='accounts',
-    )
+    try:
+        content_type = ContentType.objects.get(
+            model='fadder',
+            app_label='accounts',
+        )
+    except ContentType.DoesNotExist:
+        return
 
     Permission.objects.filter(
         content_type=content_type,
