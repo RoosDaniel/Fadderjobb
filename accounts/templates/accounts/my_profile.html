@@ -2,7 +2,6 @@
 {% load static from staticfiles %}
 {% load sass_tags %}
 {% load fadderanmalan_components %}
-{% load webpush_notifications %}
 
 {% block title %}{{ user.username }}:s profil - {% endblock title %}
 
@@ -10,13 +9,9 @@
     <link rel="stylesheet" href="{% sass_src 'sass/profile.sass' %}">
     <link rel="stylesheet" href="{% sass_src 'sass/components/job.sass' %}">
     <link rel="stylesheet" href="{% sass_src 'sass/components/equipment_ownership.sass' %}">
-    {% webpush_header %}
 {% endblock head %}
 
 {% block content %}
-    <button id="webpush-subscribe-button" class="btn btn-primary" data-url="{% url 'save_webpush_info' %}">
-        Fråga om pushnotiser
-    </button>
     {% if request.user.is_staff %}
         <a href="{% url 'admin:accounts_user_change' user.id %}" target="_blank">Redigera användare</a>
     {% endif %}

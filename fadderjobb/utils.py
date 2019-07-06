@@ -3,9 +3,6 @@ from django.template import Template, Context
 from post_office import mail
 from post_office.models import EmailTemplate
 
-from webpush import send_user_notification
-from webpush.models import PushInformation
-
 
 def send_mail(recipient, subject, message, html_message):
     mail.send(
@@ -17,24 +14,7 @@ def send_mail(recipient, subject, message, html_message):
     )
 
 
-def send_push(user, subject, message, push_link=None):
-    payload = dict(
-        head=subject,
-        body=message,
-    )
-
-    if push_link is not None:
-        payload.update(url=push_link)
-
-    try:
-        PushInformation.objects.get(user=user)
-        send_user_notification(user=user, payload=payload, ttl=1000)
-    except PushInformation.DoesNotExist:
-        pass
-
-
-def notify_user(user, subject=None, message=None, html_message=None, template=None, template_context=None,
-                push_link=None):
+def notify_user(user, subject=None, message=None, html_message=None, template=None, template_context=None):
     if template is not None:
         template = EmailTemplate.objects.get(name=template)
         context = Context(template_context or {})
@@ -47,4 +27,3 @@ def notify_user(user, subject=None, message=None, html_message=None, template=No
                         "If not using a template, you should also include a message.")
 
     send_mail(user.email, subject, message, html_message)
-    send_push(user, subject, message, push_link)

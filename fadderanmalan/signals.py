@@ -36,7 +36,7 @@ def on_registration(sender, instance: JobUser, created, **kwargs):
     notify_user(instance.user, template="job_registration", template_context=dict(
         job=instance.job,
         user=instance.user
-    ), push_link=instance.job.url())
+    ))
 
     instance.user.update_points()
     accounts.utils.update_user_placings()
