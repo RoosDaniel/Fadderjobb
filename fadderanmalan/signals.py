@@ -6,6 +6,8 @@ from fadderanmalan.models import JobUser, LeaveQueue, EnterQueue, ActionLog
 from trade.models import Trade
 import accounts.utils
 
+from fadderjobb.utils import notify_user
+
 
 def _delete_trades(job_user: JobUser):
     Trade.objects\
@@ -30,6 +32,11 @@ def on_registration(sender, instance: JobUser, created, **kwargs):
 
     log = ActionLog(job=instance.job, user=instance.user, type=ActionLog.TYPES.REGISTRATION_CREATE.value)
     log.save()
+
+    notify_user(instance.user, template="job_registration", template_context=dict(
+        job=instance.job,
+        user=instance.user
+    ), push_link=instance.job.url())
 
     instance.user.update_points()
     accounts.utils.update_user_placings()

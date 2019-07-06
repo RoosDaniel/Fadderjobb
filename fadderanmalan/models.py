@@ -291,11 +291,6 @@ class JobUser(models.Model):
         job_user = JobUser(user=user, job=job)
         job_user.save()
 
-        notify_user(user, template="job_registration", template_context=dict(
-            job=job,
-            user=user
-        ), push_link=job.url())
-
         return job_user
 
     @staticmethod
