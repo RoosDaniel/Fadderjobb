@@ -16,6 +16,10 @@ from datetime import date, time
 
 from django.utils import timezone
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -161,6 +165,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'fadderjobb.wsgi.application'
+
+# Crash analytics
+# https://sentry.io/
+
+if not DEBUG:
+    if "sentry.io" in credentials:
+        sentry_sdk.init(
+            dsn=credentials["sentry.io"].get("dsn", ""),
+            integrations=[DjangoIntegration()],
+            send_default_pii=True,
+        )
 
 # CAS
 # https://github.com/kstateome/django-cas/

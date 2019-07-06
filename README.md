@@ -64,8 +64,7 @@ _En fadder ska:_
 ## Deployment
 
 För att köra projektet krävs filen `credentials.json` i root-mappen 
-med följande struktur:
-
+med följande struktur (sentry.io är valfritt):
 ```json
 {
   "email": {
@@ -76,10 +75,8 @@ med följande struktur:
     "user": "",
     "password": ""
   },
-  "webpush": {
-    "VAPID_PUBLIC_KEY": "",
-    "VAPID_PRIVATE_KEY": "",
-    "VAPID_ADMIN_EMAIL": ""
+  "sentry.io": {
+    "dsn": ""
   }
 }
 ```
