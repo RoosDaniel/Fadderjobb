@@ -58,6 +58,9 @@ class EnterQueue(models.Model):
     job = models.ForeignKey("Job", on_delete=models.CASCADE, related_name="enter_queue")
     user = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="enter_queue")
 
+    class Meta:
+        unique_together = [['job', 'user']]
+
     def __str__(self):
         return " | ".join([self.job.name, self.user.username])
 
@@ -92,6 +95,9 @@ class LeaveQueue(models.Model):
 
     job = models.ForeignKey("Job", on_delete=models.CASCADE, related_name="leave_queue")
     user = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="leave_queue")
+
+    class Meta:
+        unique_together = [['job', 'user']]
 
     def __str__(self):
         return " | ".join([self.job.name, self.user.username])
