@@ -36,8 +36,11 @@ def handle_register(request, job):
 
     # Put the user in the leave queue
     elif "_add_lq" in request.POST:
-        lq = LeaveQueue(job=job, user=request.user)
-        lq.save()
+        try:
+            LeaveQueue.objects.get(job=job, user=request.user)
+        except LeaveQueue.DoesNotExist:
+            lq = LeaveQueue(job=job, user=request.user)
+            lq.save()
 
         messages.add_message(request, messages.INFO,
                              "Du står nu i kö för att avregistrera dig från passet. "
@@ -45,8 +48,11 @@ def handle_register(request, job):
 
     # Put the user in the enter queue
     elif "_add_eq" in request.POST:
-        eq = EnterQueue(job=job, user=request.user)
-        eq.save()
+        try:
+            EnterQueue.objects.get(job=job, user=request.user)
+        except EnterQueue.DoesNotExist:
+            eq = EnterQueue(job=job, user=request.user)
+            eq.save()
 
         messages.add_message(request, messages.INFO,
                              "Du står nu i kö för passet. "
