@@ -11,7 +11,10 @@ def handle_register(request, job):
         if job.full():
             raise UserError("Du kan inte registrera dig.")
 
-        JobUser.create(job, request.user)
+        try:
+            JobUser.get(job, request.user)
+        except JobUser.DoesNotExist:
+            JobUser.create(job, request.user)
 
         messages.add_message(request, messages.INFO,
                              "Du är nu registrerad på passet.")
