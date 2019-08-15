@@ -6,3 +6,9 @@ class FadderanmalanConfig(AppConfig):
 
     def ready(self):
         from . import signals
+
+        try:
+            import uwsgidecorators
+            from . import crons
+        except ImportError:
+            pass
