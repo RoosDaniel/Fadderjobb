@@ -189,7 +189,7 @@ class Job(models.Model):
                                                        "att visas för användare som tillhör minst en av grupperna.")
 
     def __str__(self):
-        return "%s - %s" % (self.name, self.start_date.strftime("%d/%m"))
+        return self.name
 
     def save(self, *args, **kwargs):
         res = super(Job, self).save(*args, **kwargs)

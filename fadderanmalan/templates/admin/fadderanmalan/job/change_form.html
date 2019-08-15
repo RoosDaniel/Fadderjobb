@@ -18,7 +18,8 @@
 
 {% block submit_buttons_bottom %}
     <div class="submit-row">
-        <input type="submit" value="Dequeue" name="_dequeue">
+        <input type="submit" name="_dequeue" value="Dequeue">
+        <input type="submit" name="_notify_registered" value="Notify registered">
     </div>
     {{ block.super }}
 {% endblock %}

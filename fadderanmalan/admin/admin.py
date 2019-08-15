@@ -1,12 +1,14 @@
 from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
 from django.db.models import Q, Count
+from django.shortcuts import render
 
 from django.contrib.admin.filters import BooleanFieldListFilter
 
 from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership, ActionLog
-from .actions import job_set_locked, job_set_hidden
+from .actions import job_set_locked, job_set_hidden, job_notify_registered
 from .forms import JobAdminForm
+from .utils import notify_registered
 
 from fadderjobb.filters import DropdownFilterRelated, DropdownFilter
 
@@ -76,7 +78,7 @@ class JobAdmin(admin.ModelAdmin):
 
     exclude = ("users", "slug")
 
-    actions = (job_set_locked, job_set_hidden)
+    actions = (job_set_locked, job_set_hidden, job_notify_registered)
 
     list_filter = ("locked", "hidden", "types", ("start_date", DropdownFilter), "only_visible_to")
 
@@ -106,6 +108,9 @@ class JobAdmin(admin.ModelAdmin):
                     messages.add_message(request, messages.ERROR, "No users to dequeue.")
 
             return HttpResponseRedirect(".")
+        if "_notify_registered" in request.POST:
+            return render(request, "admin/fadderanmalan/job/mail_action.html", dict(jobs=[obj]))
+
         return super().response_change(request, obj)
 
     def get_form(self, request, obj=None, **kwargs):
