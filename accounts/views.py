@@ -74,6 +74,7 @@ def edit_profile(request):
             email=request.user.email,
             phone_number=request.user.phone_number,
             motto=request.user.motto,
+            name=request.user.name,
         ))
 
     return render(request, "accounts/edit_profile.html", dict(
