@@ -7,7 +7,7 @@ from fadderjobb.utils import notify_user
 from .models import Job
 
 
-@cron(0, 10, -1, -1, -1)
+@cron(10, 10, -1, -1, -1)
 def notify_jobs_tomorrow(num):
     tomorrow = (timezone.now() + timedelta(days=1)).date().isoformat()
 
@@ -22,7 +22,7 @@ def notify_jobs_tomorrow(num):
             else:
                 user_jobs[user] = [job.name]
 
-    for user, jobs in user_jobs.all():
+    for user, jobs in user_jobs.items():
         notify_user(user, template="job_reminder", template_context=dict(
             user=user,
             jobs=jobs,
