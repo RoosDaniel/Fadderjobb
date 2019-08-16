@@ -80,10 +80,6 @@
                 <td>{{ job.slots }}</td>
             </tr>
             <tr>
-                <td>Poäng</td>
-                <td>{{ job.points }}p</td>
-            </tr>
-            <tr>
                 <td>Typer</td>
                 <td>{% if job.types.all %}{{ job.types.all|join:", " }}{% else %}<i>Inga typer ännu</i>{% endif %}</td>
             </tr>
