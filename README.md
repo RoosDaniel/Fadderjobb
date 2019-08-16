@@ -1,10 +1,10 @@
-# STABENs Faddersystem
+# Fadderjobbsystemet
 
 https://fadderjobb.staben.info/
 
 ## Bakgrund
 
-Historiskt sett har det alltid varit svårt att planera fadderjobb för STABEN
+Historiskt sett har det alltid varit svårt att planera fadderjobb
 eftersom det saknats ett sätt att delegera småjobb. T.ex. har det krävts faddrar
 som står i märkesbacken under första dagen, eller extra riggfaddrar till Hoben.
 Den här hemsidan försöker underlätta dessa problem genom att hantera anmälan,
@@ -19,9 +19,9 @@ _En användare kan:_
 - Se vilka som är anmälda till vilka fadderjobb.
 - Se en topplista över vilka faddrar som har tagit flest poäng.
 
-### STABEN
+### Admin
 
-_STABEN:_
+_Admin:_
 
 - Kan skapa nya fadderjobb.
     - Beskrivning
@@ -49,9 +49,9 @@ _En fadder:_
 
 ## Planerat
 
-### STABEN
+### Admin
 
-_STABEN ska:_
+_Admin ska:_
 
 - _Inget planerat_
 
