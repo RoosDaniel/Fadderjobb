@@ -1,3 +1,6 @@
+from ..models import Job
+
+
 # Removes all jobs that the user cannot view due to insufficient permissions
 def filter_jobs_for_user(user, jobs):
     if not user.is_superuser:
