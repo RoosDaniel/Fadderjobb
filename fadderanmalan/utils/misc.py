@@ -1,8 +1,15 @@
+from typing import List
+
+from django.contrib.auth import get_user_model
+
 from ..models import Job
 
 
+User = get_user_model()
+
+
 # Removes all jobs that the user cannot view due to insufficient permissions
-def filter_jobs_for_user(user, jobs):
+def filter_jobs_for_user(user: User, jobs: List[Job]) -> List[Job]:
     original_jobs = jobs[:]
 
     if not user.is_superuser:

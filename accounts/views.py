@@ -28,7 +28,7 @@ def profile(request, username):
     except User.DoesNotExist:
         raise Http404("Kunde inte hitta användaren '%s'" % username)
 
-    jobs = misc_utils.filter_jobs_for_user(request.user, user.jobs)
+    jobs = misc_utils.filter_jobs_for_user(request.user, user.jobs.all())
 
     day_grouped = Job.group_by_date(jobs)
 
