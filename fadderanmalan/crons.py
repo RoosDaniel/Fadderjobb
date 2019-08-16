@@ -7,8 +7,8 @@ from fadderjobb.utils import notify_user
 from .models import Job
 
 
-@cron(0, 8, -1, -1, -1)
-def notify_jobs_tomorrow():
+@cron(0, 10, -1, -1, -1)
+def notify_jobs_tomorrow(num):
     tomorrow = (timezone.now() + timedelta(days=1)).date().isoformat()
 
     jobs = Job.objects.filter(start_date=tomorrow).all()
