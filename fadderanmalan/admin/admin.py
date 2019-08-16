@@ -109,7 +109,8 @@ class JobAdmin(admin.ModelAdmin):
 
             return HttpResponseRedirect(".")
         if "_notify_registered" in request.POST:
-            return render(request, "admin/fadderanmalan/job/mail_action.html", dict(jobs=[obj]))
+            return render(request, "admin/fadderanmalan/job/notify_registered_action.html", dict(
+                jobs=[obj], title="Send notification", single_job=obj))
 
         return super().response_change(request, obj)
 

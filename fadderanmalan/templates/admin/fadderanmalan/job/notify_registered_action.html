@@ -1,0 +1,59 @@
+<!--suppress HtmlUnknownTarget -->
+{% extends "admin/base_site.html" %}
+
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="{% url 'admin:index' %}">Home</a>
+        &rsaquo; <a href="{% url 'admin:app_list' app_label="fadderanmalan" %}">Fadderanmalan</a>
+        &rsaquo; <a href="{% url 'admin:fadderanmalan_job_changelist' %}">Jobs</a>
+        {% if single_job %}&rsaquo; <a href="{% url 'admin:fadderanmalan_job_change' object_id=single_job.pk %}">{{ single_job }}</a>{% endif %}
+        &rsaquo; {{ title }}
+    </div>
+{% endblock %}
+
+{% block content %}
+    <script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+
+    <script>
+        const $ = django.jQuery;
+
+        $(function () {
+            const $content = $("#content");
+            const $submit = $("#submit");
+
+            $content.on("input change", function (e) {
+                $submit.attr("disabled", e.target.value.length === 0)
+            });
+        });
+    </script>
+    <form action="{% url 'admin:fadderanmalan_job_changelist' %}" method="post">
+        {% csrf_token %}
+        <p>
+            This will send a notification (currently only by email) to the users
+            registered to the following jobs:
+        </p>
+
+        {% for job in jobs %}  {# Because apparently you can't have inputs in <ul/> #}
+            <input type="hidden" name="_selected_action" value="{{ job.pk }}"/>
+        {% endfor %}
+
+        <ul>
+            {% for job in jobs %}
+                <li><b>{{ job.name }}</b></li>
+            {% endfor %}
+        </ul>
+
+        <br>
+
+        <textarea name="content" id="content" placeholder="Notification content" title="Content"
+                  style="width: 500px; max-width: calc(100% - 30px)" rows="7"></textarea>
+
+        <br>
+        <br>
+
+        <input type="hidden" name="action" value="job_notify_registered"/>
+        <input type="submit" disabled id="submit" name="apply" value="Notify users"/>
+    </form>
+{% endblock content %}

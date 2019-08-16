@@ -22,6 +22,7 @@ def job_notify_registered(modeladmin, request, queryset):
 
         return HttpResponseRedirect(request.get_full_path())
 
-    return render(request, "admin/fadderanmalan/job/mail_action.html", dict(jobs=queryset.all()))
+    return render(request, "admin/fadderanmalan/job/notify_registered_action.html", dict(
+        jobs=queryset.all(), title="Send notification"))
 
 job_notify_registered.short_description = "Notify registered users"
