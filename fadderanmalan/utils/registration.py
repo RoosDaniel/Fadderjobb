@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render
 
-from .models import JobUser, EnterQueue, LeaveQueue
-from .exceptions import UserError
+from fadderanmalan.models import JobUser, EnterQueue, LeaveQueue
+from fadderanmalan.exceptions import UserError
 
 
 def handle_register(request, job):

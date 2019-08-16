@@ -1,7 +1,9 @@
 from django import forms
 
-from .models import Trade
 from fadderanmalan.models import Job, JobUser
+from fadderanmalan.utils import misc as misc_utils
+
+from .models import Trade
 
 
 # This is a custom iterator allowing a custom render of the object. The default implementation doesn't include the
@@ -35,7 +37,10 @@ class TradeForm(forms.ModelForm):
         self.receiver = receiver
 
         sender_jobs = sender.jobs.exclude(id__in=receiver.jobs.values_list('id', flat=True))
+        sender_jobs = misc_utils.filter_jobs_for_user(receiver, sender_jobs)
+
         receiver_jobs = receiver.jobs.exclude(id__in=sender.jobs.values_list('id', flat=True))
+        receiver_jobs = misc_utils.filter_jobs_for_user(sender, receiver_jobs)
 
         self.fields["requested"] = CustomModelChoiceField(
             queryset=receiver_jobs,

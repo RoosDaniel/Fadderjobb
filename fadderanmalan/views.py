@@ -4,7 +4,7 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 
 from .models import Job, Type
-from . import utils
+from .utils import registration as reg_utils, misc as misc_utils
 from .exceptions import UserError
 
 
@@ -13,15 +13,7 @@ def job_list(request):
         .filter(~Job.is_hidden_query_filter()) \
         .all()
 
-    if not request.user.is_superuser:
-        # First, remove all jobs that has a viewing requirement
-        jobs = jobs.filter(only_visible_to=None)
-
-        # Then add back the ones that are allowed for this user
-        if request.user.is_authenticated:
-            for group in request.user.groups.all():
-                group_jobs = group.jobs.filter(~Job.is_hidden_query_filter())  # Remove hidden jobs
-                jobs = jobs.union(group_jobs)
+    jobs = misc_utils.filter_jobs_for_user(request.user, jobs)
 
     search = request.GET.get("search", "")
 
@@ -98,14 +90,14 @@ def job_details(request, slug):
 
     if request.method == "POST" and request.user.can_register():
         try:
-            utils.handle_register(request, job)
+            reg_utils.handle_register(request, job)
         except UserError as e:
             return render(request, "400.html", dict(exception=str(e)))
 
     context = dict(job=job)
 
     if not request.user.is_anonymous:
-        hint_text, button_text, button_name = utils.generate_registration_text(request, job)
+        hint_text, button_text, button_name = reg_utils.generate_registration_text(request, job)
         context.update(hint_text=hint_text, button_text=button_text, button_name=button_name)
 
     return render(request, "fadderanmalan/job_details.html", context)

@@ -9,6 +9,7 @@ from loginas.views import user_logout as la_restore
 
 from .forms import FadderEditForm
 from fadderanmalan.models import Job
+from fadderanmalan.utils import misc as misc_utils
 
 from trade.models import Trade
 
@@ -26,7 +27,10 @@ def profile(request, username):
         user = User.objects.get(username=username)
     except User.DoesNotExist:
         raise Http404("Kunde inte hitta användaren '%s'" % username)
-    day_grouped = Job.group_by_date(user.jobs.all())
+
+    jobs = misc_utils.filter_jobs_for_user(user, user.jobs)
+
+    day_grouped = Job.group_by_date(jobs)
 
     if request.user.is_anonymous:
         trade = None
