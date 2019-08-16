@@ -5,8 +5,8 @@ def filter_jobs_for_user(user, jobs):
         jobs = jobs.filter(only_visible_to=None)
 
         # Then add back the ones that are allowed for this user
-        if request.user.is_authenticated:
-            for group in request.user.groups.all():
+        if user.is_authenticated:
+            for group in user.groups.all():
                 group_jobs = group.jobs.filter(~Job.is_hidden_query_filter())  # Remove hidden jobs
                 jobs = jobs.union(group_jobs)
 
