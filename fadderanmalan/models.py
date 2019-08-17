@@ -309,6 +309,13 @@ class JobUser(models.Model):
     def get(job, user):
         return JobUser.objects.get(user=user, job=job)
 
+    def wants_to_leave(self):
+        try:
+            LeaveQueue.objects.get(user=self.user, job=self.job)
+            return True
+        except LeaveQueue.DoesNotExist:
+            return False
+
 
 class ActionLog(models.Model):
     TYPES = ActionTypes
