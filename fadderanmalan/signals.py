@@ -1,5 +1,5 @@
 from django.dispatch import receiver
-from django.db.models.signals import pre_delete, post_save
+from django.db.models.signals import pre_delete, post_save, post_delete
 from django.db.models import Q
 
 from fadderanmalan.models import JobUser, LeaveQueue, EnterQueue, ActionLog
@@ -26,7 +26,7 @@ def _delete_EQ(job_user):
 
 
 @receiver(post_save, sender=JobUser)
-def on_registration(sender, instance: JobUser, created, **kwargs):
+def post_registration(sender, instance: JobUser, created, **kwargs):
     if not created:
         return
 
@@ -47,20 +47,23 @@ def on_registration(sender, instance: JobUser, created, **kwargs):
 
 
 @receiver(pre_delete, sender=JobUser)
-def on_deregistration(sender, instance: JobUser, **kwargs):
+def pre_deregistration(sender, instance: JobUser, **kwargs):
     log = ActionLog(job=instance.job, user=instance.user, type=ActionLog.TYPES.REGISTRATION_DELETE.value)
     log.save()
-
-    instance.user.update_points()
-    accounts.utils.update_user_placings()
 
     _delete_trades(instance)
     _delete_LQ(instance)
     _delete_EQ(instance)  # Technically impossible, but you never know
 
 
+@receiver(post_delete, sender=JobUser)
+def post_deregistration(sender, instance: JobUser, **kwargs):
+    instance.user.update_points()
+    accounts.utils.update_user_placings()
+
+
 @receiver(post_save, sender=EnterQueue)
-def on_create_eq(sender, instance: EnterQueue, created, **kwargs):
+def post_create_eq(sender, instance: EnterQueue, created, **kwargs):
     if not created:
         return
 
@@ -69,13 +72,13 @@ def on_create_eq(sender, instance: EnterQueue, created, **kwargs):
 
 
 @receiver(pre_delete, sender=EnterQueue)
-def on_delete_eq(sender, instance: EnterQueue, **kwargs):
+def pre_delete_eq(sender, instance: EnterQueue, **kwargs):
     log = ActionLog(job=instance.job, user=instance.user, type=ActionLog.TYPES.ENTER_QUEUE_DELETE.value)
     log.save()
 
 
 @receiver(post_save, sender=LeaveQueue)
-def on_create_lq(sender, instance: LeaveQueue, created, **kwargs):
+def post_create_lq(sender, instance: LeaveQueue, created, **kwargs):
     if not created:
         return
 
@@ -84,6 +87,6 @@ def on_create_lq(sender, instance: LeaveQueue, created, **kwargs):
 
 
 @receiver(pre_delete, sender=LeaveQueue)
-def on_delete_lq(sender, instance: LeaveQueue, **kwargs):
+def pre_delete_lq(sender, instance: LeaveQueue, **kwargs):
     log = ActionLog(job=instance.job, user=instance.user, type=ActionLog.TYPES.LEAVE_QUEUE_DELETE.value)
     log.save()
