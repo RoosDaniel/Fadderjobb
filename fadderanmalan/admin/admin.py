@@ -7,6 +7,8 @@ from django.utils.html import format_html
 from django.contrib.admin.filters import BooleanFieldListFilter
 
 from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership, ActionLog
+from accounts.models import User
+
 from .actions import job_set_locked, job_set_hidden, job_notify_registered
 from .forms import JobAdminForm
 from .utils import notify_registered
@@ -232,6 +234,12 @@ class EquipmentOwnershipAdmin(admin.ModelAdmin):
             return {"job": last.job}
         except EquipmentOwnership.DoesNotExist:
             return {}
+
+    def formfield_for_dbfield(self, db_field, **kwargs):
+        field = super(ProductAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        if db_field.name == 'fadder':
+            field.queryset = User.objects.all().order_by('liu_id')
+        return field
 
     def render_change_form(self, request, context, *args, **kwargs):
         context.update({'help_text': ''})

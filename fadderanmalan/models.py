@@ -41,8 +41,7 @@ class EquipmentOwnership(models.Model):
     dispensed_at = models.DateTimeField(default=timezone.now)
 
     job = models.ForeignKey("Job", on_delete=models.SET_NULL, related_name="equipments",
-                            null=True, blank=True, help_text="Vilket jobb gäller utdelningen? Kan vara tom. "
-                                                             "Defaultar till senast skapade utdelningen.")
+                            null=True, blank=True, help_text="Vilket jobb gäller utdelningen? Kan vara tom.")
 
     equipment = models.ForeignKey("Equipment", on_delete=models.CASCADE, related_name="ownerships")
     fadder = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="equipments",
