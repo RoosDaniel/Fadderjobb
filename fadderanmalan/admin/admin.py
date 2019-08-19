@@ -20,6 +20,8 @@ class UsersInline(admin.TabularInline):
 
     model = Job.users.through
 
+    autocomplete_fields = ("user",)
+
     extra = 0
 
     fields = ("user",)
@@ -30,6 +32,8 @@ class LQInline(admin.TabularInline):
     verbose_name_plural = "Leavequeue"
 
     model = LeaveQueue
+
+    autocomplete_fields = ("user",)
 
     extra = 0
 
@@ -50,6 +54,8 @@ class EQInline(admin.TabularInline):
     verbose_name_plural = "EnterQueue"
 
     model = EnterQueue
+
+    autocomplete_fields = ("user",)
 
     extra = 0
 
@@ -192,6 +198,8 @@ class EquipmentAdmin(admin.ModelAdmin):
 
     list_display = ("name", "size")
 
+    search_fields = ("name", "size")
+
     def render_change_form(self, request, context, *args, **kwargs):
         context.update({'help_text': 'Generella utrustningar. Skapa dessa innan utdelning.'})
 
@@ -214,6 +222,8 @@ class EquipmentOwnershipAdmin(admin.ModelAdmin):
     search_fields = ("fadder__username", "job__name")
 
     list_filter = (("equipment", DropdownFilterRelated),)
+
+    autocomplete_fields = ("fadder", "job", "equipment")
 
     def get_changeform_initial_data(self, request):
         try:

@@ -24,6 +24,8 @@ class JobsInline(admin.TabularInline):
 
     fields = ("job",)
 
+    autocomplete_fields = ("job",)
+
     extra = 0
 
 
@@ -33,6 +35,8 @@ class LQInline(admin.TabularInline):
 
     model = LeaveQueue
 
+    autocomplete_fields = ("job",)
+
     extra = 0
 
 
@@ -41,6 +45,8 @@ class EQInline(admin.TabularInline):
     verbose_name_plural = "EnterQueue"
 
     model = EnterQueue
+
+    autocomplete_fields = ("job",)
 
     extra = 0
 
@@ -54,6 +60,8 @@ class EquipmentOwnershipInline(admin.TabularInline):
     extra = 0
 
     readonly_fields = ("dispensed_at",)
+
+    autocomplete_fields = ("job", "equipment")
 
     show_change_link = True
 
