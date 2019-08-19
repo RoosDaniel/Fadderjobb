@@ -9,6 +9,6 @@ class FadderanmalanConfig(AppConfig):
 
         try:
             import uwsgidecorators
-            from . import crons
+            from . import cronjobs
         except ImportError:
             pass
