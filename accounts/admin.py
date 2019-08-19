@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.apps import apps
 from django.contrib.admin.filters import BooleanFieldListFilter
 from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.utils.html import format_html
 from django.urls import reverse
 from django.db import models
 
@@ -63,6 +64,7 @@ class UserAdmin(admin.ModelAdmin):
     exclude = ("password", "first_name", "last_name", "is_active")
 
     fields = (
+        "url",
         "username",
         "name",
         "email",
@@ -77,7 +79,7 @@ class UserAdmin(admin.ModelAdmin):
         "last_login",
     )
 
-    readonly_fields = ("date_joined", "last_login")
+    readonly_fields = ("date_joined", "last_login", "url")
 
     inlines = (
         JobsInline,
@@ -97,6 +99,10 @@ class UserAdmin(admin.ModelAdmin):
         ("groups", DropdownFilterRelated),
     ]
 
+    def url(self, obj):
+        return format_html("<a href='{url}'>{url}</a>", url=obj.url())
+    url.short_description = "URL"
+
     def equipment(self, obj):
         return ", ".join(str(eq.equipment) for eq in obj.equipments.all())
 
@@ -108,5 +114,6 @@ class UserAdmin(admin.ModelAdmin):
 
             return HttpResponseRedirect(reverse("index"))
         return super().response_change(request, obj)
+
 
 admin.site.register(User, UserAdmin)

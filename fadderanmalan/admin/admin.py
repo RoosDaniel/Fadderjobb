@@ -2,6 +2,7 @@ from django.contrib import admin, messages
 from django.http import HttpResponseRedirect
 from django.db.models import Q, Count
 from django.shortcuts import render
+from django.utils.html import format_html
 
 from django.contrib.admin.filters import BooleanFieldListFilter
 
@@ -83,6 +84,12 @@ class JobAdmin(admin.ModelAdmin):
     list_filter = ("locked", "hidden", "types", ("start_date", DropdownFilter), "only_visible_to")
 
     search_fields = ("name",)
+
+    readonly_fields = ("url",)
+
+    def url(self, obj):
+        return format_html("<a href='{url}'>{url}</a>", url=obj.url())
+    url.short_description = "URL"
 
     def registered(self, obj):
         return ", ".join([user.username for user in obj.users.all()])

@@ -1,5 +1,7 @@
 from datetime import datetime
 
+from django.conf import settings
+from django.shortcuts import reverse
 from django.db import models
 from django.db.models import Sum
 from django.utils import timezone
@@ -46,3 +48,9 @@ class User(AbstractUser):
 
     def get_active_sent_trades(self):
         return self.sent_trades.filter(completed=False).all()
+
+    def local_url(self):
+        return reverse("accounts:profile", args=[self.username])
+
+    def url(self):
+        return settings.DEFAULT_DOMAIN + self.local_url()
