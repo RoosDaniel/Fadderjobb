@@ -69,6 +69,26 @@ class JobAdmin(admin.ModelAdmin):
     model = Job
     form = JobAdminForm
 
+    fields = (
+        "url",
+        "name",
+        "start_date",
+        "end_date",
+        "start_time",
+        "end_time",
+        "description",
+        "points",
+        "slots",
+        "hidden",
+        "hidden_after",
+        "hidden_until",
+        "locked",
+        "locked_after",
+        "locked_until",
+        "types",
+        "only_visible_to",
+    )
+
     inlines = (
         UsersInline,
         LQInline,
