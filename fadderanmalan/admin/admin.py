@@ -236,7 +236,7 @@ class EquipmentOwnershipAdmin(admin.ModelAdmin):
             return {}
 
     def formfield_for_dbfield(self, db_field, **kwargs):
-        field = super(ProductAdmin, self).formfield_for_dbfield(db_field, **kwargs)
+        field = super(EquipmentOwnershipAdmin, self).formfield_for_dbfield(db_field, **kwargs)
         if db_field.name == 'fadder':
             field.queryset = User.objects.all().order_by('liu_id')
         return field
