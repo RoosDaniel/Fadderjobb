@@ -32,7 +32,7 @@ class Equipment(models.Model):
                                                                             "Användbart för t.ex. t-shirts.")
 
     def __str__(self):
-        if self.size != "":
+        if self.size:
             return "%s | %s" % (self.size, self.name)
         return self.name
 
