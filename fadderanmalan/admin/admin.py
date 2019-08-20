@@ -115,6 +115,9 @@ class JobAdmin(admin.ModelAdmin):
 
     readonly_fields = ("url",)
 
+    def get_ordering(self, request):
+        return ['name']
+
     def url(self, obj):
         return format_html("<a href='{url}'>{url}</a>", url=obj.url())
     url.short_description = "URL"
@@ -143,9 +146,11 @@ class JobAdmin(admin.ModelAdmin):
                     messages.add_message(request, messages.ERROR, "No users to dequeue.")
 
             return HttpResponseRedirect(".")
+
         if "_notify_registered" in request.POST:
             return render(request, "admin/fadderanmalan/job/notify_registered_action.html", dict(
-                jobs=[obj], title="Send notification", single_job=obj))
+                jobs=[obj], title="Send notification", single_job=obj, site_header=admin.site.site_header,
+                site_title=admin.site.site_title))
 
         return super().response_change(request, obj)
 

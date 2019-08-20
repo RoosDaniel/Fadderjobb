@@ -21,6 +21,10 @@ import cas.views
 
 from . import views
 
+admin.site.site_title = "Fadderjobb administration"
+admin.site.site_header = "Fadderjobb administration"
+admin.site.index_title = "Fadderjobb administration"
+
 admin.autodiscover()
 
 urlpatterns = [

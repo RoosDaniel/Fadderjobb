@@ -107,6 +107,9 @@ class UserAdmin(admin.ModelAdmin):
         ("groups", DropdownFilterRelated),
     ]
 
+    def get_ordering(self, request):
+        return ['username']
+
     def url(self, obj):
         return format_html("<a href='{url}'>{url}</a>", url=obj.url())
     url.short_description = "URL"

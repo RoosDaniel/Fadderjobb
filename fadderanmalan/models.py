@@ -73,7 +73,16 @@ class EnterQueue(models.Model):
     def get_first(cls, job):
         res = cls.objects.filter(job=job).order_by("created").first()
 
-        if res is None:
+        if not res:
+            raise cls.DoesNotExist
+
+        return res
+
+    @classmethod
+    def get_all(cls, job):
+        res = cls.objects.filter(job=job).order_by("created").all()
+
+        if not res:
             raise cls.DoesNotExist
 
         return res
@@ -111,7 +120,16 @@ class LeaveQueue(models.Model):
     def get_first(cls, job):
         res = cls.objects.filter(job=job).order_by("created").first()
 
-        if res is None:
+        if not res:
+            raise cls.DoesNotExist
+
+        return res
+
+    @classmethod
+    def get_all(cls, job):
+        res = cls.objects.filter(job=job).order_by("created").all()
+
+        if not res:
             raise cls.DoesNotExist
 
         return res
@@ -286,7 +304,7 @@ class JobUser(models.Model):
     requested_take = models.ManyToManyField("accounts.User", blank=True, related_name="take_requests")
 
     def __str__(self):
-        return str(self.job)
+        return " | ".join([str(self.job), str(self.user)])
 
     class Meta:
         db_table = "fadderanmalan_job_users"
