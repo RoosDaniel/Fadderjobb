@@ -149,8 +149,8 @@ class JobAdmin(admin.ModelAdmin):
 
         if "_notify_registered" in request.POST:
             return render(request, "admin/fadderanmalan/job/notify_registered_action.html", dict(
-                jobs=[obj], title="Send notification", single_job=obj, site_header=admin.site.site_header,
-                site_title=admin.site.site_title))
+                self.admin_site.each_context(request),
+                jobs=[obj], title="Send notification", single_job=obj))
 
         return super().response_change(request, obj)
 
