@@ -1,4 +1,14 @@
 $(function () {
+    const $filterButton = $("#filter-button");
+    let submitWait = 0;
+
+    $("#filter-name").on("input", function () {
+        clearTimeout(submitWait);
+        submitWait = setTimeout(function() {
+            $filterButton.trigger("click");
+        }, 500);
+    });
+
     $(".filter-checkbox").find("input[type=checkbox]").on("change", function () {
         const $this = $(this);
         const $container = $this.parents(".filter-checkbox-wrapper");
@@ -14,6 +24,8 @@ $(function () {
             $caret.offset($container.offset());
             $caret.css({opacity: 0});
         }
+
+        $filterButton.trigger("click");
     });
 
     $("#filter-jobtype").find(".dropdown-item").on("click", function () {
@@ -27,25 +39,29 @@ $(function () {
             $container.find("button").text(` ${$this.text()}`);
             $container.find("input").val($this.text());
         }
+
+        $filterButton.trigger("click");
     });
 
-    $("#add-filter").find(".dropdown-item").on("click", function() {
+    $("#add-filter").find(".dropdown-item").on("click", function () {
         const $this = $(this);
 
         $this.css({display: "none"});
         $(`#${$this.data("filter-id")}`).toggleClass("hidden");
     });
 
-    $(".filter-remove").on("click", function() {
+    $(".filter-remove").on("click", function () {
         const $this = $(this);
         const $container = $this.parents(".filter-checkbox-wrapper");
 
         $container.find("input[type=checkbox]").not($this).prop("checked", false);
 
         $container.addClass("hidden");
-        $("#add-filter").find(".filter-add").filter(function() {
+        $("#add-filter").find(".filter-add").filter(function () {
             return $(this).data("filter-id") == $container.prop("id");
         }).css({display: ""});
+
+        $filterButton.trigger("click");
     });
 
     setTimeout(initialMoveCaret, 100);
