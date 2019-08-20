@@ -1,13 +1,5 @@
 $(function () {
     const $filterButton = $("#filter-button");
-    let submitWait = 0;
-
-    $("#filter-name").on("input", function () {
-        clearTimeout(submitWait);
-        submitWait = setTimeout(function() {
-            $filterButton.trigger("click");
-        }, 500);
-    });
 
     $(".filter-checkbox").find("input[type=checkbox]").on("change", function () {
         const $this = $(this);

@@ -25,6 +25,8 @@
     <form action="{% url 'fadderanmalan:job_list' %}" method="get" id="filter-container">
         <input class="filter filter-search form-control" placeholder="Jobbnamn" type="text" aria-label="Jobbnamn"
                aria-describedby="basic-addon2" name="search" value="{{ filter_search }}" id="filter-name">
+        <button class="btn btn-primary filter-button" type="submit" id="filter-button">Sök</button>
+        <div class="flex-line-break"></div>
         <div class="filter filter-dropdown-container dropdown" id="filter-jobtype">
             <button class="btn btn-secondary dropdown-toggle" type="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -58,11 +60,11 @@
                 </div>
             </div>
         </div>
+        <div class="flex-line-break"></div>
         {% filter_checkbox_component "Anmäld" "filter-signedup" filter_signedup %}
         {% filter_checkbox_component "Fullt" "filter-full" filter_full %}
         {% filter_checkbox_component "Faddrar vill lämna" "filter-leavequeue" filter_leavequeue %}
         {% filter_checkbox_component "Faddrar köar" "filter-enterqueue" filter_enterqueue %}
-        <button class="btn btn-primary filter-button" type="submit" id="filter-button" style="display: none;"></button>
     </form>
 
     <hr class="divider">
