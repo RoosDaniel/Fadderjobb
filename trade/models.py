@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.conf import settings
 
-from fadderjobb.utils import notify_user
+from fadderjobb.utils import notify_user, notify_group
 
 from fadderanmalan.models import JobUser
 
@@ -52,6 +52,13 @@ class Trade(models.Model):
 
         notify_user(self.sender, template="trade_accepted", template_context=dict(
             receiver=self.receiver
+        ))
+
+        notify_group("JobSwapNotifications", template="admin_jobs_traded", template_context=dict(
+            sender=self.sender,
+            receiver=self.receiver,
+            receiver_gets=receiver_gets,
+            sender_gets=sender_gets,
         ))
 
     def deny(self):

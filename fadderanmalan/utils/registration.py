@@ -4,6 +4,8 @@ from django.shortcuts import render
 from fadderanmalan.models import JobUser, EnterQueue, LeaveQueue
 from fadderanmalan.exceptions import UserError
 
+from fadderjobb.utils import notify_group
+
 
 def handle_register(request, job):
     # Simply register the user to the job
@@ -61,7 +63,7 @@ def handle_register(request, job):
                              "Du står nu i kö för passet. "
                              "Om en fadder lämnar passet kommer du att få det.")
 
-    # The user longer want to queue to leave the job
+    # Remove the user from the leave queue
     elif "_remove_lq" in request.POST:
         try:
             lq = LeaveQueue.objects.get(job=job, user=request.user)
@@ -90,18 +92,30 @@ def handle_register(request, job):
             JobUser.remove(job, request.user)
             eq.apply()
 
+            notify_group("JobSwapNotifications", template="admin_job_dequeued", template_context=dict(
+                left=request.user,
+                joined=eq.user,
+                job=job
+            ))
+
             messages.add_message(request, messages.INFO,
                                  "Du är nu avregistrerad från passet. %s tog din plats."
                                  % eq.user.username)
         except EnterQueue.DoesNotExist:
             raise UserError("Ingen annan köade för att registrera sig på jobbet.")
 
-    # Someone else wants to leave, take their slot
+    # Someone else wants to leave, register the user and deregister the other person
     elif "_take_other_lq" in request.POST:
         try:
             lq = LeaveQueue.get_first(job=job)
             lq.apply()
             JobUser.create(job, request.user)
+
+            notify_group("JobSwapNotifications", template="admin_job_dequeued", template_context=dict(
+                left=lq.user,
+                joined=request.user,
+                job=job
+            ))
 
             messages.add_message(request, messages.INFO,
                                  "Du är nu registrerad på passet. Du tog %s:s plats."
