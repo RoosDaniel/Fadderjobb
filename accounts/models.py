@@ -50,7 +50,13 @@ class User(AbstractUser):
         return self.sent_trades.filter(completed=False).all()
 
     def local_url(self):
+        if not self.username:
+            return None
         return reverse("accounts:profile", args=[self.username])
 
     def url(self):
-        return settings.DEFAULT_DOMAIN + self.local_url()
+        local_url = self.local_url()
+
+        if not local_url:
+            return None
+        return settings.DEFAULT_DOMAIN + local_url

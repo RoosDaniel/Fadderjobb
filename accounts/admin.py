@@ -111,6 +111,10 @@ class UserAdmin(admin.ModelAdmin):
         return ['username']
 
     def url(self, obj):
+        url = obj.url()
+
+        if not url:
+            return ""
         return format_html("<a href='{url}'>{url}</a>", url=obj.url())
     url.short_description = "URL"
 

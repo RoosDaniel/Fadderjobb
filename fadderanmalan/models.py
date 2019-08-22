@@ -226,10 +226,16 @@ class Job(models.Model):
         return self.name
 
     def local_url(self):
+        if not self.slug:
+            return None
         return reverse("fadderanmalan:job_details", args=[self.slug])
 
     def url(self):
-        return settings.DEFAULT_DOMAIN + self.local_url()
+        local_url = self.local_url()
+
+        if not local_url:
+            return ""
+        return settings.DEFAULT_DOMAIN + local_url
 
     @staticmethod
     def group_by_date(queryset):
