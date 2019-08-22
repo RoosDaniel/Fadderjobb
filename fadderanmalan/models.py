@@ -98,53 +98,6 @@ class EnterQueue(models.Model):
         ))
 
 
-class LeaveQueue(models.Model):
-    created = models.DateField(editable=False)
-
-    job = models.ForeignKey("Job", on_delete=models.CASCADE, related_name="leave_queue")
-    user = models.ForeignKey("accounts.User", on_delete=models.CASCADE, related_name="leave_queue")
-
-    class Meta:
-        unique_together = [['job', 'user']]
-
-    def __str__(self):
-        return " | ".join([self.job.name, self.user.username])
-
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.created = timezone.now()
-
-        return super(self.__class__, self).save(*args, **kwargs)
-
-    @classmethod
-    def get_first(cls, job):
-        res = cls.objects.filter(job=job).order_by("created").first()
-
-        if not res:
-            raise cls.DoesNotExist
-
-        return res
-
-    @classmethod
-    def get_all(cls, job):
-        res = cls.objects.filter(job=job).order_by("created").all()
-
-        if not res:
-            raise cls.DoesNotExist
-
-        return res
-
-    def apply(self):
-        JobUser.remove(self.job, self.user)
-        self.delete()
-        self.job.save()
-
-        notify_user(self.user, template="job_leavequeue", template_context=dict(
-            job=self.job,
-            user=self.user
-        ))
-
-
 def default_locked_after():
     return config.DEFAULT_JOB_LOCKED_AFTER
 
@@ -287,9 +240,6 @@ class Job(models.Model):
     def has_enter_queue(self):
         return self.enter_queue.count() > 0
 
-    def has_leave_queue(self):
-        return self.leave_queue.count() > 0
-
     def dequeue(self):
         dequeued = []
         while not self.full():
@@ -331,13 +281,6 @@ class JobUser(models.Model):
     @staticmethod
     def get(job, user):
         return JobUser.objects.get(user=user, job=job)
-
-    def wants_to_leave(self):
-        try:
-            LeaveQueue.objects.get(user=self.user, job=self.job)
-            return True
-        except LeaveQueue.DoesNotExist:
-            return False
 
 
 class ActionLog(models.Model):

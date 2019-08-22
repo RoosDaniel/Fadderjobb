@@ -6,7 +6,7 @@ from django.utils.html import format_html
 
 from django.contrib.admin.filters import BooleanFieldListFilter
 
-from fadderanmalan.models import Type, EnterQueue, LeaveQueue, Job, Equipment, EquipmentOwnership, ActionLog
+from fadderanmalan.models import Type, EnterQueue, Job, Equipment, EquipmentOwnership, ActionLog
 from accounts.models import User
 
 from .actions import job_set_locked, job_set_hidden, job_notify_registered
@@ -27,28 +27,6 @@ class UsersInline(admin.TabularInline):
     extra = 0
 
     fields = ("user",)
-
-
-class LQInline(admin.TabularInline):
-    verbose_name = "Leavequeue"
-    verbose_name_plural = "Leavequeue"
-
-    model = LeaveQueue
-
-    autocomplete_fields = ("user",)
-
-    extra = 0
-
-    def formfield_for_foreignkey(self, db_field, request, **kwargs):
-        field = super(LQInline, self).formfield_for_foreignkey(db_field, request, **kwargs)
-
-        if db_field.name == "user":
-            if request.obj_ is not None:
-                field.queryset = field.queryset.filter(id__in=request.obj_.users.all())
-            else:
-                field.queryset = field.queryset.none()
-
-        return field
 
 
 class EQInline(admin.TabularInline):
@@ -99,7 +77,6 @@ class JobAdmin(admin.ModelAdmin):
 
     inlines = (
         UsersInline,
-        LQInline,
         EQInline,
     )
 
@@ -189,21 +166,6 @@ class EnterQueueAdmin(admin.ModelAdmin):
             .changelist_view(request, extra_context=extra_context)
 
 
-class LeaveQueueAdmin(admin.ModelAdmin):
-    model = LeaveQueue
-
-    list_display = ("job", "user")
-
-    search_fields = ("user__username", "job__name")
-
-    def changelist_view(self, request, extra_context=None):
-        extra_context = extra_context or {}
-        extra_context.update({'help_text': 'Sökbara fält: liu-id, jobb-namn.'})
-
-        return super(LeaveQueueAdmin, self)\
-            .changelist_view(request, extra_context=extra_context)
-
-
 class EquipmentAdmin(admin.ModelAdmin):
     model = Equipment
 
@@ -279,7 +241,6 @@ class ActionLogAdmin(admin.ModelAdmin):
 
 admin.site.register(Type)
 admin.site.register(EnterQueue, EnterQueueAdmin)
-admin.site.register(LeaveQueue, LeaveQueueAdmin)
 
 admin.site.register(Job, JobAdmin)
 

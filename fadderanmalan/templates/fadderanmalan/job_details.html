@@ -24,11 +24,6 @@
                        data-toggle="tooltip" data-placement="bottom" title="Faddrar köar för jobbet">
                     </i>{{ " " }}
                 {% endif %}
-                {% if job.has_leave_queue %}
-                    <i class="fas fa-caret-square-left"
-                       data-toggle="tooltip" data-placement="bottom" title="Faddrar vill lämna jobbet">
-                    </i>{{ " " }}
-                {% endif %}
                 {% if job.is_locked %}
                     <i class="fas fa-lock"
                        data-toggle="tooltip" data-placement="bottom" title="Jobbet är låst">
@@ -99,13 +94,17 @@
 
         {% if user.can_register %}
             <h3>Anmälan</h3>
-            <form action="{% url 'fadderanmalan:job_details' job.slug %}" method="post">
-                {% csrf_token %}
-                <p><i>
-                    {{ hint_text }}
-                </i></p>
-                <input type="submit" value="{{ button_text }}" name="{{ button_name }}" class="btn btn-primary">
-            </form>
+            {% if job.is_locked %}
+                <p><i>{{ hint_text }}</i></p>
+            {% else %}
+                <form action="{% url 'fadderanmalan:job_details' job.slug %}" method="post">
+                    {% csrf_token %}
+                    <p><i>
+                        {{ hint_text }}
+                    </i></p>
+                    <input type="submit" value="{{ button_text }}" name="{{ button_name }}" class="btn btn-primary">
+                </form>
+            {% endif %}
         {% endif %}
     </div>
 {% endblock content %}

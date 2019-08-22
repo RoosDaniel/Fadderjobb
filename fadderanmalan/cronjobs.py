@@ -27,5 +27,4 @@ def notify_jobs_tomorrow(num):
         notify_user(user, template="job_reminder", template_context=dict(
             user=user,
             jobs=[v[0] for v in vals],
-            leavequeue_jobs=[v[0] for v in vals if v[1].wants_to_leave()],
         ))

@@ -52,9 +52,6 @@
                 <div class="dropdown-item filter-add" data-filter-id="filter-full"
                         {% if filter_full %} style="display: none;" {% endif %}>Fullt
                 </div>
-                <div class="dropdown-item filter-add" data-filter-id="filter-leavequeue"
-                        {% if filter_leavequeue %} style="display: none;" {% endif %}>Faddrar vill lämna
-                </div>
                 <div class="dropdown-item filter-add" data-filter-id="filter-enterqueue"
                         {% if filter_enterqueue %} style="display: none;" {% endif %}>Faddrar köar
                 </div>
@@ -63,7 +60,6 @@
         <div class="flex-line-break"></div>
         {% filter_checkbox_component "Anmäld" "filter-signedup" filter_signedup %}
         {% filter_checkbox_component "Fullt" "filter-full" filter_full %}
-        {% filter_checkbox_component "Faddrar vill lämna" "filter-leavequeue" filter_leavequeue %}
         {% filter_checkbox_component "Faddrar köar" "filter-enterqueue" filter_enterqueue %}
     </form>
 

@@ -2,7 +2,7 @@ from django.dispatch import receiver
 from django.db.models.signals import pre_delete, post_save, post_delete
 from django.db.models import Q
 
-from fadderanmalan.models import JobUser, LeaveQueue, EnterQueue, ActionLog
+from fadderanmalan.models import JobUser, EnterQueue, ActionLog
 from trade.models import Trade
 import accounts.utils
 
@@ -15,10 +15,6 @@ def _delete_trades(job_user: JobUser):
         .filter(Q(sent=job_user.job) | Q(requested=job_user.job))\
         .exclude(completed=True)\
         .delete()
-
-
-def _delete_LQ(job_user):
-    LeaveQueue.objects.filter(job=job_user.job, user=job_user.user).delete()
 
 
 def _delete_EQ(job_user):
@@ -42,7 +38,6 @@ def post_registration(sender, instance: JobUser, created, **kwargs):
     accounts.utils.update_user_placings()
 
     _delete_trades(instance)
-    _delete_LQ(instance)  # Technically impossible, but you never know
     _delete_EQ(instance)
 
 
@@ -52,7 +47,6 @@ def pre_deregistration(sender, instance: JobUser, **kwargs):
     log.save()
 
     _delete_trades(instance)
-    _delete_LQ(instance)
     _delete_EQ(instance)  # Technically impossible, but you never know
 
 
@@ -74,19 +68,4 @@ def post_create_eq(sender, instance: EnterQueue, created, **kwargs):
 @receiver(pre_delete, sender=EnterQueue)
 def pre_delete_eq(sender, instance: EnterQueue, **kwargs):
     log = ActionLog(job=instance.job, user=instance.user, type=ActionLog.TYPES.ENTER_QUEUE_DELETE.value)
-    log.save()
-
-
-@receiver(post_save, sender=LeaveQueue)
-def post_create_lq(sender, instance: LeaveQueue, created, **kwargs):
-    if not created:
-        return
-
-    log = ActionLog(job=instance.job, user=instance.user, type=ActionLog.TYPES.LEAVE_QUEUE_CREATE.value)
-    log.save()
-
-
-@receiver(pre_delete, sender=LeaveQueue)
-def pre_delete_lq(sender, instance: LeaveQueue, **kwargs):
-    log = ActionLog(job=instance.job, user=instance.user, type=ActionLog.TYPES.LEAVE_QUEUE_DELETE.value)
     log.save()

@@ -38,9 +38,11 @@ class TradeForm(forms.ModelForm):
 
         sender_jobs = sender.jobs.exclude(id__in=receiver.jobs.values_list('id', flat=True))
         sender_jobs = misc_utils.filter_jobs_for_user(receiver, sender_jobs)
+        sender_jobs = sender_jobs.filter(~Job.is_locked_query_filter())
 
         receiver_jobs = receiver.jobs.exclude(id__in=sender.jobs.values_list('id', flat=True))
         receiver_jobs = misc_utils.filter_jobs_for_user(sender, receiver_jobs)
+        receiver_jobs = receiver_jobs.filter(~Job.is_locked_query_filter())
 
         self.fields["requested"] = CustomModelChoiceField(
             queryset=receiver_jobs,
@@ -73,7 +75,10 @@ class TradeForm(forms.ModelForm):
         # Check that sender is registered to all sent jobs
         for job in self.cleaned_data.get("sent").all():
             try:
-                JobUser.get(job, self.sender)
+                job_user = JobUser.get(job, self.sender)
+                if job_user.job.is_locked():
+                    raise forms.ValidationError("Jobbet %s är låst." % job,
+                                                code="job_locked")
             except JobUser.DoesNotExist:
                 raise forms.ValidationError("Du är inte registrerad på jobbet %s." % job,
                                             code="sender_not_registered")
@@ -81,7 +86,10 @@ class TradeForm(forms.ModelForm):
         # Check that receiver is registered to all requested jobs
         for job in self.cleaned_data.get("requested").all():
             try:
-                JobUser.get(job, self.receiver)
+                job_user = JobUser.get(job, self.receiver)
+                if job_user.job.is_locked():
+                    raise forms.ValidationError("Jobbet %s är låst." % job,
+                                                code="job_locked")
             except JobUser.DoesNotExist:
                 raise forms.ValidationError("%s är inte längre registrerad på jobbet %s." % (self.receiver, job),
                                             code="receiver_not_registered")

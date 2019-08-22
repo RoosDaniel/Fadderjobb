@@ -34,13 +34,6 @@ def job_list(request):
     elif signedup == "0":
         jobs = jobs.exclude(id__in=request.user.jobs.values_list('id', flat=True))
 
-    leavequeue = request.GET.get("filter-leavequeue", None)
-
-    if leavequeue == "1":
-        jobs = jobs.exclude(leave_queue=None)
-    elif leavequeue == "0":
-        jobs = jobs.filter(leave_queue=None)
-
     enterqueue = request.GET.get("filter-enterqueue", None)
 
     if enterqueue == "1":
@@ -64,7 +57,6 @@ def job_list(request):
         filter_search=search,
         filter_signedup=signedup,
         filter_full=full,
-        filter_leavequeue=leavequeue,
         filter_enterqueue=enterqueue,
         filter_jobtype=jobtype
     ))
