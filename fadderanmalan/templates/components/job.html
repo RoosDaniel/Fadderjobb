@@ -15,11 +15,6 @@
                    data-toggle="tooltip" data-placement="left" title="Faddrar köar för jobbet">
                 </i>{{ " " }}
             {% endif %}
-            {% if job.has_leave_queue %}
-                <i class="fas fa-caret-square-left"
-                   data-toggle="tooltip" data-placement="left" title="Faddrar vill lämna jobbet">
-                </i>{{ " " }}
-            {% endif %}
             {% if job.is_locked %}
                 <i class="fas fa-lock"
                    data-toggle="tooltip" data-placement="left" title="Jobbet är låst">
