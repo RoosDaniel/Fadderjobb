@@ -92,6 +92,16 @@ class JobAdmin(admin.ModelAdmin):
 
     readonly_fields = ("url",)
 
+    def get_actions(self, request):
+        actions = super(JobAdmin, self).get_actions(request)
+        perms = request.user.get_all_permissions()
+
+        if "fadderanmalan.change_job" not in perms:
+            del actions["job_set_locked"]
+            del actions["job_set_hidden"]
+
+        return actions
+
     def get_ordering(self, request):
         return ['name']
 
