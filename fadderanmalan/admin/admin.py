@@ -123,10 +123,14 @@ class JobAdmin(admin.ModelAdmin):
         return super(JobAdmin, self)\
             .changelist_view(request, extra_context=extra_context)
 
-    def response_change(self, request, obj):
+    def response_change(self, request, obj: Job):
         if "_dequeue" in request.POST:
             if obj.full():
                 messages.add_message(request, messages.ERROR, "Job is full.")
+            elif not obj.has_enter_queue():
+                messages.add_message(request, messages.ERROR, "Job has no enterqueue.")
+            elif "fadderanmalan.change_job" not in request.user.get_all_permissions():
+                messages.add_message(request, messages.ERROR, "You have insufficient permissions.")
             else:
                 added = obj.dequeue()
                 added = [user.username for user in added]

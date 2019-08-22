@@ -18,7 +18,13 @@
 
 {% block submit_buttons_bottom %}
     <div class="submit-row">
-        <input type="submit" name="_dequeue" value="Dequeue">
+        {% if "fadderanmalan.change_job" in request.user.get_all_permissions %}
+            {% if original.has_enter_queue and not original.full %}
+                <input type="submit" name="_dequeue" value="Dequeue">
+            {% else %}
+                <input type="submit" name="_dequeue" value="Dequeue" disabled>
+            {% endif %}
+        {% endif %}
         <input type="submit" name="_notify_registered" value="Notify registered">
     </div>
     {{ block.super }}
