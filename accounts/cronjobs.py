@@ -6,7 +6,6 @@ from .utils import update_user_placings
 
 @cron(0, 0, -1, -1, -1)
 def update_points(num):
-    for user in User.objects.filter(is_staff=False):
+    for user in User.objects.filter(is_staff=False).all():
         user.update_points()
-        print(user)
     update_user_placings()
